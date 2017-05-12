@@ -1,6 +1,6 @@
 all: paper.pdf
 
-paper.pdf: paper.tex
+paper.pdf: paper.tex cram-method.tex
 	pdflatex -shell-escape --halt-on-error paper.tex
 	bibtex paper.aux
 	pdflatex -shell-escape --halt-on-error paper.tex
