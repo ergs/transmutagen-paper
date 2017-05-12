@@ -8,7 +8,7 @@ all: paper.pdf
 .PHONY: clean
 clean:
 	$(LATEXMK) -C
-	(rm -rf *.ps *.log *.dvi *.aux *.*% *.lof *.lop *.lot *.toc *.idx *.ilg *.ind *.bbl *.blg *.cpt *-diff.tex *.out)
-	(rm -rf  paper.pdf)
+	(rm -rf *.ps *.log *.dvi *.aux *.*% *.lof *.lop *.lot *.toc *.idx *.ilg *.ind *.bbl *.blg *.cpt *-diff.tex *.out *.d)
+
 
 -include *.d
