@@ -11,6 +11,9 @@
 *.cb
 *.cb2
 
+# latexmk dependent files
+*.d
+
 ## Intermediate documents:
 *.dvi
 *-converted-to.*
