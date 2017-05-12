@@ -1,0 +1,59 @@
+\documentclass{article}
+
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[scaled=0.8]{DejaVuSansMono}
+
+\usepackage[all]{xy}
+\usepackage{amsmath}
+\usepackage{caption}
+% \graphicspath{ {images/} }
+
+% Makes quote characters in monospace font not be curly
+\usepackage{upquote}
+
+\usepackage{amsmath}
+\usepackage{url}
+
+% for nice units
+\usepackage{siunitx}
+
+% for images: png, pdf, etc
+\usepackage{graphicx}
+
+% for nice table formatting, i.e., /toprule, /midrule, etc
+\usepackage{booktabs}
+
+% to allow for \verb++ declarations in captions.
+\usepackage{cprotect}
+
+% to allow usage of \mathbb symbols
+\usepackage{amssymb}
+
+\usepackage{longtable}
+
+\usepackage{listings}
+
+\newcommand\email[1]{\href{mailto:#1}{#1}}
+\title{Transmutagen}
+
+% \author[1]{Aaron Meurer}%
+% \author[1]{Anthony Scopatz}%
+% \affil[1]{Department of Mechanical Engineering, University of South Carolina, Columbia, South Carolina, United States}%
+
+% \begin{abstract}
+%
+% \end{abstract}
+
+\begin{document}
+
+\flushbottom
+\maketitle
+\thispagestyle{empty}
+
+
+% \phantomsection
+\bibliography{paper}
+
+\end{document}
