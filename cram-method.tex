@@ -14,3 +14,19 @@ is minimized. That is,
 \end{equation}
 $\epsilon_{k,k}$ is the absolute error of the approximation. It has been shown
 that $\epsilon_{k,k} = O(H^{-k})$, where $H=9.289\ldots$.
+
+Transmutagen implements the Remez algorithm to compute the CRAM approximation.
+The interval $[0, \infty)$ is first translated to $[-1, 1)$ via the
+transformation $t\mapsto c\frac{t+1}{t-1}$.
+% cite Carpenter paper here
+% TODO: discuss this *after* discussing finding the roots.
+The constant $c$ is chosen so that the minimax roots of the approximation are
+distributed sufficiently evenly across the interval $[-1, 1)$. We found that
+the value $c=0.6k$ works well.
+
+The expression
+\begin{equation}
+  e^{c\frac{t+1}{t-1}} - \frac{p_kt^k + \cdots + p_1t + p_0}{q_kt^k + \cdots +
+    q_1t + 1}
+\end{equation}
+is represented symbolically as a SymPy expression.
