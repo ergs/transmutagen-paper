@@ -27,14 +27,31 @@ The constant $c$ is chosen so that the minimax roots of the approximation are
 distributed sufficiently evenly across the interval $[-1, 1)$. We found that
 the value $c=0.6k$ works well.
 
-The expression
+The expressions
 \begin{equation}
-  E := e^{c\frac{t+1}{t-1}} - \frac{p_kt^k + \cdots + p_1t + p_0}{q_kt^k + \cdots +
-    q_1t + 1} + (-1)^i\epsilon
+  r := \frac{p_kt^k + \cdots + p_1t + p_0}{q_kt^k + \cdots +
+    q_1t + 1},
 \end{equation}
-is represented symbolically as a SymPy expression. This expression $E$ is then
+\begin{equation}
+  D := e^{c\frac{t+1}{t-1}} - r,
+\end{equation}
+and
+\begin{equation}
+  E := E + (-1)^i\epsilon
+\end{equation}
+are represented symbolically as a SymPy expression. This expression $E$ is then
 evaluated in $t$ at $k + 2$ points in the interval $[-1, 1)$ for $i=0\ldots
-k+1$. This results in a nonlinear system of $k+2$ equations in $k+2$ variables
+k+1$.
+% TODO: Chebyshev nodes
+This results in a nonlinear system of $k+2$ equations in $k+2$ variables
 ($p_0,\ldots,p_k,q_1,\ldots,q_k,\epsilon$). These are solved using SymPy's
 \texttt{nsolve} function, which internally uses \texttt{mpmath.findroot}. This
 uses Newton's method, with a symbolically computed Jacobian.
+
+The solution to this system is then substituted into $D$. The critical points
+of this function on the interval $[-1, 1)$ are then found. This is done by
+taking the symbolic derivative of $D$, splitting the interval into
+subintervals, and performing bisection using \texttt{nsolve} on each
+subinterval. Call these points, along with the end-points $D|_{t=-1}$ and
+$\lim_{t\to 1} D=-r|_{t=1}$, $z_i$. There are $2(k+1)$ points $z_i$. The
+points $z_i$
