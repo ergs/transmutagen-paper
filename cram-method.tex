@@ -16,6 +16,9 @@ $\epsilon_{k,k}$ is the absolute error of the approximation. It has been shown
 that $\epsilon_{k,k} = O(H^{-k})$, where $H=9.289\ldots$.
 
 Transmutagen implements the Remez algorithm to compute the CRAM approximation.
+All computations are done using SymPy symbolic expressions with arbitrary
+precision floating point numbers, which are backed by the mpmath library.
+
 The interval $[0, \infty)$ is first translated to $[-1, 1)$ via the
 transformation $t\mapsto c\frac{t+1}{t-1}$.
 % cite Carpenter paper here
@@ -26,7 +29,12 @@ the value $c=0.6k$ works well.
 
 The expression
 \begin{equation}
-  e^{c\frac{t+1}{t-1}} - \frac{p_kt^k + \cdots + p_1t + p_0}{q_kt^k + \cdots +
-    q_1t + 1}
+  E := e^{c\frac{t+1}{t-1}} - \frac{p_kt^k + \cdots + p_1t + p_0}{q_kt^k + \cdots +
+    q_1t + 1} + (-1)^i\epsilon
 \end{equation}
-is represented symbolically as a SymPy expression.
+is represented symbolically as a SymPy expression. This expression $E$ is then
+evaluated in $t$ at $k + 2$ points in the interval $[-1, 1)$ for $i=0\ldots
+k+1$. This results in a nonlinear system of $k+2$ equations in $k+2$ variables
+($p_0,\ldots,p_k,q_1,\ldots,q_k,\epsilon$). These are solved using SymPy's
+\texttt{nsolve} function, which internally uses \texttt{mpmath.findroot}. This
+uses Newton's method, with a symbolically computed Jacobian.
