@@ -40,10 +40,14 @@ and
   E := D + (-1)^i\epsilon
 \end{equation}
 are represented symbolically as a SymPy expression. This expression $E$ is then
-evaluated in $t$ at $k + 2$ points in the interval $[-1, 1)$ for $i=0\ldots
-k+1$.
-% TODO: Chebyshev nodes
-This results in a nonlinear system of $k+2$ equations in $k+2$ variables
+evaluated in $t$ at $2(k + 1)$ points in the interval $(-1, 1)$ for $i=0\ldots
+2k+1$. The Chebyshev nodes were used for the initial points, that
+is, the roots of $T_{2(k +1)}(x)$, which always lie in the interval $(-1, 1)$
+($T_n(x)$ is defined as $T_n(\cos(x)) = \cos(nx)$). The Chebyshev nodes are
+used as an initial guess, but any set of points on the interval $(-1, 1)$
+work. We found that convergence can take more than twice as many steps when
+random initial points are used instead of the Chebyshev nodes. % TODO: verify this
+This results in a nonlinear system of $2(k+1)$ equations in $2(k+1)$ variables
 ($p_0,\ldots,p_k,q_1,\ldots,q_k,\epsilon$). These are solved using SymPy's
 \texttt{nsolve} function, which internally uses \texttt{mpmath.findroot}. This
 uses Newton's method, with a symbolically computed Jacobian.
