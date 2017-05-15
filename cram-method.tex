@@ -73,3 +73,12 @@ minimal value of $\varepsilon_N$ depends on both $k$ and $d$. We found a
 robust heuristic to be to iterate until $\log_{10}{(\varepsilon_N)}$ is near $-d$,
 then stop iterating when the values of $\varepsilon_N$ become log-convex.
 % TODO: Add convergence plot here.
+
+Once the algorithm converges, the rational function is translated back to the
+interval $[0, \infty)$ via the inverse transformation $t\mapsto \frac{t - 1}{t
+  + c}$. This must be done with care to avoid losing precision. For a
+polynomial $f$ and M\"{o}bius transformation $p/q$, the SymPy
+method \texttt{Poly.transform} efficiently computes
+$q^nf\left(p/q\right)$ without losing precision. The resulting
+rational function is normalized so that the constant term in the denominator
+is 1, which matches the form used in the literature. % TODO: Citation(s)
