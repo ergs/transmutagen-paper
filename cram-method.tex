@@ -75,7 +75,7 @@ then stop iterating when the values of $\varepsilon_N$ become log-convex.
 % TODO: Add convergence plot here.
 
 Once the algorithm converges, the rational function is translated back to the
-interval $[0, \infty)$ via the inverse transformation $t\mapsto \frac{t - 1}{t
+interval $[0, \infty)$ via the inverse transformation $t\mapsto \frac{t - c}{t
   + c}$. This must be done with care to avoid losing precision. For a
 polynomial $f$ and M\"{o}bius transformation $p/q$, the SymPy
 method \texttt{Poly.transform} efficiently computes
