@@ -1,0 +1,21 @@
+Once the CRAM approximation of degree $k$, $\hat{r}_{k, k}(t)$ has been
+computed, it can be used to compute the matrix exponential $e^{-A}$ by
+substituting the matrix $A$ for $t$ in the expression. Transmutagen has a
+Python class, \texttt{MatrixNumPyPrinter}, which subclasses and extends the
+\texttt{sympy.printing.lambdarepr.NumPyPrinter} class, which is used by
+\texttt{sympy.lambdify} to convert a SymPy expression to a string representing
+an equivalent NumPy/SciPy expression. The \texttt{NumPyPrinter} class by
+default deals with scalar expressions vectorized over arrays, and the
+\texttt{MatrixNumPyPrinter} class extends it so that the expression operates
+over matrices. In particular, the class ensures that
+
+\begin{itemize}
+\item multiplications use scalar multiplication (\texttt{*}) or
+  matrix multiplication (\texttt{@}), as appropriate,
+\item addition of a variable and a constant, such as $t + 2$, is represented
+  by the addition of an identity matrix, $t + 2I$. Since the shape of the
+  matrix is not known ahead of time, Transmutagen uses a special
+  \texttt{autoeye} class which automatically evaluates as \texttt{scipy.sparse.linalg.eye} at runtime when the shape is known.
+\item Divisions are represented by matrix solves, e.g., $\frac{t + 1}{t - 1}$
+  would be represented by \texttt{solve(t - autoeye(1), t + autoeye(1))}.
+\end{itemize}
