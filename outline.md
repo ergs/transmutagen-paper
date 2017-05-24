@@ -7,7 +7,7 @@
 
 - C generated solver
   - unrolled
-  - gode generated
+  - code generated
    - specific sparsity pattern
 
 - ORIGEN comparison
