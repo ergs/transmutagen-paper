@@ -28,3 +28,5 @@
   - order(s) of approximation
 
 - Sanity checks
+
+- Discussion of validity of using CRAM to compute exp(-A) (eigenvalues and so on)
