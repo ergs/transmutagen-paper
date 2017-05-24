@@ -1,1 +1,54 @@
 The CRAM method involves solving
+\begin{equation}
+ (A - \theta I)\backslash(\alpha b)
+\end{equation}
+$k/2$ times for fixed $A$ and $b$ and varying $\theta$ and $\alpha$. For the
+transmutation problem the $A$ matrix is a sparse matrix with a fixed sparsity
+pattern: every row/column in $A$ corresponds to a transmutation of one nuclide
+to another, and only certain transmutations are ever physically possible.
+
+The LU solve method for solving a $Ax=b$ without pivoting is, in pseudocode,
+
+\begin{verbatim}
+# First, decompose A
+# The lower triangular part of LU will be L - I and the upper triangular part will
+# be U.
+
+LU = copy(A)
+
+for i=1..N:
+    for j=i..N:
+        LU[j, i] /= LU[i, i]
+
+for k=i..N:
+    LU[j, k] -= LU[j, i]*LU[i, k]
+
+# Now perform the solve
+x = copy(b)
+
+# Forward substitution
+for i=1..N:
+    for j=1..i:
+        x[i] -= LU[i, j]*x[j]
+
+# Backward substitution
+for i=N..1:
+    for j=i..N:
+        x[i] -= LU[i, j]*x[j]
+    x[i] /= LU[i, i]
+\end{verbatim}
+
+Critically, it is known ahead of time which entries of $A$ are nonzero. Thus,
+the steps above can be reduced or eliminated for the entries that are known to
+be zero. Furthermore, for the transmutation problem, $A$ consists only of real
+entries, whereas for $A - \theta I$, $\theta$ is a nonreal complex number. So
+the diagonal entries are not zero. The roots of the denominators of the CRAM
+approximations do not correspond to the eigenvalues of the transmutation
+matrix, so the solve is never degenerate.
+
+Transmutagen has a function that takes a given sparsity pattern for $A$ and
+generates a C function that solves $(A - \theta)x =\alpha b$. Additional C
+functions are generated from the CRAM approximations of given orders (by
+default, 6, 8, 10, 12, 14, 16, and 18), which compute $e^{-A}b$. The sparsity
+pattern is generalized as a list of nuclides and a list of ``from/to'' pairs
+of nuclides whose transmutation may be represented in the input matrix $A$.
