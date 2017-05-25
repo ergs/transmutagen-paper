@@ -16,7 +16,7 @@ $\epsilon_{k,k}$ is the absolute error of the approximation. It has been shown
 that $\epsilon_{k,k} = O(H^{-k})$, where $H=9.289\ldots$.
 
 Transmutagen implements the Remez algorithm to compute the CRAM approximation.
-All computations are done using SymPy symbolic expressions with arbitrary
+All computations are done using SymPy~\cite{10.7717/peerj-cs.103} symbolic expressions with arbitrary
 precision floating point numbers, which are backed by the mpmath library.
 
 The interval $[0, \infty)$ is first translated to $[-1, 1)$ via the
@@ -82,3 +82,16 @@ method \texttt{Poly.transform} efficiently computes
 $q^nf\left(p/q\right)$ without losing precision. The resulting
 rational function is normalized so that the constant term in the denominator
 is 1, which matches the form used in the literature. % TODO: Citation(s)
+
+\subsection{Applying CRAM to matrices}
+Given a square matrix $A$, the matrix exponential is defined as
+\begin{equation}
+  e^{A} = \sum_{n=0}^\infty \frac{A^n}{n!}.
+\end{equation}
+
+The CRAM approximation to $e^{-x}$ can be applied to approximate the matrix
+exponential when the matrix $A$ has eigenvalues on or near the negative real
+axis~\cite{pusa2010computing}. This applies to transmutation and decay
+matrices.
+% TODO: Show plots of eigenvalues of transmutation and decay matrices
+% TODO: Show plot of accuracy of CRAM in complex plane.

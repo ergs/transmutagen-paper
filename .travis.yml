@@ -1,0 +1,10 @@
+sudo: required
+dist: trusty
+before_install:
+  - sudo apt-get update && sudo apt-get install -y --no-install-recommends texlive-fonts-recommended
+    texlive-latex-extra texlive-fonts-extra texlive-humanities texlive-science latex-xcolor
+    dvipng texlive-latex-recommended python-pygments lmodern texlive-xetex
+    latexdiff texlive-generic-recommended latexmk
+
+script:
+  - make
