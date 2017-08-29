@@ -25,7 +25,11 @@ The naive method of computing the matrix exponential via $\hat{r}_{k,
 is to compute $(q_kA^k + \cdots + q_1A + I)\backslash(p_kA^k + \cdots + I)$, where
 $\backslash$ is a matrix solve. However, this method is very unstable, as the
 coefficients $p_i,q_i$ are quite small (the smallest on the order of
-$10^{-2k}$), and taking powers of $A$ is also unstable.
+$10^{-2k}$), and taking powers of $A$ is also unstable. We also attempted
+using the Horner scheme on the numerator and denominator, $\hat{r}_{k,
+  k}(t)=\frac{p_0 + t(p_1 + t(p_2 + \cdots t(p_{k-1} + tp_k)))}{1 + t(q_1 +
+  t(q_2 + \cdots t(q_{k-1} + tq_k)))}$, but found this to be numerically
+unstable as well.
 
 A better method is to perform a partial fraction decomposition on $\hat{r}_{k,
   k}(t)$:
