@@ -98,3 +98,26 @@ matrices.
 
 % SymPy to compute Halphen's constant
 % nsolve([1/s - exp(-pi*elliptic_k(1 - c**2)/elliptic_k(c**2)), elliptic_k(c**2) - 2*elliptic_e(c**2)], [c, s], [.9, 9])
+
+\subsection{Results}
+
+Transmutagen is able to compute the CRAM approximation for any degree $n$ to
+any number of decimal digits $d$. We have computed the first $60$ degrees to
+200 digits. Our digits agree with the coefficients published
+in~\cite{carpenter1984extended}, which has the first 30 degrees up to 20
+digits. It should be noted that the digits in~\cite{carpenter1984extended}
+have been rounded using decimal rounding, which is often different from
+floating point, or binary rounding. For example, the constant coefficient in
+the numerator ($p_0$) for degree 11 is reported as
+\texttt{1.0000000000146631119}, even though the true coefficient,
+\texttt{1.000000000014663111949374871...} is more closely approximated as a
+binary floating point number by \texttt{1.0000000000146631120}. Our computed
+digits agree with those from~\cite{carpenter1984extended} when rounded using
+the default half-even straggly of the Python \texttt{decimal} module. This is
+important because for practical purposes, when using the computed coefficients
+to compute a CRAM approximation on a computer, one should round the digits to
+a machine floating point number using binary rounding, to get the floating
+point number that most closely approximates the true value. The difference is
+typically no more than a single bit, but such errors in the approximation can
+propagate to larger errors in the result, as shown in section ???.
+%TODO: Write something about that in another section
