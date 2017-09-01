@@ -3,7 +3,7 @@ $\pi_{k,k}\subset \mathbb{R}(t)$ be the set of rational functions $r_{k,k}(t)
 = p_k(t)/q_k(t)$, where $p_k(t), q_k(t)\in \mathbb{R}[t]$ are polynomials of
 degree at most $k$.
 
-Chebyshev Rational Approximation Method (CRAM) approximation of degree $k$
+Chebyshev Rational Approximation Method (CRAM)~\cite{ationneeded} approximation of degree $k$
 for $e^{-t}$ is the unique rational function $\hat{r}_{k,k}(t)$ such that
 \begin{equation}
   \sup_{t\in[0, \infty)}|\hat{r}_{k, k}(t) - e^{-t}|
@@ -13,11 +13,11 @@ is minimized. That is,
   \epsilon_{k,k} = \sup_{t\in[0, \infty)}|\hat{r}_{k, k}(t) - e^{-t}| = \inf_{r_{k,k}\in\pi_{k,k}}\left\{\sup_{t\in[0, \infty)}|r_{k, k}(t) - e^{-t}|\right\}.
 \end{equation}
 $\epsilon_{k,k}$ is the absolute error of the approximation. It has been shown
-that $\epsilon_{k,k} = O(H^{-k})$, where $H=9.289\ldots$.
+that $\epsilon_{k,k} = O(H^{-k})$, where $H=9.289\ldots$~\cite{ationneeded}.
 
 Transmutagen implements the Remez algorithm to compute the CRAM approximation.
 All computations are done using SymPy~\cite{10.7717/peerj-cs.103} symbolic expressions with arbitrary
-precision floating point numbers, which are backed by the mpmath library.
+precision floating point numbers, which are backed by the mpmath library~\cite{ationneeded}.
 
 The interval $[0, \infty)$ is first translated to $[-1, 1)$ via the
 transformation $t\mapsto c\frac{t+1}{t-1}$.
@@ -42,15 +42,16 @@ and
 are represented symbolically as a SymPy expression. This expression $E$ is
 then evaluated in $t$ at $2(k + 1)$ points in the interval $(-1, 1)$ for
 $i=0\ldots 2k+1$. For the first iteration of the algorithm, any set of initial
-points can be used. We used the Chebyshev nodes, that is, the roots of
-$T_{2(k +1)}(x)$, which always lie in the interval $(-1, 1)$ ($T_n(x)$ is
-defined as $T_n(\cos(x)) = \cos(nx)$). We found that convergence can take more
-than twice as many steps when random initial points are used instead of the
-Chebyshev nodes. % TODO: verify this
+points can be used. We used the Chebyshev nodes~\cite{ationneeded}, that is,
+the roots of $T_{2(k +1)}(x)$, which always lie in the interval $(-1, 1)$
+($T_n(x)$ is defined as $T_n(\cos(x)) = \cos(nx)$). We found that convergence
+can take more than twice as many steps when random initial points are used
+instead of the Chebyshev nodes. % TODO: verify this
 This results in a nonlinear system of $2(k+1)$ equations in $2(k+1)$ variables
 ($p_0,\ldots,p_k,q_1,\ldots,q_k,\epsilon$). These are solved using SymPy's
 \texttt{nsolve} function, which internally uses \texttt{mpmath.findroot}. This
-uses Newton's method, with a symbolically computed Jacobian.
+uses Newton's method~\cite{ationneeded}, with a symbolically computed
+Jacobian.
 
 The solution to this system is then substituted into $D$. The critical points
 of this function on the interval $[-1, 1)$ are then found. This is done by
@@ -77,14 +78,15 @@ then stop iterating when the values of $\varepsilon_N$ become log-convex.
 Once the algorithm converges, the rational function is translated back to the
 interval $[0, \infty)$ via the inverse transformation $t\mapsto \frac{t - c}{t
   + c}$. This must be done with care to avoid losing precision. For a
-polynomial $f$ and M\"{o}bius transformation $p/q$, the SymPy
+polynomial $f$ and M\"{o}bius transformation~\cite{ationneeded} $p/q$, the SymPy
 method \texttt{Poly.transform} efficiently computes
 $q^nf\left(p/q\right)$ without losing precision. The resulting
 rational function is normalized so that the constant term in the denominator
 is 1, which matches the form used in the literature. % TODO: Citation(s)
 
 \subsection{Applying CRAM to matrices}
-Given a square matrix $A$, the matrix exponential is defined as
+Given a square matrix $A$, the matrix exponential is defined
+as~\cite{ationneeded}
 \begin{equation}
   e^{A} = \sum_{n=0}^\infty \frac{A^n}{n!}.
 \end{equation}

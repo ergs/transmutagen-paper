@@ -36,6 +36,15 @@
 
 \usepackage{listings}
 
+\usepackage{color}
+
+% Clever trick from
+% https://www.gijsk.com/blog/2008/06/absence-citation-needed/. Use
+% \cite{ationneeded} to produce red "[citation needed]".
+\usepackage{ifthen}
+\let\oldcite=\cite
+\renewcommand\cite[1]{\ifthenelse{\equal{#1}{ationneeded}}{{\color{red}[citation~needed]}}{\oldcite{#1}}}
+
 \newcommand\email[1]{\href{mailto:#1}{#1}}
 \title{Transmutagen}
 
