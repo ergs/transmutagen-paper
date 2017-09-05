@@ -1,0 +1,46 @@
+
+The naive method of computing the matrix exponential via $\hat{r}_{k,
+  k}(t)=\frac{p_kt^k + \cdots + p_0}{q_kt^k + \cdots q_1t + 1}$
+is to compute $(q_kA^k + \cdots + q_1A + I)\backslash(p_kA^k + \cdots + I)$, where
+$\backslash$ is a matrix solve. However, this method is very unstable, as the
+coefficients $p_i,q_i$ are quite small (the smallest on the order of
+$10^{-2k}$), and taking powers of $A$ is also unstable. We also attempted
+using the Horner scheme on the numerator and denominator, $\hat{r}_{k,
+  k}(t)=\frac{p_0 + t(p_1 + t(p_2 + \cdots t(p_{k-1} + tp_k)))}{1 + t(q_1 +
+  t(q_2 + \cdots t(q_{k-1} + tq_k)))}$, but found this to be numerically
+unstable as well.
+
+A better method is to perform a partial fraction decomposition on $\hat{r}_{k,
+  k}(t)$:
+\begin{equation}
+  \hat{r}_{k, k}(t) = \alpha_0 + \sum_{i=1}^k \frac{\alpha_i}{t - \theta_i},
+\end{equation}
+where $\theta_i$ are the roots of $q_kt^k + \cdots + q_1t + 1$, which are all
+nonreal and have multiplicity 1, $\alpha_i$ is the residue of
+$\hat{r}_{k, k}(t)$ at $t=\theta_i$, and $\alpha_0$ is the residue at
+infinity. When $k$ is even, the roots $\theta_i$ all come in complex conjugate
+pairs, so the sum can be reduced to
+\begin{equation}
+  \hat{r}_{k, k}(t) = \alpha_0 + \mathrm{Re}\left(\sum_{i=1}^{k/2} \frac{\alpha_i}{t - \theta_i}\right),
+\end{equation}
+which is computed on a matrix $A$ against a vector $b$ via
+\begin{equation}
+  \hat{r}_{k, k}(A)b = \alpha_0b + \mathrm{Re}\left(\sum_{i=1}^{k/2} (A -
+    \theta_i I)\backslash(\alpha_i b) \right).
+\end{equation}
+
+The roots $\theta_i$ were computed with \texttt{sympy.nsolve} using Newton's
+method.
+% TODO: Some discussion on the number of digits needed for the roots here.
+
+We attempted expand the real part of this expression via
+\begin{equation}
+\mathrm{Re}\left(\frac{\alpha_i}{t - \theta_i}\right) = \frac{\mathrm{Re}{(\alpha_{i})}t - \mathrm{Re}{(\alpha_{i})} \mathrm{Re}{(\theta_{i})} - \mathrm{Im}{(\alpha_{i})} \mathrm{Im}{(\theta_{i})}}{\left(t - \mathrm{Re}{(\theta_{i})}\right)^{2} + \mathrm{Im}{(\theta_{i})}^{2}},
+\end{equation}
+and compute
+\begin{equation}
+\left(\left(A - \mathrm{Re}{(\theta_{i})I}\right)^{2} +
+  \mathrm{Im}{(\theta_{i})}^{2}I\right)\backslash \left(\mathrm{Re}{(\alpha_{i})}A - (\mathrm{Re}{(\alpha_{i})} \mathrm{Re}{(\theta_{i})} + \mathrm{Im}{(\alpha_{i})} \mathrm{Im}{(\theta_{i})})b\right).
+\end{equation}
+However, this was found to be numerically unstable, most likely because of the
+additional matrix power. % TODO: verify this
