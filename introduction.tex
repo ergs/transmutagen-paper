@@ -1,0 +1,13 @@
+\todo{Other intro stuff here}
+
+Transmutagen is a Python library for generating fast nuclear transmutation
+solvers using the Chebyshev Rational Approximation Method
+(CRAM)~\cite{ationneeded} for the matrix exponential. Transmutagen depends on
+Python 3.5 and SymPy 1.1 or newer \todo{Other dependencies?}. Transmutagen is
+capable of computing the CRAM approximation digits for $e^{-t}$ on
+$[0, \infty)$ for any degree, code generating such an approximation using
+SciPy's linear algebra routines, and code generating a CRAM approximation into
+custom fast C routine for a given sparsity pattern. Transmutagen also contains
+utilities for testing the validity of the approximation, both through testing
+of mathematical and physical properties, and through comparison of the results
+to ORIGEN~\cite{ationneeded}.
