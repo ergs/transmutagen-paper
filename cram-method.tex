@@ -21,8 +21,8 @@ precision floating point numbers, which are backed by the mpmath library~\cite{a
 
 The interval $[0, \infty)$ is first translated to $[-1, 1)$ via the
 transformation $t\mapsto c\frac{t+1}{t-1}$.
-% cite Carpenter paper here
-% TODO: discuss this *after* discussing finding the roots.
+\todo{cite Carpenter paper here.}
+\todo{discuss this {\it after} discussing finding the roots.}
 The constant $c$ is chosen so that the minimax roots of the approximation are
 distributed sufficiently evenly across the interval $[-1, 1)$. We found that
 the value $c=0.6k$ works well.
@@ -46,7 +46,7 @@ points can be used. We used the Chebyshev nodes~\cite{ationneeded}, that is,
 the roots of $T_{2(k +1)}(x)$, which always lie in the interval $(-1, 1)$
 ($T_n(x)$ is defined as $T_n(\cos(x)) = \cos(nx)$). We found that convergence
 can take more than twice as many steps when random initial points are used
-instead of the Chebyshev nodes. % TODO: verify this
+instead of the Chebyshev nodes. \todo{verify this.}
 This results in a nonlinear system of $2(k+1)$ equations in $2(k+1)$ variables
 ($p_0,\ldots,p_k,q_1,\ldots,q_k,\epsilon$). These are solved using SymPy's
 \texttt{nsolve} function, which internally uses \texttt{mpmath.findroot}. This
@@ -73,7 +73,7 @@ where $d$ decimal digits are used in the calculations. However, the true
 minimal value of $\varepsilon_N$ depends on both $k$ and $d$. We found a
 robust heuristic to be to iterate until $\log_{10}{(\varepsilon_N)}$ is near $-d$,
 then stop iterating when the values of $\varepsilon_N$ become log-convex.
-% TODO: Add convergence plot here.
+\todo{Add convergence plot here.}
 
 Once the algorithm converges, the rational function is translated back to the
 interval $[0, \infty)$ via the inverse transformation $t\mapsto \frac{t - c}{t
@@ -82,7 +82,7 @@ polynomial $f$ and M\"{o}bius transformation~\cite{ationneeded} $p/q$, the SymPy
 method \texttt{Poly.transform} efficiently computes
 $q^nf\left(p/q\right)$ without losing precision. The resulting
 rational function is normalized so that the constant term in the denominator
-is 1, which matches the form used in the literature. % TODO: Citation(s)
+is 1, which matches the form used in the literature.~\cite{ationneeded}
 
 \subsection{Applying CRAM to matrices}
 Given a square matrix $A$, the matrix exponential is defined
@@ -95,8 +95,8 @@ The CRAM approximation to $e^{-x}$ can be applied to approximate the matrix
 exponential when the matrix $A$ has eigenvalues on or near the negative real
 axis~\cite{pusa2010computing}. This applies to transmutation and decay
 matrices.
-% TODO: Show plots of eigenvalues of transmutation and decay matrices
-% TODO: Show plot of accuracy of CRAM in complex plane.
+\todo{Show plots of eigenvalues of transmutation and decay matrices.}
+\todo{Show plot of accuracy of CRAM in complex plane.}
 
 % SymPy to compute Halphen's constant
 % nsolve([1/s - exp(-pi*elliptic_k(1 - c**2)/elliptic_k(c**2)), elliptic_k(c**2) - 2*elliptic_e(c**2)], [c, s], [.9, 9])
@@ -122,4 +122,4 @@ a machine floating point number using binary rounding, to get the floating
 point number that most closely approximates the true value. The difference is
 typically no more than a single bit, but such errors in the approximation can
 propagate to larger errors in the result, as shown in section {\color{red}???}.
-%TODO: Write something about that in another section
+\todo{Write something about that in another section.}
