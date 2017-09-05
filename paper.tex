@@ -45,7 +45,10 @@
 \let\oldcite=\cite
 \renewcommand\cite[1]{\ifthenelse{\equal{#1}{ationneeded}}{{\color{red}[citation~needed]}}{\oldcite{#1}}}
 
+\newcommand\todo[1]{{\color{red}TODO\@: #1}}
+
 \newcommand\email[1]{\href{mailto:#1}{#1}}
+
 \title{Transmutagen}
 
 % \author[1]{Aaron Meurer}%
