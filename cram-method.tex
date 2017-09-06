@@ -87,3 +87,21 @@ method \texttt{Poly.transform} efficiently computes
 $q^nf\left(p/q\right)$ without losing precision. The resulting
 rational function is normalized so that the constant term in the denominator
 is 1, which matches the form used in the literature.~\cite{ationneeded}
+
+The algorithm is outlined below as pseudocode
+
+\todo{Better comment style}
+\begin{algorithmic}
+\STATE $n$ is the order of the approximation
+\STATE translate $[0, \infty)$ to $[-1, 1)$
+\STATE $\{z_i\} \leftarrow$ Chebyshev nodes or order $2(n+1)$
+\REPEAT
+\STATE $E_i \leftarrow E|_{z_i}$
+\STATE $sol \leftarrow$ Solve $\{E_i\}$ for $(p_0,\ldots,p_k,q_1,\ldots,q_k,\epsilon)$
+\STATE $z_0 \leftarrow D|_{t=-1}$
+\STATE $z_{2(n + 1)} \leftarrow -r|_{t=1}$ \COMMENT{$\lim_{t\to 1} D$}
+\STATE $z_i \leftarrow$ $i^\mathrm{th}$ critical point of $D|_{sol}$ on $(-1, 1)$
+\UNTIL {convergence condition: $\log_{10}(\varepsilon_N) \approx -d$ \AND
+  $\varepsilon_N$ is log-convex}
+\STATE translate $[-1, 1)$ back to $[0, \infty)$ and normalize $q_0=1$.
+\end{algorithmic}
