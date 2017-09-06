@@ -3,7 +3,7 @@ LATEXMK = latexmk
 all: paper.pdf
 
 %.pdf: %.tex
-	$(LATEXMK) -pdf -M -MP -MF $*.d $*
+	$(LATEXMK) -halt-on-error -pdf -M -MP -MF $*.d $*
 
 .PHONY: clean
 clean:
