@@ -88,29 +88,35 @@ $q^nf\left(p/q\right)$ without losing precision. The resulting
 rational function is normalized so that the constant term in the denominator
 is 1, which matches the form used in the literature.~\cite{ationneeded}
 
-The Remez algorithm is outlined below as pseudocode
+The Remez algorithm is outlined in Figure~\ref{remez-pseudocode} as pseudocode
 
-\todo{Better comment style}
-\begin{algorithmic}
-\STATE $k$ is the order of the approximation
-\STATE \COMMENT{translate $[0, \infty)$ to $[-1, 1)$}
-\STATE $t, p_0, \ldots, p_k, q_1, \ldots, q_k, \epsilon$ are symbolic variables
-\STATE $r \leftarrow \frac{p_kt^k + \cdots + p_1t + p_0}{q_kt^k + \cdots +
-    q_1t + 1}$
-\STATE $c \leftarrow 0.6k$
-\STATE $D \leftarrow e^{c\frac{t+1}{t-1}} - r$
-\STATE $E_i \leftarrow D + (-1)^i\epsilon$
+% TODO: Figure out how to use \begin{algorithm} instead of \begin{figure}
+\begin{figure}
+  \caption{Remez algorithm for CRAM approximation of $e^{-t}$ on $[0, \infty)$
+  of degree $n$.}
+  \label{remez-pseudocode}
+  \begin{algorithmic}
+    \STATE \todo{better comment style}
+    \STATE $k$ is the order of the approximation
+    \STATE \COMMENT{translate $[0, \infty)$ to $[-1, 1)$}
+    \STATE $t, p_0, \ldots, p_k, q_1, \ldots, q_k, \epsilon$ are symbolic variables
+    \STATE $r \leftarrow \frac{p_kt^k + \cdots + p_1t + p_0}{q_kt^k + \cdots +
+      q_1t + 1}$
+    \STATE $c \leftarrow 0.6k$
+    \STATE $D \leftarrow e^{c\frac{t+1}{t-1}} - r$
+    \STATE $E_i \leftarrow D + (-1)^i\epsilon$
 
-\STATE $\{z_i\} \leftarrow$ Chebyshev nodes of order $2(k+1)$
-\STATE $N \leftarrow 1$
-\REPEAT
-\STATE $E_i \leftarrow E|_{z_i}$
-\STATE $sol \leftarrow$ Solve $\{E_i\}$ for $(p_0,\ldots,p_k,q_1,\ldots,q_k,\epsilon)$
-\STATE $z_0 \leftarrow D|_{t=-1}$
-\STATE $z_i \leftarrow$ $i^\mathrm{th}$ critical point of $D|_{sol}$ on $(-1, 1)$
-\STATE $z_{2(k + 1)} \leftarrow -r|_{t=1}$ \COMMENT{$\lim_{t\to 1} D$}
-\STATE $N \leftarrow N + 1$
-\UNTIL {convergence condition: $\log_{10}(\varepsilon_N) \approx -d$ \AND
-  $\varepsilon_N$ is log-convex}
-\STATE $r_{final} = r|_{t=\frac{t - c}{t + c}}$ \COMMENT{translate $[-1, 1)$ back to $[0, \infty)$ and normalize $q_0=1$}
-\end{algorithmic}
+    \STATE $\{z_i\} \leftarrow$ Chebyshev nodes of order $2(k+1)$
+    \STATE $N \leftarrow 1$
+    \REPEAT
+      \STATE $E_i \leftarrow E|_{z_i}$
+      \STATE $sol \leftarrow$ Solve $\{E_i\}$ for $(p_0,\ldots,p_k,q_1,\ldots,q_k,\epsilon)$
+      \STATE $z_0 \leftarrow D|_{t=-1}$
+      \STATE $z_i \leftarrow$ $i^\mathrm{th}$ critical point of $D|_{sol}$ on $(-1, 1)$
+      \STATE $z_{2(k + 1)} \leftarrow -r|_{t=1}$ \COMMENT{$\lim_{t\to 1} D$}
+      \STATE $N \leftarrow N + 1$
+    \UNTIL {convergence condition: $\log_{10}(\varepsilon_N) \approx -d$ \AND
+      $\varepsilon_N$ is log-convex}
+    \STATE $r_{final} = r|_{t=\frac{t - c}{t + c}}$ \COMMENT{translate $[-1, 1)$ back to $[0, \infty)$ and normalize $q_0=1$}
+  \end{algorithmic}
+\end{figure}
