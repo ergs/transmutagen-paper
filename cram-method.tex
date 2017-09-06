@@ -16,8 +16,9 @@ $\epsilon_{k,k}$ is the absolute error of the approximation. It has been shown
 that $\epsilon_{k,k} = O(H^{-k})$, where $H=9.289\ldots$~\cite{ationneeded}.
 
 Transmutagen implements the Remez algorithm to compute the CRAM approximation.
-All computations are done using SymPy~\cite{10.7717/peerj-cs.103} symbolic expressions with arbitrary
-precision floating point numbers, which are backed by the mpmath library~\cite{ationneeded}.
+All computations are performed using SymPy~\cite{10.7717/peerj-cs.103}
+symbolic expressions with arbitrary precision floating point numbers, which
+are backed by the mpmath library~\cite{ationneeded}.
 
 The interval $[0, \infty)$ is first translated to $[-1, 1)$ via the
 transformation $t\mapsto c\frac{t+1}{t-1}$.
@@ -46,21 +47,22 @@ points can be used. We used the Chebyshev nodes~\cite{ationneeded}, that is,
 the roots of $T_{2(k +1)}(x)$, which always lie in the interval $(-1, 1)$
 ($T_n(x)$ is defined as $T_n(\cos(x)) = \cos(nx)$). We found that convergence
 can take more than twice as many steps when random initial points are used
-instead of the Chebyshev nodes. \todo{verify this.}
-This results in a nonlinear system of $2(k+1)$ equations in $2(k+1)$ variables
-($p_0,\ldots,p_k,q_1,\ldots,q_k,\epsilon$). These are solved using SymPy's
-\texttt{nsolve} function, which internally uses \texttt{mpmath.findroot}. This
-uses Newton's method~\cite{ationneeded}, with a symbolically computed
+instead of the Chebyshev nodes. \todo{verify this.} This results in a
+nonlinear system of $2(k+1)$ equations in $2(k+1)$ variables
+($p_0,\ldots,p_k,q_1,\ldots,q_k,\epsilon$). These are solved using the
+\texttt{sympy.nsolve} function, which internally uses \texttt{mpmath.findroot}
+to apply Newton's method~\cite{ationneeded} with a symbolically computed
 Jacobian.
 
 The solution to this system is then substituted into $D$. The critical points
 of this function on the interval $[-1, 1)$ are then found. This is done by
 taking the symbolic derivative of $D$, splitting the interval into
 subintervals, and performing bisection using \texttt{nsolve} on each
-subinterval. Call these points, along with the end-points $D|_{t=-1}$ and
-$\lim_{t\to 1} D=-r|_{t=1}$, $\{z_i\}$. There are $2(k+1)$ points $\{z_i\}$. The
-points $\{z_i\}$ are used as the set of initial points, and the algorithm iterates
-as such until convergence is reached.
+subinterval. Let $\{z_i\}$ be the set of critical points on $[-1, 1)$,
+including the end-points $D|_{t=-1}$ and $\lim_{t\to 1} D=-r|_{t=1}$. There
+are $2(k+1)$ points $\{z_i\}$. The points $\{z_i\}$ are used as the set of
+initial points, and the algorithm iterates as such until convergence is
+reached.
 
 By the theory, the approximation $\hat{r}_{k, k}$ is known to be minimal for a
 given order $k$ when the critical points of $\hat{r}_{k, k}(t) - e^{-t}$
