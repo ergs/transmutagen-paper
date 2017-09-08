@@ -21,12 +21,11 @@ symbolic expressions with arbitrary precision floating point numbers, which
 are backed by the mpmath library~\cite{ationneeded}.
 
 The interval $[0, \infty)$ is first translated to $[-1, 1)$ via the
-transformation $t\mapsto c\frac{t+1}{t-1}$.
-\todo{cite Carpenter paper here.}
-\todo{discuss this {\it after} discussing finding the roots.}
-The constant $c$ is chosen so that the minimax roots of the approximation are
-distributed sufficiently evenly across the interval $[-1, 1)$. We found that
-the value $c=0.6k$ works well.
+transformation $t\mapsto c\frac{t+1}{t-1}$. \todo{cite Carpenter paper here.}
+\todo{discuss this {\it after} discussing finding the roots.} The constant $c$
+is chosen so that the minimax roots of the approximation are distributed
+sufficiently evenly across the interval $[-1, 1)$. We found that the value
+$c=0.6k$ works well.
 
 The expressions
 \begin{equation}
@@ -80,7 +79,7 @@ then stop iterating when the values of $\varepsilon_N$ become log-convex.
 Once the algorithm converges, the rational function is translated back to the
 interval $[0, \infty)$ via the inverse transformation $t\mapsto \frac{t - c}{t
   + c}$. This must be done with care to avoid losing precision. For a
-polynomial $f$ and M\"{o}bius transformation~\cite{ationneeded} $p/q$, the SymPy
+polynomial $f$ and rational function $p/q$, the SymPy
 method \texttt{Poly.transform} efficiently computes
 $q^nf\left(p/q\right)$ without losing precision. The resulting
 rational function is normalized so that the constant term in the denominator
