@@ -109,7 +109,8 @@ The Remez algorithm is outlined in Figure~\ref{remez-pseudocode} as pseudocode
       \STATE $E_i \leftarrow E|_{z_i}$
       \STATE $sol \leftarrow$ Solve $\{E_i\}$ for $(p_0,\ldots,p_k,q_1,\ldots,q_k,\epsilon)$
       \STATE $z_0 \leftarrow D|_{t=-1}$
-      \STATE $z_i \leftarrow$ $i^\mathrm{th}$ critical point of $D|_{sol}$ on $(-1, 1)$
+      \STATE $z_i \leftarrow$ $i^\mathrm{th}$ critical point of $D|_{sol}$ on
+      $(-1, 1)$ \COMMENT{$i=1\ldots 2n$}
       \STATE $z_{2(k + 1)} \leftarrow -r|_{t=1}$ \COMMENT{$\lim_{t\to 1} D$}
       \STATE $\varepsilon_N \leftarrow \max{|z_i|} - \min{|z_i|}$
       \STATE $N \leftarrow N + 1$
