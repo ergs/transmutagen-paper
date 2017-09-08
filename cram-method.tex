@@ -112,6 +112,7 @@ The Remez algorithm is outlined in Figure~\ref{remez-pseudocode} as pseudocode
       \STATE $z_0 \leftarrow D|_{t=-1}$
       \STATE $z_i \leftarrow$ $i^\mathrm{th}$ critical point of $D|_{sol}$ on $(-1, 1)$
       \STATE $z_{2(k + 1)} \leftarrow -r|_{t=1}$ \COMMENT{$\lim_{t\to 1} D$}
+      \STATE $\varepsilon_N \leftarrow \max{|z_i|} - \min{|z_i|}$
       \STATE $N \leftarrow N + 1$
     \UNTIL {convergence condition: $\log_{10}(\varepsilon_N) \approx -d$ \AND
       $\varepsilon_N$ is log-convex}
