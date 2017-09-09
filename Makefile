@@ -20,7 +20,7 @@ origen-aaron.pdf:
 origen-meeseeks.pdf:
 	python -m transmutagen.analysis --origen --origen-results $(GOOGLE_DRIVE)/ERGS\ Private/transmutagen\ data/meeseeks01_results_20170508.hdf5 --save-file origen-meeseeks.pdf
 
-transmutation-eigenvals.tex: eigenvals_pwru50.pdf eigenvals_decay.pdf
+cram-matrices.tex: eigenvals_pwru50.pdf eigenvals_decay.pdf
 
 eigenvals_pwru50.pdf:
 eigenvals_decay.pdf:
