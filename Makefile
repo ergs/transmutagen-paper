@@ -6,10 +6,10 @@ export PYTHONPATH := $(TRANSMUTAGEN):$(TRANSMUTAGEN)/py_solve
 
 all: paper.pdf
 
+paper.pdf: eigenvals_pwru50.pdf eigenvals_decay.pdf  origen-scopatz.pdf origen-aaron.pdf origen-meeseeks.pdf
+
 %.pdf: %.tex
 	$(LATEXMK) -halt-on-error -pdf -M -MP -MF $*.d $*
-
-origen-speed.tex: origen-scopatz.pdf origen-aaron.pdf origen-meeseeks.pdf
 
 origen-scopatz.pdf:
 	python -m transmutagen.analysis --origen --no-title --origen-results $(GOOGLE_DRIVE)/ERGS\ Private/transmutagen\ data/scopatz_laptop_results_20170508.hdf5 --save-file origen-scopatz.pdf
@@ -19,8 +19,6 @@ origen-aaron.pdf:
 
 origen-meeseeks.pdf:
 	python -m transmutagen.analysis --origen --no-title --origen-results $(GOOGLE_DRIVE)/ERGS\ Private/transmutagen\ data/meeseeks01_results_20170508.hdf5 --save-file origen-meeseeks.pdf
-
-cram-matrices.tex: eigenvals_pwru50.pdf eigenvals_decay.pdf
 
 eigenvals_pwru50.pdf:
 eigenvals_decay.pdf:
