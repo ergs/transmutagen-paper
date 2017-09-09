@@ -30,6 +30,6 @@ eigenvals_decay.pdf:
 clean:
 	$(LATEXMK) -C
 	(rm -rf *.ps *.log *.dvi *.aux *.*% *.lof *.lop *.lot *.toc *.idx *.ilg *.ind *.bbl *.blg *.cpt *-diff.tex *.out *.d)
-
+	(rm -rf origen-*.pdf eigenvals_*.pdf)
 
 -include *.d
