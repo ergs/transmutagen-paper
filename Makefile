@@ -1,5 +1,8 @@
 LATEXMK = latexmk
-GOOGLE_DRIVE = ~/Google\ Drive/
+GOOGLE_DRIVE = $(HOME)/Google\ Drive/
+TRANSMUTAGEN = $(HOME)/Documents/transmutagen
+
+export PYTHONPATH := $(TRANSMUTAGEN):$(TRANSMUTAGEN)/py_solve
 
 all: paper.pdf
 
@@ -16,6 +19,12 @@ origen-aaron.pdf:
 
 origen-meeseeks.pdf:
 	python -m transmutagen.analysis --origen --origen-results $(GOOGLE_DRIVE)/ERGS\ Private/transmutagen\ data/meeseeks01_results_20170508.hdf5 --save-file origen-meeseeks.pdf
+
+transmutation-eigenvals.tex: eigenvals_pwru50.pdf eigenvals_decay.pdf
+
+eigenvals_pwru50.pdf:
+eigenvals_decay.pdf:
+	python -m transmutagen.analysis --eigenvals --save-file eigenvals.pdf --pwru50-data=$(TRANSMUTAGEN)/data/pwru50_400000000000000.0.npz
 
 .PHONY: clean
 clean:
