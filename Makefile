@@ -6,7 +6,7 @@ export PYTHONPATH := $(TRANSMUTAGEN):$(TRANSMUTAGEN)/py_solve
 
 all: paper.pdf
 
-paper.pdf: eigenvals_pwru50.pdf eigenvals_decay.pdf  origen-scopatz.pdf origen-aaron.pdf origen-meeseeks.pdf
+paper.pdf: eigenvals_pwru50.pdf eigenvals_decay.pdf origen-scopatz.pdf origen-aaron.pdf origen-meeseeks.pdf pusa-difference-14.pdf pusa-difference-16.pdf
 
 %.pdf: %.tex
 	$(LATEXMK) -halt-on-error -pdf -M -MP -MF $*.d $*
@@ -23,6 +23,10 @@ origen-meeseeks.pdf:
 eigenvals_pwru50.pdf:
 eigenvals_decay.pdf:
 	python -m transmutagen.analysis --eigenvals --no-title --file eigenvals.pdf --pwru50-data=$(TRANSMUTAGEN)/data/pwru50_400000000000000.0.npz
+
+pusa-difference-14.pdf:
+pusa-difference-16.pdf:
+	python -m transmutagen.analysis --pusa-coeffs --file pusa-difference.pdf
 
 .PHONY: clean
 clean:
