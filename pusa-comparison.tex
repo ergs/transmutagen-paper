@@ -1,3 +1,5 @@
+\todo{This section requires math from section~\ref{sec:matrix-cram} below}
+
 In addition, we have compared our partial fraction digits to those published
 in~\cite{pusa2012correction} for degrees 14 and 16. However, many
 discrepancies were found. These discrepancies are summarized in {\color{red}
@@ -5,3 +7,24 @@ discrepancies were found. These discrepancies are summarized in {\color{red}
 
 Two values, $\mathrm{re}(\alpha_4)$ and $\mathrm{re}(\alpha_6)$ of degree
 16, differed within machine floating point precision (each within one-bit).
+
+From equation~\ref{eq:part-frac}, we can see that
+$\lim_{t\to\infty}{\left|\hat{r}_{k,k} - e^{-t}\right|} = \alpha_0$. By the
+equioscillation theorem \todo{A plot of the approximation to reference here
+  would be helpful}, the error of the approximation equioscillates $2k$ times
+in $(0, \infty)$, and additionally takes on the same value at $\infty$.\footnote{Recall
+from the Remez algorithm above that on the translated interval, there are $2k$
+points $z_i$, which represent the error of the approximation, and
+$z_{2(k+1)}=\lim_{t\to 1}{D}$. When the approximation is translated from $[-1,
+1)$ to $[0, \infty)$, the point $z_{2(k + 1)}$ represents the ``error at
+$\infty$''.} What this means is that the computed value for $\alpha_0$ should
+correspond to the maximum absolute error of the approximation.
+
+This provides us with a method to test the validity of partial fraction
+coefficients. If a value of expression $E(t) = \hat{r}_{k,k}(t) - e^{-t}$
+\todo{Better variable name than $E$, to avoid confusion with algorithm above?}
+exceeds $\alpha_0$ in absolute value, the coefficients are inconsistent.
+Conversely, if the critical points of $E$, which can be found numerically via
+gradient descent or by numerically solving the symbolic derivative, correspond
+to $\alpha_0$, we can have a degree of confidence that the coefficients are
+correct.
