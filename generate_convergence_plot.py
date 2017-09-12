@@ -41,7 +41,7 @@ def generate_plot():
             return res.ravel()
     ax.yaxis.set_minor_locator(LogMinorLocator())
 
-    ax.set_xticks(range(iteration+1))
+    ax.set_xticks(range(1, iteration+1))
     plt.xlabel("Iteration")
     plt.ylabel(r"$\varepsilon_N = \max{|z_i|} - \min{|z_i|}$")
     # plt.title("Convergence for degree %s, %s digits precision" % (degree, prec))
