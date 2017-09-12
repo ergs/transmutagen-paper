@@ -73,8 +73,16 @@ algorithm. Convergence occurs roughly when $\varepsilon_N$ is near $10^{-d}$,
 where $d$ decimal digits are used in the calculations. However, the true
 minimal value of $\varepsilon_N$ depends on both $k$ and $d$. We found a
 robust heuristic to be to iterate until $\log_{10}{(\varepsilon_N)}$ is near $-d$,
-then stop iterating when the values of $\varepsilon_N$ become log-convex.
-\todo{Add convergence plot here.}
+then stop iterating when the values of $\varepsilon_N$ become log-convex. See
+Figure~\ref{fig:convergence-14-1000} for an example of the convergence of
+$\varepsilon_N$ for degree 14, 1000 digits of precision.
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=0.9\textwidth]{convergence-14-1000.eps}
+\caption{Convergence of the Remez algorithm for degree 14, 1000 digits of precision.}
+\label{fig:convergence-14-1000}
+\end{figure}
 
 Once the algorithm converges, the rational function is translated back to the
 interval $[0, \infty)$ via the inverse transformation $t\mapsto \frac{t - c}{t

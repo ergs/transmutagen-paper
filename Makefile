@@ -28,10 +28,13 @@ pusa-difference-14.pdf:
 pusa-difference-16.pdf:
 	python -m transmutagen.analysis --pusa-coeffs --file pusa-difference.pdf
 
+convergence-14-1000.eps:
+	python generate_convergence_plot.py
+
 .PHONY: clean
 clean:
 	$(LATEXMK) -C
 	-rm -rf *.ps *.log *.dvi *.aux *.*% *.lof *.lop *.lot *.toc *.idx *.ilg *.ind *.bbl *.blg *.cpt *-diff.tex *.out *.d
-	-rm -rf origen-*.pdf eigenvals_*.pdf
+	-rm -rf origen-*.pdf eigenvals_*.pdf convergence-14-1000.eps
 
 -include *.d
