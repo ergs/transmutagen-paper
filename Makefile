@@ -28,7 +28,7 @@ pusa-difference-14.pdf:
 pusa-difference-16.pdf:
 	python -m transmutagen.analysis --pusa-coeffs --file pusa-difference.pdf
 
-convergence-14-1000.eps:
+convergence-14-1000.eps: generate_convergence_plot.py
 	python generate_convergence_plot.py
 
 .PHONY: clean
