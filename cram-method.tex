@@ -56,12 +56,12 @@ Jacobian.
 The solution to this system is then substituted into $D$. The critical points
 of this function on the interval $[-1, 1)$ are then found. This is done by
 taking the symbolic derivative of $D$, splitting the interval into
-subintervals, and performing bisection using \texttt{nsolve} on each
-subinterval. Let $\{z_i\}$ be the set of critical points on $[-1, 1)$,
-including the end-points $D|_{t=-1}$ and $\lim_{t\to 1} D=-r|_{t=1}$. There
-are $2(k+1)$ points $\{z_i\}$. The points $\{z_i\}$ are used as the set of
-initial points for the next iteration, and the algorithm iterates as such
-until convergence is reached.
+subintervals, and finding the roots on each subinterval using the bisection
+algorithm, via \texttt{nsolve}. Let $\{z_i\}$ be the set of critical points on
+$[-1, 1)$, including the end-points $D|_{t=-1}$ and
+$\lim_{t\to 1} D=-r|_{t=1}$. There are $2(k+1)$ points $\{z_i\}$. The points
+$\{z_i\}$ are used as the set of initial points for the next iteration, and
+the algorithm iterates as such until convergence is reached.
 
 By the theory~\cite{ationneeded}, the approximation $\hat{r}_{k, k}$ is known
 to be minimal for a given order $k$ when the critical points of
