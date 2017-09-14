@@ -63,19 +63,19 @@ are $2(k+1)$ points $\{z_i\}$. The points $\{z_i\}$ are used as the set of
 initial points for the next iteration, and the algorithm iterates as such
 until convergence is reached.
 
-By the theory, the approximation $\hat{r}_{k, k}$ is known to be minimal for a
-given order $k$ when the critical points of $\hat{r}_{k, k}(t) - e^{-t}$
-oscillate in sign and have equal absolute value. For the iterates of the
-algorithm, the points $z_i$ are these critical points of the current
-approximation, so convergence is detected by looking at
+By the theory~\cite{ationneeded}, the approximation $\hat{r}_{k, k}$ is known
+to be minimal for a given order $k$ when the critical points of
+$\hat{r}_{k, k}(t) - e^{-t}$ oscillate in sign and have equal absolute value.
+For the iterates of the algorithm, the points $z_i$ are these critical points
+of the current approximation, so convergence is detected by looking at
 $\varepsilon_N = \max{|z_i|} - \min{|z_i|}$, for the $N$th iteration of the
 algorithm. Convergence occurs roughly when $\varepsilon_N$ is near $10^{-d}$,
 where $d$ decimal digits are used in the calculations. However, the true
 minimal value of $\varepsilon_N$ depends on both $k$ and $d$. We found a
-robust heuristic to be to iterate until $\log_{10}{(\varepsilon_N)}$ is near $-d$,
-then stop iterating when the values of $\varepsilon_N$ become log-convex. See
-Figure~\ref{fig:convergence-14-1000} for an example of the convergence of
-$\varepsilon_N$ for degree 14, 1000 digits of precision.
+robust heuristic to be to iterate until $\log_{10}{(\varepsilon_N)}$ is near
+$-d$, then stop iterating when the values of $\varepsilon_N$ become
+log-convex. See Figure~\ref{fig:convergence-14-1000} for an example of the
+convergence of $\varepsilon_N$ for degree 14, 1000 digits of precision.
 
 \begin{figure}[!ht]
 \centering
