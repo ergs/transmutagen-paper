@@ -1,0 +1,11 @@
+In addition to numeric tests, it is possible to run a sanity check on the CRAM
+method based on physical tests. If $A$ is a transmutation matrix with no
+fission, $e^{-At}$ represents {\color{red}\ldots}. The $i$th column of
+$e^{-At}=e^{-At}I$ is equal to $e^{-At}\delta_{i}$ where $\delta_i$ is a
+column vector with $1$ in the $i$th row and $0$ elsewhere. That is, the $i$th
+column of $e^{-At}$ represents the transmutation of a unit mass of the $i$th
+nuclide after $t$ seconds with no fission. By the conservation of mass, these
+columns should each sum to 1, the mass that was started. While pure
+transmutation of an isolated unit mass of each nuclide may not be physically
+feasible, this provides a mathematical sanity check for different methods of
+computing $e^{-At}$.
