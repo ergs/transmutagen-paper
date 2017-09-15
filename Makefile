@@ -6,7 +6,7 @@ export PYTHONPATH := $(TRANSMUTAGEN):$(TRANSMUTAGEN)/py_solve
 
 all: paper.pdf
 
-paper.pdf: eigenvals_pwru50.pdf eigenvals_decay.pdf origen-scopatz.pdf origen-aaron.pdf origen-meeseeks.pdf pusa-difference-14.pdf pusa-difference-16.pdf
+paper.pdf: eigenvals_pwru50.pdf eigenvals_decay.pdf origen-scopatz.pdf origen-aaron.pdf origen-meeseeks.pdf pusa-difference-14.pdf pusa-difference-16.pdf nofission-%.pdf
 
 %.pdf: %.tex
 	$(LATEXMK) -halt-on-error -pdf -M -MP -MF $*.d $*
@@ -30,6 +30,9 @@ pusa-difference-16.pdf:
 
 convergence-14-1000.eps: generate_convergence_plot.py
 	python generate_convergence_plot.py
+
+nofission-%.pdf:
+	python -m transmutagen.analysis --nofission  --file nofission.pdf --no-title
 
 .PHONY: clean
 clean:
