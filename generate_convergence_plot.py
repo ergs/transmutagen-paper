@@ -27,6 +27,10 @@ degree = 14
 prec = 1000
 
 def generate_plot():
+    from matplotlib import rcParams
+    rcParams['pgf.texsystem'] = 'pdflatex'
+    rcParams["text.usetex"] = True
+
     iteration = len(maxmins)
 
     fig, ax = plt.subplots()
@@ -53,7 +57,7 @@ def generate_plot():
     plt.xlabel("Iteration")
     plt.ylabel(r"$\varepsilon_N = \max{|z_i|} - \min{|z_i|}$")
     # plt.title("Convergence for degree %s, %s digits precision" % (degree, prec))
-    plt.savefig('convergence-14-1000.eps', format='eps', dpi=1000)
+    plt.savefig('convergence-14-1000.pgf', format='pgf', dpi=1000)
 
 if __name__ == '__main__':
     generate_plot()

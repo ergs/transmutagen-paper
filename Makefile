@@ -27,7 +27,7 @@ eigenvals_decay.pdf:
 pusa-differences.pgf:
 	python -m transmutagen.analysis --pusa-coeffs --file pusa-differences.pgf
 
-convergence-14-1000.eps: generate_convergence_plot.py
+convergence-14-1000.pgf: generate_convergence_plot.py
 	python generate_convergence_plot.py
 
 nofission-pwru50-c-solve-1-day.pdf:
@@ -48,6 +48,6 @@ nofission-pwru50-lambdify-1000-years.pdf:
 clean:
 	$(LATEXMK) -C
 	-rm -rf *.ps *.log *.dvi *.aux *.*% *.lof *.lop *.lot *.toc *.idx *.ilg *.ind *.bbl *.blg *.cpt *-diff.tex *.out *.d
-	-rm -rf origen-*.pdf eigenvals_*.pdf convergence-14-1000.eps pusa-differences.eps
+	-rm -rf origen-*.pdf eigenvals_*.pdf convergence-14-1000.pgf pusa-differences.pgf
 
 -include *.d
