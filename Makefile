@@ -6,7 +6,7 @@ export PYTHONPATH := $(TRANSMUTAGEN):$(TRANSMUTAGEN)/py_solve
 
 all: paper.pdf
 
-paper.pdf: eigenvals_pwru50.pdf eigenvals_decay.pdf origen-scopatz.pdf origen-aaron.pdf origen-meeseeks.pdf pusa-differences.pdf pusa-differences.pdf nofission-pwru50-c-solve-1-day.pdf nofission-pwru50-expm-1-day.pdf nofission-pwru50-lambdify-1-day.pdf nofission-pwru50-c-solve-1-million-years.pdf nofission-pwru50-expm-1-million-years.pdf nofission-pwru50-lambdify-1-million-years.pdf nofission-pwru50-c-solve-1-year.pdf nofission-pwru50-expm-1-year.pdf nofission-pwru50-lambdify-1-year.pdf nofission-pwru50-c-solve-1000-years.pdf nofission-pwru50-expm-1000-years.pdf nofission-pwru50-lambdify-1000-years.pdf
+paper.pdf: eigenvals_pwru50.pdf eigenvals_decay.pdf origen-scopatz.pdf origen-aaron.pdf origen-meeseeks.pdf nofission-pwru50-c-solve-1-day.pdf nofission-pwru50-expm-1-day.pdf nofission-pwru50-lambdify-1-day.pdf nofission-pwru50-c-solve-1-million-years.pdf nofission-pwru50-expm-1-million-years.pdf nofission-pwru50-lambdify-1-million-years.pdf nofission-pwru50-c-solve-1-year.pdf nofission-pwru50-expm-1-year.pdf nofission-pwru50-lambdify-1-year.pdf nofission-pwru50-c-solve-1000-years.pdf nofission-pwru50-expm-1000-years.pdf nofission-pwru50-lambdify-1000-years.pdf
 
 %.pdf: %.tex
 	$(LATEXMK) -halt-on-error -pdf -M -MP -MF $*.d $*
@@ -24,8 +24,8 @@ eigenvals_pwru50.pdf:
 eigenvals_decay.pdf:
 	python -m transmutagen.analysis --eigenvals --no-title --file eigenvals.pdf --pwru50-data=$(TRANSMUTAGEN)/data/pwru50_400000000000000.0.npz
 
-pusa-differences.pdf:
-	python -m transmutagen.analysis --pusa-coeffs --file pusa-differences.pdf
+pusa-differences.pgf:
+	python -m transmutagen.analysis --pusa-coeffs --file pusa-differences.pgf
 
 convergence-14-1000.eps: generate_convergence_plot.py
 	python generate_convergence_plot.py
@@ -48,6 +48,6 @@ nofission-pwru50-lambdify-1000-years.pdf:
 clean:
 	$(LATEXMK) -C
 	-rm -rf *.ps *.log *.dvi *.aux *.*% *.lof *.lop *.lot *.toc *.idx *.ilg *.ind *.bbl *.blg *.cpt *-diff.tex *.out *.d
-	-rm -rf origen-*.pdf eigenvals_*.pdf convergence-14-1000.eps
+	-rm -rf origen-*.pdf eigenvals_*.pdf convergence-14-1000.eps pusa-differences.eps
 
 -include *.d
