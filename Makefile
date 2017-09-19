@@ -33,15 +33,15 @@ convergence-14-1000.pgf: generate_convergence_plot.py
 nofission-pwru50-c-solve-1-day.pdf:
 nofission-pwru50-expm-1-day.pdf:
 nofission-pwru50-lambdify-1-day.pdf:
-nofission-pwru50-c-solve-1-million-years.pdf:
-nofission-pwru50-expm-1-million-years.pdf:
-nofission-pwru50-lambdify-1-million-years.pdf:
 nofission-pwru50-c-solve-1-year.pdf:
 nofission-pwru50-expm-1-year.pdf:
 nofission-pwru50-lambdify-1-year.pdf:
 nofission-pwru50-c-solve-1000-years.pdf:
 nofission-pwru50-expm-1000-years.pdf:
 nofission-pwru50-lambdify-1000-years.pdf:
+nofission-pwru50-c-solve-1-million-years.pdf:
+nofission-pwru50-expm-1-million-years.pdf:
+nofission-pwru50-lambdify-1-million-years.pdf:
 	python -m transmutagen.analysis --nofission  --file nofission.pdf --no-title
 
 .PHONY: clean
