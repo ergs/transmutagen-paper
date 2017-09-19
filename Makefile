@@ -6,19 +6,19 @@ export PYTHONPATH := $(TRANSMUTAGEN):$(TRANSMUTAGEN)/py_solve
 
 all: paper.pdf
 
-paper.pdf: eigenvals_pwru50.pdf eigenvals_decay.pdf origen-scopatz.pdf origen-aaron.pdf origen-meeseeks.pdf nofission-pwru50-c-solve-1-day.pdf nofission-pwru50-expm-1-day.pdf nofission-pwru50-lambdify-1-day.pdf nofission-pwru50-c-solve-1-million-years.pdf nofission-pwru50-expm-1-million-years.pdf nofission-pwru50-lambdify-1-million-years.pdf nofission-pwru50-c-solve-1-year.pdf nofission-pwru50-expm-1-year.pdf nofission-pwru50-lambdify-1-year.pdf nofission-pwru50-c-solve-1000-years.pdf nofission-pwru50-expm-1000-years.pdf nofission-pwru50-lambdify-1000-years.pdf
+paper.pdf: eigenvals_pwru50.pdf eigenvals_decay.pdf nofission-pwru50-c-solve-1-day.pdf nofission-pwru50-expm-1-day.pdf nofission-pwru50-lambdify-1-day.pdf nofission-pwru50-c-solve-1-million-years.pdf nofission-pwru50-expm-1-million-years.pdf nofission-pwru50-lambdify-1-million-years.pdf nofission-pwru50-c-solve-1-year.pdf nofission-pwru50-expm-1-year.pdf nofission-pwru50-lambdify-1-year.pdf nofission-pwru50-c-solve-1000-years.pdf nofission-pwru50-expm-1000-years.pdf nofission-pwru50-lambdify-1000-years.pdf
 
 %.pdf: %.tex
 	$(LATEXMK) -halt-on-error -pdf -M -MP -MF $*.d $*
 
-origen-scopatz.pdf:
-	python -m transmutagen.analysis --origen --no-title --origen-results $(GOOGLE_DRIVE)/ERGS\ Private/transmutagen\ data/scopatz_laptop_results_20170508.hdf5 --file origen-scopatz.pdf
+origen-scopatz.pgf:
+	python -m transmutagen.analysis --origen --no-title --origen-results $(GOOGLE_DRIVE)/ERGS\ Private/transmutagen\ data/scopatz_laptop_results_20170508.hdf5 --file origen-scopatz.pgf
 
-origen-aaron.pdf:
-	python -m transmutagen.analysis --origen --no-title --origen-results $(GOOGLE_DRIVE)/ERGS\ Private/transmutagen\ data/aaron_laptop_results_20170508.hdf5 --file origen-aaron.pdf
+origen-aaron.pgf:
+	python -m transmutagen.analysis --origen --no-title --origen-results $(GOOGLE_DRIVE)/ERGS\ Private/transmutagen\ data/aaron_laptop_results_20170508.hdf5 --file origen-aaron.pgf
 
-origen-meeseeks.pdf:
-	python -m transmutagen.analysis --origen --no-title --origen-results $(GOOGLE_DRIVE)/ERGS\ Private/transmutagen\ data/meeseeks01_results_20170508.hdf5 --file origen-meeseeks.pdf
+origen-meeseeks.pgf:
+	python -m transmutagen.analysis --origen --no-title --origen-results $(GOOGLE_DRIVE)/ERGS\ Private/transmutagen\ data/meeseeks01_results_20170508.hdf5 --file origen-meeseeks.pgf
 
 eigenvals_pwru50.pdf:
 eigenvals_decay.pdf:
@@ -48,6 +48,6 @@ nofission-pwru50-lambdify-1000-years.pdf:
 clean:
 	$(LATEXMK) -C
 	-rm -rf *.ps *.log *.dvi *.aux *.*% *.lof *.lop *.lot *.toc *.idx *.ilg *.ind *.bbl *.blg *.cpt *-diff.tex *.out *.d
-	-rm -rf origen-*.pdf eigenvals_*.pdf convergence-14-1000.pgf pusa-differences.pgf
+	-rm -rf origen-*.pdf eigenvals_*.pdf convergence-14-1000.pgf pusa-differences.pgf origen-scopatz.pgf origen-aaron.pgf origen-meeseeks.pgf
 
 -include *.d
