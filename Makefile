@@ -1,6 +1,6 @@
 LATEXMK = latexmk
-GOOGLE_DRIVE = $(HOME)/Google\ Drive/
-TRANSMUTAGEN = $(HOME)/Documents/transmutagen
+GOOGLE_DRIVE ?= $(HOME)/Google\ Drive/
+TRANSMUTAGEN ?= $(HOME)/Documents/transmutagen
 
 export PYTHONPATH := $(TRANSMUTAGEN):$(TRANSMUTAGEN)/py_solve
 
