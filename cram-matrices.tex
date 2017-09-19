@@ -13,15 +13,18 @@ matrices (see Figures~\ref{fig:eigenvals-pwru50} and \ref{fig:eigenvals-decay}).
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=0.9\textwidth]{eigenvals_pwru50.pdf}
-\caption{Eigenvalues of the transmutation matrix for pwru50 \todo{Cite ORIGEN
-    and explain what this is (a pressurized water reactor with burnup of 50 MWd/kg)}.}
+\caption{Eigenvalues of the transmutation matrix for pwru50, as computed by
+  \texttt{scipy.\allowbreak{}sparse.\allowbreak{}linalg.\allowbreak{}eigen.\allowbreak{}eigs()}
+  \todo{Cite ORIGEN and explain what this is (a pressurized water reactor with
+    burnup of 50 MWd/kg)}.}
 \label{fig:eigenvals-pwru50}
 \end{figure}
 
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=0.9\textwidth]{eigenvals_decay.pdf}
-\caption{Eigenvalues of the decay matrix.}
+\caption{Eigenvalues of the decay matrix, as computed by
+  \texttt{scipy.\allowbreak{}sparse.\allowbreak{}linalg.\allowbreak{}eigen.\allowbreak{}eigs()}.}
 \label{fig:eigenvals-decay}
 \end{figure}
 
