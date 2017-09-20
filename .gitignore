@@ -1,5 +1,12 @@
 convergence-14-1000.pgf
 pusa-differences.pgf
+nofission-pwru50-1-day.pgf
+nofission-pwru50-1-million-years.pgf
+nofission-pwru50-1-year.pgf
+nofission-pwru50-1000-years.pgf
+origen-aaron.pgf
+origen-meeseeks.pgf
+origen-scopatz.pgf
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
