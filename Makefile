@@ -7,7 +7,7 @@ export PYTHONPATH := $(TRANSMUTAGEN):$(TRANSMUTAGEN)/py_solve
 
 all: paper.pdf
 
-paper.pdf: eigenvals_pwru50.pdf eigenvals_decay.pdf nofission-pwru50-c-solve-1-day.pdf nofission-pwru50-expm-1-day.pdf nofission-pwru50-lambdify-1-day.pdf nofission-pwru50-c-solve-1-million-years.pdf nofission-pwru50-expm-1-million-years.pdf nofission-pwru50-lambdify-1-million-years.pdf nofission-pwru50-c-solve-1-year.pdf nofission-pwru50-expm-1-year.pdf nofission-pwru50-lambdify-1-year.pdf nofission-pwru50-c-solve-1000-years.pdf nofission-pwru50-expm-1000-years.pdf nofission-pwru50-lambdify-1000-years.pdf
+paper.pdf: eigenvals_pwru50.pdf eigenvals_decay.pdf
 
 %.pdf: %.tex
 	$(LATEXMK) -halt-on-error -pdf -M -MP -MF $*.d $*
@@ -31,19 +31,8 @@ pusa-differences.pgf:
 convergence-14-1000.pgf: generate_convergence_plot.py
 	python generate_convergence_plot.py
 
-nofission-pwru50-c-solve-1-day.pdf:
-nofission-pwru50-expm-1-day.pdf:
-nofission-pwru50-lambdify-1-day.pdf:
-nofission-pwru50-c-solve-1-year.pdf:
-nofission-pwru50-expm-1-year.pdf:
-nofission-pwru50-lambdify-1-year.pdf:
-nofission-pwru50-c-solve-1000-years.pdf:
-nofission-pwru50-expm-1000-years.pdf:
-nofission-pwru50-lambdify-1000-years.pdf:
-nofission-pwru50-c-solve-1-million-years.pdf:
-nofission-pwru50-expm-1-million-years.pdf:
-nofission-pwru50-lambdify-1-million-years.pdf:
-	python -m transmutagen.analysis --nofission  --file nofission.pdf --no-title
+nofission-pwru50-1-day.pgf nofission-pwru50-1-year.pgf nofission-pwru50-1000-years.pgf nofission-pwru50-1-million-years.pgf:
+	python -m transmutagen.analysis --nofission  --file nofission.pgf --no-title
 
 .PHONY: clean
 clean:
