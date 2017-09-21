@@ -31,7 +31,7 @@ convergence-14-1000.pgf: generate_convergence_plot.py
 	python generate_convergence_plot.py
 
 nofission-pwru50-1-day.pgf nofission-pwru50-1-year.pgf nofission-pwru50-1000-years.pgf nofission-pwru50-1-million-years.pgf:
-	python -m transmutagen.analysis --nofission  --file nofission.pgf --no-title
+	python -m transmutagen.analysis --nofission  --file nofission.pgf
 
 .PHONY: clean
 clean:
