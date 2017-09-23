@@ -1,9 +1,13 @@
 convergence-14-1000.pgf
 pusa-differences.pgf
-nofission-pwru50-1-day.pgf
-nofission-pwru50-1-million-years.pgf
-nofission-pwru50-1-year.pgf
-nofission-pwru50-1000-years.pgf
+nofission-pwru50-1-day-superlu.pgf
+nofission-pwru50-1-million-years-superlu.pgf
+nofission-pwru50-1-year-superlu.pgf
+nofission-pwru50-1000-years-superlu.pgf
+nofission-pwru50-1-day-umfpack.pgf
+nofission-pwru50-1-million-years-umfpack.pgf
+nofission-pwru50-1-year-umfpack.pgf
+nofission-pwru50-1000-years-umfpack.pgf
 origen-aaron.pgf
 origen-meeseeks.pgf
 origen-scopatz.pgf
