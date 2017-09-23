@@ -10,7 +10,7 @@ all: paper.pdf
 paper.pdf: eigenvals_pwru50.pdf eigenvals_decay.pdf
 
 %.pdf: %.tex
-	$(LATEXMK) -halt-on-error -pdf -M -MP -MF $*.d $*
+	$(LATEXMK) -lualatex -halt-on-error -pdf -M -MP -MF $*.d $*
 
 origen-scopatz.pgf:
 	python -m transmutagen.analysis --origen --no-title --origen-results $(TRANSMUTAGEN_DATA)/scopatz_laptop_results_20170508.hdf5 --file origen-scopatz.pgf
