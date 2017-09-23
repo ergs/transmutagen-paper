@@ -32,7 +32,11 @@ def run_nuclide(nuc):
     n0 = Material({nuc: 1.0}, mass=1.0, atoms_per_molecule=1.0)
     for i, t in enumerate(TIMES[1:], 1):
         # compute Bateman
-        b1 = n0.decay(t).to_atom_frac()
+        try:
+            b1 = n0.decay(t).to_atom_frac()
+        except RuntimeError:
+            # decay can't handle all of the same nuclides CRAM can
+            b1 = {}
         for key, val in b1.items():
             n = nucname.name(key)
             bateman[n][i] = val
@@ -58,11 +62,12 @@ def diff_nuclide(a, b):
     return d
 
 
-def run_nuclides():
+def run_nuclides(verbose=True):
     batemans = {}
     crammeds = {}
     diagexps = {}
     for nuc in cram.NUCS:
+        print('Running nuc ' + nuc)
         b, c, d = run_nuclide(nuc)
         batemans[nuc] = b
         crammeds[nuc] = c

@@ -12,6 +12,9 @@ origen-aaron.pgf
 origen-meeseeks.pgf
 origen-scopatz.pgf
 
+.ipynb_checkpoints/
+__pycache__/
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
