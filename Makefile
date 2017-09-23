@@ -30,7 +30,7 @@ pusa-differences.pgf:
 convergence-14-1000.pgf: generate_convergence_plot.py
 	python generate_convergence_plot.py
 
-nofission-pwru50-1-day.pgf nofission-pwru50-1-year.pgf nofission-pwru50-1000-years.pgf nofission-pwru50-1-million-years.pgf:
+nofission-pwru50-1-day-superlu.pgf nofission-pwru50-1-year-superlu.pgf nofission-pwru50-1000-years-superlu.pgf nofission-pwru50-1-million-years-superlu.pgf nofission-pwru50-1-day-umfpack.pgf nofission-pwru50-1-year-umfpack.pgf nofission-pwru50-1000-years-umfpack.pgf nofission-pwru50-1-million-years-umfpack.pgf:
 	python -m transmutagen.analysis --nofission  --file nofission.pgf
 
 .PHONY: clean

@@ -14,31 +14,62 @@ computing $e^{-At}$.
 
 \begin{figure}[!ht]
 \centering
-\resizebox{0.9\textwidth}{!}{\input{nofission-pwru50-1-day.pgf}}
-\caption{Sanity check for 1 day. From left to right:
+\resizebox{0.9\textwidth}{!}{\input{nofission-pwru50-1-day-superlu.pgf}}
+\caption{Sanity check for 1 day using SuperLU. From left to right:
 \texttt{scipy.\allowbreak{}sparse.\allowbreak{}linalg.\allowbreak{}expm},
 \texttt{scipy.\allowbreak{}sparse.\allowbreak{}linalg.\allowbreak{}spsolve},
 and the C solver generated from Transmutagen.}
-\label{fig:nofission-pwru50-1-day}
+\label{fig:nofission-pwru50-1-day-superlu}
 \end{figure}
 
 \begin{figure}[!ht]
 \centering
-\resizebox{0.9\textwidth}{!}{\input{nofission-pwru50-1-year.pgf}}
-\caption{Sanity check for 1 year.}
-\label{fig:nofission-pwru50-1-year}
+\resizebox{0.9\textwidth}{!}{\input{nofission-pwru50-1-year-superlu.pgf}}
+\caption{Sanity check for 1 year with SuperLU.}
+\label{fig:nofission-pwru50-1-year-superlu}
 \end{figure}
 
 \begin{figure}[!ht]
 \centering
-\resizebox{0.9\textwidth}{!}{\input{nofission-pwru50-1000-years.pgf}}
-\caption{Sanity check for 1000 years.}
-\label{fig:nofission-pwru50-1000-years}
+\resizebox{0.9\textwidth}{!}{\input{nofission-pwru50-1000-years-superlu.pgf}}
+\caption{Sanity check for 1000 years with SuperLU.}
+\label{fig:nofission-pwru50-1000-years-superlu}
 \end{figure}
 
 \begin{figure}[!ht]
 \centering
-\resizebox{0.9\textwidth}{!}{\input{nofission-pwru50-1-million-years.pgf}}
-\caption{Sanity check for 1 million years.}
-\label{fig:nofission-pwru50-1-million-years}
+\resizebox{0.9\textwidth}{!}{\input{nofission-pwru50-1-million-years-superlu.pgf}}
+\caption{Sanity check for 1 million years with SuperLU.}
+\label{fig:nofission-pwru50-1-million-years-superlu}
+\end{figure}
+
+\begin{figure}[!ht]
+\centering
+\resizebox{0.9\textwidth}{!}{\input{nofission-pwru50-1-day-umfpack.pgf}}
+\caption{Sanity check for 1 day using UMFPACK. From left to right:
+\texttt{scipy.\allowbreak{}sparse.\allowbreak{}linalg.\allowbreak{}expm},
+\texttt{scipy.\allowbreak{}sparse.\allowbreak{}linalg.\allowbreak{}spsolve},
+and the C solver generated from Transmutagen.}
+\label{fig:nofission-pwru50-1-day-umfpack}
+\end{figure}
+
+\begin{figure}[!ht]
+\centering
+\resizebox{0.9\textwidth}{!}{\input{nofission-pwru50-1-year-umfpack.pgf}}
+\caption{Sanity check for 1 year with UMFPACK.}
+\label{fig:nofission-pwru50-1-year-umfpack}
+\end{figure}
+
+\begin{figure}[!ht]
+\centering
+\resizebox{0.9\textwidth}{!}{\input{nofission-pwru50-1000-years-umfpack.pgf}}
+\caption{Sanity check for 1000 years with UMFPACK.}
+\label{fig:nofission-pwru50-1000-years-umfpack}
+\end{figure}
+
+\begin{figure}[!ht]
+\centering
+\resizebox{0.9\textwidth}{!}{\input{nofission-pwru50-1-million-years-umfpack.pgf}}
+\caption{Sanity check for 1 million years with UMFPACK.}
+\label{fig:nofission-pwru50-1-million-years-umfpack}
 \end{figure}
