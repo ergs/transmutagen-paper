@@ -15,11 +15,15 @@ computing $e^{-At}$.
 \begin{figure}[!ht]
 \centering
 \resizebox{0.9\textwidth}{!}{\input{nofission-pwru50-1-day-superlu.pgf}}
-\caption{Sanity check for 1 day using SuperLU. From left to right:
-\texttt{scipy.\allowbreak{}sparse.\allowbreak{}linalg.\allowbreak{}expm},
-\texttt{scipy.\allowbreak{}sparse.\allowbreak{}linalg.\allowbreak{}spsolve},
-and the C solver generated from Transmutagen.}
+\caption{Sanity check for 1 day using SuperLU.}
 \label{fig:nofission-pwru50-1-day-superlu}
+\end{figure}
+
+\begin{figure}[!ht]
+\centering
+\resizebox{0.9\textwidth}{!}{\input{nofission-pwru50-1-day-umfpack.pgf}}
+\caption{Sanity check for 1 day using UMFPACK.}
+\label{fig:nofission-pwru50-1-day-umfpack}
 \end{figure}
 
 \begin{figure}[!ht]
@@ -31,30 +35,6 @@ and the C solver generated from Transmutagen.}
 
 \begin{figure}[!ht]
 \centering
-\resizebox{0.9\textwidth}{!}{\input{nofission-pwru50-1000-years-superlu.pgf}}
-\caption{Sanity check for 1000 years with SuperLU.}
-\label{fig:nofission-pwru50-1000-years-superlu}
-\end{figure}
-
-\begin{figure}[!ht]
-\centering
-\resizebox{0.9\textwidth}{!}{\input{nofission-pwru50-1-million-years-superlu.pgf}}
-\caption{Sanity check for 1 million years with SuperLU.}
-\label{fig:nofission-pwru50-1-million-years-superlu}
-\end{figure}
-
-\begin{figure}[!ht]
-\centering
-\resizebox{0.9\textwidth}{!}{\input{nofission-pwru50-1-day-umfpack.pgf}}
-\caption{Sanity check for 1 day using UMFPACK. From left to right:
-\texttt{scipy.\allowbreak{}sparse.\allowbreak{}linalg.\allowbreak{}expm},
-\texttt{scipy.\allowbreak{}sparse.\allowbreak{}linalg.\allowbreak{}spsolve},
-and the C solver generated from Transmutagen.}
-\label{fig:nofission-pwru50-1-day-umfpack}
-\end{figure}
-
-\begin{figure}[!ht]
-\centering
 \resizebox{0.9\textwidth}{!}{\input{nofission-pwru50-1-year-umfpack.pgf}}
 \caption{Sanity check for 1 year with UMFPACK.}
 \label{fig:nofission-pwru50-1-year-umfpack}
@@ -62,9 +42,23 @@ and the C solver generated from Transmutagen.}
 
 \begin{figure}[!ht]
 \centering
+\resizebox{0.9\textwidth}{!}{\input{nofission-pwru50-1000-years-superlu.pgf}}
+\caption{Sanity check for 1000 years with SuperLU.}
+\label{fig:nofission-pwru50-1000-years-superlu}
+\end{figure}
+
+\begin{figure}[!ht]
+\centering
 \resizebox{0.9\textwidth}{!}{\input{nofission-pwru50-1000-years-umfpack.pgf}}
 \caption{Sanity check for 1000 years with UMFPACK.}
 \label{fig:nofission-pwru50-1000-years-umfpack}
+\end{figure}
+
+\begin{figure}[!ht]
+\centering
+\resizebox{0.9\textwidth}{!}{\input{nofission-pwru50-1-million-years-superlu.pgf}}
+\caption{Sanity check for 1 million years with SuperLU.}
+\label{fig:nofission-pwru50-1-million-years-superlu}
 \end{figure}
 
 \begin{figure}[!ht]
