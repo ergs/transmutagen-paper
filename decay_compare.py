@@ -4,6 +4,7 @@ from collections import defaultdict
 
 import numpy as np
 import matplotlib.pyplot as plt
+from sympy import exp
 
 from pyne import nucname
 from pyne.material import Material
@@ -26,17 +27,25 @@ def run_nuclide(nuc):
     bateman[nuc][0] = 1
     crammed = defaultdict(emptytime)
     crammed[nuc][0] = 1
+    diagexp = defaultdict(emptytime)
+    diagexp[nuc][0] = 1
     n0 = Material({nuc: 1.0}, mass=1.0, atoms_per_molecule=1.0)
     for i, t in enumerate(TIMES[1:], 1):
+        # compute Bateman
         b1 = n0.decay(t).to_atom_frac()
         for key, val in b1.items():
             n = nucname.name(key)
             bateman[n][i] = val
+        # compute CRAM
         c1 = n0.cram(DECAY_MATS[t], order=16).to_atom_frac()
         for key, val in c1.items():
             n = nucname.name(key)
             crammed[n][i] = val
-    return bateman, crammed
+        # compute e^x of the diagonal of the decay matrix, ie the nuc itself
+        nuc_idx = cram.NUCS_IDX[nuc]
+        mat_idx = cram.IJ[nuc_idx, nuc_idx]
+        diagexp[nuc][i] = exp(-DECAY_MATS[t][mat_idx]).evalf(n=30)
+    return bateman, crammed, diagexp
 
 
 def diff_nuclide(a, b):
@@ -49,14 +58,28 @@ def diff_nuclide(a, b):
     return d
 
 
+def run_nuclides():
+    batemans = {}
+    crammeds = {}
+    diagexps = {}
+    for nuc in cram.NUCS:
+        b, c, d = run_nuclide(nuc)
+        batemans[nuc] = b
+        crammeds[nuc] = c
+        diagexps[nuc] = d
+    return batemans, crammeds, diagexps
+
+
 if __name__ == '__main__':
     print(TIMES)
-    nuc = 'U235'
-    b, c = run_nuclide('U235')
+    nuc = 'H3'
+    b, c, d = run_nuclide('H3')
     print('Bateman:')
     pprint(b[nuc])
+    print('Decay Exponentional:')
+    pprint(d[nuc])
     print('CRAM')
     pprint(c[nuc])
     print('Diff')
-    pprint(diff_nuclide(b,c)[nuc])
+    pprint(diff_nuclide(d,c)[nuc])
 
