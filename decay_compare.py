@@ -53,13 +53,15 @@ def run_nuclide(nuc):
     return bateman, crammed, diagexp
 
 
-def diff_nuclide(a, b, abs=False):
+def diff_nuclide(a, b, abs=False, include_missing=True):
     d = defaultdict(emptytime)
     for nuc in a:
-        d[nuc] = a[nuc] - b[nuc]
-    for nuc in b:
-        if nuc not in a:
-            d[nuc] = -b[nuc]
+        if nuc in b or include_missing:
+            d[nuc] = a[nuc] - b[nuc]
+    if include_missing:
+        for nuc in b:
+            if nuc not in a:
+                d[nuc] = -b[nuc]
     if abs:
         for nuc in d:
             d[nuc] = np.abs(d[nuc])
