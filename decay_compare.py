@@ -15,9 +15,10 @@ from transmutagen.origen_all import TIME_STEPS
 
 np.set_printoptions(precision=18)
 
-TIMES = [0.0] + sorted(TIME_STEPS.keys())
+#TIMES = [0.0] + sorted(TIME_STEPS.keys())
+TIMES = [0.0] + np.logspace(1, 14, 27).tolist()
 NTIMES = len(TIMES)
-DECAY_MATS = {t: (-cram.DECAY_MATRIX*t) for t in TIME_STEPS}
+DECAY_MATS = {t: (-cram.DECAY_MATRIX*t) for t in TIMES}
 
 emptytime = lambda: np.zeros(NTIMES, dtype=float)
 
@@ -52,13 +53,16 @@ def run_nuclide(nuc):
     return bateman, crammed, diagexp
 
 
-def diff_nuclide(a, b):
+def diff_nuclide(a, b, abs=False):
     d = defaultdict(emptytime)
     for nuc in a:
         d[nuc] = a[nuc] - b[nuc]
     for nuc in b:
         if nuc not in a:
             d[nuc] = -b[nuc]
+    if abs:
+        for nuc in d:
+            d[nuc] = np.abs(d[nuc])
     return d
 
 
