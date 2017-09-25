@@ -33,6 +33,9 @@ convergence-14-1000.pgf: generate_convergence_plot.py
 nofission-pwru50-1-day-superlu.pgf nofission-pwru50-1-year-superlu.pgf nofission-pwru50-1000-years-superlu.pgf nofission-pwru50-1-million-years-superlu.pgf nofission-pwru50-1-day-umfpack.pgf nofission-pwru50-1-year-umfpack.pgf nofission-pwru50-1000-years-umfpack.pgf nofission-pwru50-1-million-years-umfpack.pgf:
 	python -m transmutagen.analysis --nofission  --file nofission.pgf
 
+pusa-table.tex:
+	python -m transmutagen.analysis --pusa-coeffs --latex > pusa-table.tex
+
 .PHONY: clean
 clean:
 	$(LATEXMK) -C
