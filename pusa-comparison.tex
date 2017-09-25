@@ -4,13 +4,35 @@
 
 In addition, we have compared our partial fraction digits to those published
 in~\cite{pusa2012correction} for degrees 14 and 16. However, many
-discrepancies were found. These discrepancies are summarized in {\color{red}
-  ???}.
+discrepancies were found. These discrepancies are summarized in
+Tables~\ref{table:pusa-degree-14} and~\ref{table:pusa-degree-16}.
 
 Two values, $\mathrm{re}(\alpha_4)$ and $\mathrm{re}(\alpha_6)$ of degree 16,
 differed within machine floating point precision (each within one-bit). The
 values cause the approximations to differ by as much as $6\times10^{-19}$ (see
 Figure~\ref{fig:pusa-differences}).
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{ r l l }
+Coefficient & Values from~\cite{pusa2012correction} & Values computed via Transmutagen \\
+\hline
+\input{pusa-table-14.tex}
+\end{tabular}
+\caption{Differences for degree 14}
+\label{table:pusa-degree-14}
+\end{table}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{ r l l }
+Coefficient & Values from~\cite{pusa2012correction} & Values computed via Transmutagen \\
+\hline
+\input{pusa-table-16.tex}
+\end{tabular}
+\caption{Differences for degree 16}
+\label{table:pusa-degree-16}
+\end{table}
 
 \begin{figure}[!ht]
 \centering
@@ -40,32 +62,5 @@ Conversely, if the critical points of $E$, which can be found numerically via
 gradient descent or by numerically solving the symbolic derivative, correspond
 to $\alpha_0$, we can have a degree of confidence that the coefficients are
 correct.
-
-The different coefficients are shown in Tables~\ref{table:pusa-degree-14}
-and~\ref{table:pusa-degree-16}.
-
-\begin{table}[h!]
-\centering
-\begin{tabular}{ r l l }
-Coefficient & Values from~\cite{pusa2012correction} & Values computed via Transmutagen \\
-\hline
-\input{pusa-table-14.tex}
-\end{tabular}
-\caption{Differences for degree 14}
-\label{table:pusa-degree-14}
-\end{table}
-
-\begin{table}[h!]
-\centering
-\begin{tabular}{ r l l }
-Coefficient & Values from~\cite{pusa2012correction} & Values computed via Transmutagen \\
-\hline
-\input{pusa-table-16.tex}
-\end{tabular}
-\caption{Differences for degree 16}
-\label{table:pusa-degree-16}
-\end{table}
-
-
 
 \todo{Perform this analysis and report the results.}
