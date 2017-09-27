@@ -47,10 +47,13 @@ the diagonal entries are not zero. The roots of the denominators of the CRAM
 approximations do not correspond to the eigenvalues of the transmutation
 matrix, so the solve is never degenerate.
 
-Transmutagen has a helper function that takes a given sparsity pattern for $A$
-and generates a C function that solves $(A - \theta)x =\alpha b$. Additional C
-functions are generated from the CRAM approximations of given orders (by
-default, 6, 8, 10, 12, 14, 16, and 18), which compute $e^{-A}b$. The sparsity
+The command \texttt{python -m transmutagen.gensolve} takes a given sparsity
+pattern for $A$ and generates a C function that solves
+$(A - \theta)x =\alpha b$ (a default sparsity pattern based on data from
+PyNE~\cite{ationneeded} is included with Transmutagen). Additional C functions
+are generated from the CRAM approximations of given orders (by default, 6, 8,
+10, 12, 14, 16, and 18, but any even order can be used), which compute
+$e^{-A}b$. To make the method more accessible to nuclear scientists, sparsity
 pattern is generalized as a list of nuclides and a list of transitions between
 nuclides (from--to pairs) that may be represented in the input matrix $A$. The
 performance of this method is outlined in section~\ref{sec:origen-speed}.
