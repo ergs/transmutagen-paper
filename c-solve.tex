@@ -7,9 +7,9 @@ transmutation problem the $A$ matrix is a sparse matrix with a fixed sparsity
 pattern: every row/column in $A$ corresponds to a transmutation of one nuclide
 to another, and only certain transmutations are ever physically possible.
 
-The LU solve method for solving a $Ax=b$ without pivoting is, in pseudocode,
-
-\begin{figure}
+The LU solve method for solving a $Ax=b$ without pivoting is shown in
+pseudocode in Figure~\ref{lu-pseudocode}.
+\begin{figure}[h]
   \caption{LU solve of $Ax=b$ without pivoting.}\label{lu-pseudocode}
   \begin{algorithmic}
   \STATE \COMMENT{First, decompose $A$.}
