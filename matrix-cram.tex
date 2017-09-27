@@ -24,8 +24,9 @@ pairs, so the sum can be reduced to
 \begin{equation}
   \hat{r}_{k, k}(t) = \alpha_0 + \mathrm{Re}\left(\sum_{i=1}^{k/2} \frac{\alpha_i}{t - \theta_i}\right),
 \end{equation}
-which is computed on a matrix $A$ against a vector $b$ via
+which is computed on a matrix $A$ times a vector $b$ via
 \begin{equation}
+\label{eq:part-frac-matrix-re}
   \hat{r}_{k, k}(A)b = \alpha_0b + \mathrm{Re}\left(\sum_{i=1}^{k/2} (A -
     \theta_i I)\backslash(\alpha_i b) \right).
 \end{equation}

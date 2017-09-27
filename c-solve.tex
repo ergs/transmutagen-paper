@@ -1,4 +1,4 @@
-The CRAM method involves solving
+The CRAM method using equation~\ref{eq:part-frac-matrix-re} involves solving
 \begin{equation}
  (A - \theta I)\backslash(\alpha b)
 \end{equation}
@@ -52,4 +52,5 @@ and generates a C function that solves $(A - \theta)x =\alpha b$. Additional C
 functions are generated from the CRAM approximations of given orders (by
 default, 6, 8, 10, 12, 14, 16, and 18), which compute $e^{-A}b$. The sparsity
 pattern is generalized as a list of nuclides and a list of transitions between
-nuclides (from--to pairs) that may be represented in the input matrix $A$.
+nuclides (from--to pairs) that may be represented in the input matrix $A$. The
+performance of this method is outlined in section~\ref{sec:origen-speed}.
