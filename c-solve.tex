@@ -10,34 +10,44 @@ to another, and only certain transmutations are ever physically possible.
 The LU solve method for solving a $Ax=b$ without pivoting is, in pseudocode,
 
 \todo{Use consistent pseudocode style}
-\begin{verbatim}
-# First, decompose A
-# The lower triangular part of LU will be L - I and the upper
-# triangular part will be U.
+\begin{figure}
+  \caption{LU solve of $Ax=b$ without pivoting.}\label{lu-pseudocode}
+  \begin{algorithmic}
+  \STATE \COMMENT{First, decompose $A$.}
+  \STATE \COMMENT{The lower triangular part of $LU$ will be $L - I$ and the upper triangular part will be $U$.}
+  \STATE
+  \STATE $LU \leftarrow \mathrm{copy}(A)$
+  \STATE
+  \FOR{$i=1$ \TO $N$}
+    \FOR{$j=i$ \TO $N$}
+        \STATE $LU_{j, i} \leftarrow LU_{j, i}/LU_{i, i}$
+    \ENDFOR
+  \ENDFOR
+  \STATE
+  \FOR{$k=i$ \TO $N$}
+    \STATE $LU_{j, k} \leftarrow LU_{j, k} - LU_{j, i}\cdot LU_{i, k}$
+  \ENDFOR
+  \STATE
+  \STATE \COMMENT{Now perform the solve.}
+  \STATE $x \leftarrow \mathrm{copy}(b)$
+  \STATE
+  \STATE \COMMENT{Forward substitution}
+  \FOR{$i=1$ \TO $N$}
+      \FOR{$j=1$ \TO $i$}
+          \STATE $x_i \leftarrow x_i - LU_{i, j}\cdot x_j$
+      \ENDFOR
+  \ENDFOR
+  \STATE
+  \STATE \COMMENT{Backward substitution}
+  \FOR{$i=N$ \TO $1$}
+      \FOR{$j=i$ \TO $N$}
+          \STATE $x_i \leftarrow x_i -LU_{i, j}\cdot x_j$
+      \ENDFOR
+      \STATE $x_i \leftarrow x_i/LU_{i, i}$
+  \ENDFOR
 
-LU = copy(A)
-
-for i=1..N:
-    for j=i..N:
-        LU[j, i] /= LU[i, i]
-
-for k=i..N:
-    LU[j, k] -= LU[j, i]*LU[i, k]
-
-# Now perform the solve
-x = copy(b)
-
-# Forward substitution
-for i=1..N:
-    for j=1..i:
-        x[i] -= LU[i, j]*x[j]
-
-# Backward substitution
-for i=N..1:
-    for j=i..N:
-        x[i] -= LU[i, j]*x[j]
-    x[i] /= LU[i, i]
-\end{verbatim}
+\end{algorithmic}
+\end{figure}
 
 Critically, it is known ahead of time which entries of $A$ are nonzero. Thus,
 the steps above can be reduced or eliminated for the entries that are known to
