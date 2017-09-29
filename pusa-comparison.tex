@@ -4,13 +4,46 @@
 
 In addition, we have compared our partial fraction digits to those published
 in~\cite{pusa2012correction} for degrees 14 and 16. However, many
-discrepancies were found. These discrepancies are summarized in {\color{red}
-  ???}.
+discrepancies were found. These discrepancies are summarized in
+Tables~\ref{table:pusa-degree-14} and~\ref{table:pusa-degree-16}.
 
-Two values, $\mathrm{re}(\alpha_4)$ and $\mathrm{re}(\alpha_6)$ of degree 16,
+Two values, $\mathrm{re}(\alpha_5)$ and $\mathrm{re}(\alpha_7)$ of degree 16,
 differed within machine floating point precision (each within one-bit). The
 values cause the approximations to differ by as much as $6\times10^{-19}$ (see
 Figure~\ref{fig:pusa-differences}).
+
+\setul{}{1pt}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{ r b{1.8in} b{1.8in} }
+Coefficient & Values from~\cite{pusa2012correction} & Values computed by Transmutagen \\
+\midrule
+\input{pusa-table-14.tex}
+\bottomrule
+\end{tabular}
+\caption{Computed partial fraction coefficients for degree 14. Differing
+  digits are underlined. \texttt{j} is Python syntax for imaginary numbers
+  (e.g., \texttt{2j}$=2i$). Note that~\oldcite{pusa2012correction} only has 19
+  digits for $\mathrm{re}(\theta_5)$.}
+\label{table:pusa-degree-14}
+\end{table}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{ r b{1.8in} b{1.8in} }
+Coefficient & Values from~\cite{pusa2012correction} & Values computed by Transmutagen \\
+\midrule
+\input{pusa-table-16.tex}
+\bottomrule
+\end{tabular}
+\caption{Computed partial fraction coefficients for degree 16. Differing
+  digits are underlined. \texttt{j} is Python syntax for imaginary numbers
+  (e.g., \texttt{2j}$=2i$). Note that $\mathrm{re}(\alpha_5)$ and
+  $\mathrm{re}(\alpha_7)$ differ within machine floating point
+  precision.\todo{How do indicate that in the table?}}
+\label{table:pusa-degree-16}
+\end{table}
 
 \begin{figure}[!ht]
 \centering

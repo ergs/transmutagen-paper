@@ -1,4 +1,4 @@
-The CRAM method involves solving
+The CRAM method using equation~\ref{eq:part-frac-matrix-re} involves solving
 \begin{equation}
  (A - \theta I)\backslash(\alpha b)
 \end{equation}
@@ -7,37 +7,46 @@ transmutation problem the $A$ matrix is a sparse matrix with a fixed sparsity
 pattern: every row/column in $A$ corresponds to a transmutation of one nuclide
 to another, and only certain transmutations are ever physically possible.
 
-The LU solve method for solving a $Ax=b$ without pivoting is, in pseudocode,
+The LU solve method for solving a $Ax=b$ without pivoting is shown in
+pseudocode in Figure~\ref{lu-pseudocode}.
+\begin{figure}[h]
+  \caption{LU solve of $Ax=b$ without pivoting.}\label{lu-pseudocode}
+  \begin{algorithmic}
+  \STATE \COMMENT{First, decompose $A$.}
+  \STATE \COMMENT{The lower triangular part of $LU$ will be $L - I$ and the upper triangular part will be $U$.}
+  \STATE
+  \STATE $LU \leftarrow \mathrm{copy}(A)$
+  \STATE
+  \FOR{$i=1$ \TO $N$}
+    \FOR{$j=i$ \TO $N$}
+        \STATE $LU_{j, i} \leftarrow LU_{j, i}/LU_{i, i}$
+    \ENDFOR
+  \ENDFOR
+  \STATE
+  \FOR{$k=i$ \TO $N$}
+    \STATE $LU_{j, k} \leftarrow LU_{j, k} - LU_{j, i}\cdot LU_{i, k}$
+  \ENDFOR
+  \STATE
+  \STATE \COMMENT{Now perform the solve.}
+  \STATE $x \leftarrow \mathrm{copy}(b)$
+  \STATE
+  \STATE \COMMENT{Forward substitution}
+  \FOR{$i=1$ \TO $N$}
+      \FOR{$j=1$ \TO $i$}
+          \STATE $x_i \leftarrow x_i - LU_{i, j}\cdot x_j$
+      \ENDFOR
+  \ENDFOR
+  \STATE
+  \STATE \COMMENT{Backward substitution}
+  \FOR{$i=N$ \TO $1$}
+      \FOR{$j=i$ \TO $N$}
+          \STATE $x_i \leftarrow x_i -LU_{i, j}\cdot x_j$
+      \ENDFOR
+      \STATE $x_i \leftarrow x_i/LU_{i, i}$
+  \ENDFOR
 
-\todo{Use consistent pseudocode style}
-\begin{verbatim}
-# First, decompose A
-# The lower triangular part of LU will be L - I and the upper
-# triangular part will be U.
-
-LU = copy(A)
-
-for i=1..N:
-    for j=i..N:
-        LU[j, i] /= LU[i, i]
-
-for k=i..N:
-    LU[j, k] -= LU[j, i]*LU[i, k]
-
-# Now perform the solve
-x = copy(b)
-
-# Forward substitution
-for i=1..N:
-    for j=1..i:
-        x[i] -= LU[i, j]*x[j]
-
-# Backward substitution
-for i=N..1:
-    for j=i..N:
-        x[i] -= LU[i, j]*x[j]
-    x[i] /= LU[i, i]
-\end{verbatim}
+\end{algorithmic}
+\end{figure}
 
 Critically, it is known ahead of time which entries of $A$ are nonzero. Thus,
 the steps above can be reduced or eliminated for the entries that are known to
@@ -47,9 +56,13 @@ the diagonal entries are not zero. The roots of the denominators of the CRAM
 approximations do not correspond to the eigenvalues of the transmutation
 matrix, so the solve is never degenerate.
 
-Transmutagen has a helper function that takes a given sparsity pattern for $A$
-and generates a C function that solves $(A - \theta)x =\alpha b$. Additional C
-functions are generated from the CRAM approximations of given orders (by
-default, 6, 8, 10, 12, 14, 16, and 18), which compute $e^{-A}b$. The sparsity
+The command \texttt{python -m transmutagen.gensolve} takes a given sparsity
+pattern for $A$ and generates a C function that solves
+$(A - \theta)x =\alpha b$ (a default sparsity pattern based on data from
+PyNE~\cite{ationneeded} is included with Transmutagen). Additional C functions
+are generated from the CRAM approximations of given orders (by default, 6, 8,
+10, 12, 14, 16, and 18, but any even order can be used), which compute
+$e^{-A}b$. To make the method more accessible to nuclear scientists, sparsity
 pattern is generalized as a list of nuclides and a list of transitions between
-nuclides (from--to pairs) that may be represented in the input matrix $A$.
+nuclides (from--to pairs) that may be represented in the input matrix $A$. The
+performance of this method is outlined in section~\ref{sec:origen-speed}.

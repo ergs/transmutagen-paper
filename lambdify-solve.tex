@@ -2,7 +2,7 @@ Once the CRAM approximation of degree $k$, $\hat{r}_{k, k}(t)$ has been
 computed, it can be used to compute the matrix exponential $e^{-A}b$ by
 substituting the matrix $A$ for $t$ in the expression. Transmutagen has a
 Python class, \texttt{MatrixNumPyPrinter}, which subclasses and extends the
-\texttt{sympy.printing.lambdarepr.NumPyPrinter} class, which is used by
+\texttt{sympy.printing.lambdarepr.NumPyPrinter} class. This is used by
 \texttt{sympy.lambdify} to convert a SymPy expression to a string representing
 an equivalent NumPy/SciPy~\cite{ationneeded} expression. The
 \texttt{NumPyPrinter} class by default deals with scalar expressions

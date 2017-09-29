@@ -24,8 +24,8 @@ origen-meeseeks.pgf:
 eigenvals_pwru50.pdf eigenvals_decay.pdf:
 	python -m transmutagen.analysis --eigenvals --no-title --file eigenvals.pdf --pwru50-data=$(TRANSMUTAGEN)/data/pwru50_400000000000000.0.npz
 
-pusa-differences.pgf:
-	python -m transmutagen.analysis --pusa-coeffs --file pusa-differences.pgf
+pusa-table-14.tex pusa-table-16 pusa-differences.pgf:
+	python -m transmutagen.analysis --pusa-coeffs --file pusa-differences.pgf --latex pusa-table.tex
 
 convergence-14-1000.pgf: generate_convergence_plot.py
 	python generate_convergence_plot.py
