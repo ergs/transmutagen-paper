@@ -74,4 +74,12 @@ gradient descent or by numerically solving the symbolic derivative, correspond
 to $\alpha_0$, we can have a degree of confidence that the coefficients are
 correct.
 
-\todo{Perform this analysis and report the results.}
+Using the method outlined in section~\ref{sec:nsolve-bisection} above, we
+computed 24 and 27 critical points of $E$ for degrees 14 and 16, respectively.
+These points were then used as the initial points for \texttt{nsolve}, which
+internally uses \texttt{mpmath.findroot}'s secant solver, to solve
+$\frac{dE}{dt}$ for the partial fraction expressions generated transmutagen
+and from the coefficients from~\ref{pusa2012correction}.
+
+\todo{Perform this analysis and report the
+  results.}
