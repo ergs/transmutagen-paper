@@ -68,11 +68,12 @@ def diff_nuclide(a, b, abs=False, include_missing=True):
     return d
 
 
-def run_nuclides(verbose=True):
+def run_nuclides(nucs=None, verbose=True):
     batemans = {}
     crammeds = {}
     diagexps = {}
-    for nuc in cram.NUCS:
+    nucs = cram.NUCS if nucs is None else nucs
+    for nuc in nucs:
         print('Running nuc ' + nuc)
         b, c, d = run_nuclide(nuc)
         batemans[nuc] = b
