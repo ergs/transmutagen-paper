@@ -25,7 +25,18 @@ transformation $t\mapsto c\frac{t+1}{t-1}$. \todo{cite Carpenter paper here.}
 \todo{discuss this {\it after} discussing finding the roots.} The constant $c$
 is chosen so that the minimax roots of the approximation are distributed
 sufficiently evenly across the interval $[-1, 1)$. We found that the value
-$c=0.6k$ works well.
+$c=0.6k$ works well.  Figure~\ref{fig:cram-plot} shows the error in the
+approximation for degree 14 on $[-1, 1)$ and the final translated approximation
+on $[0, \infty)$.
+
+\begin{figure}[!ht]
+\centering
+\resizebox{0.9\textwidth}{!}{\input{cram-plot.pgf}}
+\caption{Left: plot of $\hat{r}_{14, 14}\left(c\frac{t+1}{t-1}\right) -
+  e^{-c\frac{t+1}{t-1}}$; right: plot of $\hat{r}_{14, 14}(t) -
+e^{-t}$ ($c=0.6\cdot14$).}
+\label{fig:cram-plot}
+\end{figure}
 
 The expressions
 \begin{equation}

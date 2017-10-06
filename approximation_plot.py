@@ -2,6 +2,7 @@
 from transmutagen import get_CRAM_from_cache, t, plot_in_terminal
 
 from sympy import Poly, fraction, exp
+import matplotlib.pyplot as plt
 
 degree = 14
 prec = 200
@@ -24,8 +25,16 @@ def main():
     rat_func = n/d.TC()/(d/d.TC())
     rat_func = rat_func.evalf(prec)
 
-    plot_in_terminal(expr - exp(-t), (0, 100), prec=prec, points=points)
-    plot_in_terminal(rat_func - exp(-inv), (-1, 1), prec=prec, points=points)
+    plt.clf()
+    fig, (ax1, ax2) = plt.subplots(1, 2, sharey=True)
+    fig.set_size_inches(1.5*6.4, 1.5/2*4.8)
+
+    plot_in_terminal(rat_func - exp(-inv), (-1, 1), prec=prec, points=points,
+        axes=ax1)
+    plot_in_terminal(expr - exp(-t), (0, 100), prec=prec, points=points,
+        axes=ax2)
+
+    plt.savefig('cram-plot.pgf')
 
 if __name__ == '__main__':
     main()
