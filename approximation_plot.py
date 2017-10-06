@@ -31,8 +31,13 @@ def main():
 
     plot_in_terminal(rat_func - exp(-inv), (-1, 1), prec=prec, points=points,
         axes=ax1)
+    ax1.set_xlabel(r'$t$')
+    ax1.set_ylabel(r'$\hat{r}_{14, 14}\left (c\frac{t+1}{t-1}\right ) - e^{-c\frac{t+1}{t-1}}$')
+
     plot_in_terminal(expr - exp(-t), (0, 100), prec=prec, points=points,
         axes=ax2)
+    ax2.set_xlabel(r'$t$')
+    ax2.set_ylabel(r'$\hat{r}_{14, 14}(t) - e^{-t}$')
 
     plt.savefig('cram-plot.pgf')
 
