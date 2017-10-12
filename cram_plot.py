@@ -26,7 +26,7 @@ def main():
     rat_func = rat_func.evalf(prec)
 
     plt.clf()
-    fig, (ax1, ax2) = plt.subplots(1, 2, sharey=True)
+    fig, (ax1, ax2) = plt.subplots(1, 2, sharey=False)
     fig.set_size_inches(1.5*6.4, 1.5/2*4.8)
 
     plot_in_terminal(rat_func - exp(-inv), (-1, 1), prec=prec, points=points,
