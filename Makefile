@@ -30,8 +30,8 @@ pusa-table-14.tex pusa-table-16 pusa-differences.pgf:
 convergence-14-1000.pgf: generate_convergence_plot.py
 	python generate_convergence_plot.py
 
-cram-plot.pgf: approximation_plot.py
-	python approximation_plot.py
+cram-plot.pgf: cram_plot.py
+	python cram_plot.py
 
 nofission-pwru50-1-day-superlu.pgf nofission-pwru50-1-year-superlu.pgf nofission-pwru50-1000-years-superlu.pgf nofission-pwru50-1-million-years-superlu.pgf nofission-pwru50-1-day-umfpack.pgf nofission-pwru50-1-year-umfpack.pgf nofission-pwru50-1000-years-umfpack.pgf nofission-pwru50-1-million-years-umfpack.pgf:
 	python -m transmutagen.analysis --nofission  --file nofission.pgf
