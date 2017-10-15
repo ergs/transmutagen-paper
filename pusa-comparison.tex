@@ -55,15 +55,16 @@ Coefficient & Values from~\cite{pusa2012correction} & Values computed by Transmu
 
 From equation~\ref{eq:part-frac}, we can see that
 $\lim_{t\to\infty}{\left|\hat{r}_{k,k} - e^{-t}\right|} = \alpha_0$. By the
-equioscillation theorem \todo{A plot of the approximation to reference here
-  would be helpful}, the error of the approximation equioscillates $2k$ times
-in $(0, \infty)$, and additionally takes on the same value at $\infty$.\footnote{Recall
-from the Remez algorithm above that on the translated interval, there are $2k$
-points $z_i$, which represent the error of the approximation, and
-$z_{2(k+1)}=\lim_{t\to 1}{D}$. When the approximation is translated from $[-1,
-1)$ to $[0, \infty)$, the point $z_{2(k + 1)}$ represents the ``error at
-$\infty$''.} What this means is that the computed value for $\alpha_0$ should
-correspond to the maximum absolute error of the approximation.
+equioscillation theorem, the error of the approximation equioscillates $2k$
+times in $(0, \infty)$, and additionally takes on the same value at
+$\infty$.\footnote{Recall from the Remez algorithm above that on the
+  translated interval, there are $2k$ points $z_i$, which represent the error
+  of the approximation, and $z_{2(k+1)}=\lim_{t\to 1}{D}$. When the
+  approximation is translated from $[-1, 1)$ to $[0, \infty)$, the point
+  $z_{2(k + 1)}$ represents the ``error at $\infty$''. c.f.\
+  Figure~\ref{fig:cram-plot}.} What this means is that the computed value for
+$\alpha_0$ should correspond to the maximum absolute error of the
+approximation.
 
 This provides us with a method to test the validity of partial fraction
 coefficients. If a value of expression $E(t) = \hat{r}_{k,k}(t) - e^{-t}$
