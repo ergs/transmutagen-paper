@@ -1,6 +1,5 @@
-
 The naive method of computing the matrix exponential via $\hat{r}_{k,
-  k}(t)=\frac{p_kt^k + \cdots + p_0}{q_kt^k + \cdots q_1t + 1}$
+k}(t)=\frac{p_kt^k + \cdots + p_0}{q_kt^k + \cdots q_1t + 1}=\frac{p}{q}$
 is to compute $(q_kA^k + \cdots + q_1A + I)\backslash(p_kA^k + \cdots + I)$, where
 $\backslash$ is a matrix solve. However, this method is very unstable, as the
 coefficients $p_i,q_i$ are quite small (the smallest on the order of
@@ -33,7 +32,9 @@ which is computed on a matrix $A$ times a vector $b$ via
 
 The roots $\theta_i$ were computed with \texttt{sympy.nsolve} using Newton's
 method.
-\todo{Some discussion on the number of digits needed for the roots here.}
+\todo{Some discussion on the number of digits needed for the roots here.} The
+residues $\alpha_i$ were computed from the standard formulas  $\alpha_i =
+\frac{p}{q/(t - \theta_i)}|_{t=\theta_i}$ and $\alpha_0=\frac{p_k}{q_k}$.
 
 We attempted expand the real part of this expression via
 \begin{equation}
