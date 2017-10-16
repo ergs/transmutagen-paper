@@ -1,5 +1,6 @@
 The CRAM method using equation~\ref{eq:part-frac-matrix-re} involves solving
 \begin{equation}
+\label{eq:basic-matrix-solve}
  (A - \theta I)\backslash(\alpha b)
 \end{equation}
 $k/2$ times for fixed $A$ and $b$ and varying $\theta$ and $\alpha$. For the
@@ -8,9 +9,9 @@ pattern: every row/column in $A$ corresponds to a transmutation of one nuclide
 to another, and only certain transmutations are ever physically possible.
 
 The LU solve method for solving a $Ax=b$ without pivoting is shown in
-pseudocode in Algorithm~\ref{lu-pseudocode}.
+pseudocode in Algorithm~\ref{alg:lu-pseudocode}.
 \begin{algorithm}
-  \caption{LU solve of $Ax=b$ without pivoting.}\label{lu-pseudocode}
+  \caption{LU solve of $Ax=b$ without pivoting.}\label{alg:lu-pseudocode}
   \begin{algorithmic}[1]
   \STATE \COMMENT{First, decompose $A$.}
   \STATE \COMMENT{The lower triangular part of $LU$ will be $L - I$ and the upper triangular part will be $U$.}
@@ -24,7 +25,7 @@ pseudocode in Algorithm~\ref{lu-pseudocode}.
   \ENDFOR
   \STATE
   \FOR{$k=i$ \TO $N$}
-    \STATE $LU_{j, k} \leftarrow LU_{j, k} - LU_{j, i}\cdot LU_{i, k}$
+    \STATE $LU_{j, k} \leftarrow LU_{j, k} - LU_{j, i}\cdot LU_{i, k}$\label{alg:lu-pseudocode-example-line}
   \ENDFOR
   \STATE
   \STATE \COMMENT{Now perform the solve.}
@@ -48,13 +49,24 @@ pseudocode in Algorithm~\ref{lu-pseudocode}.
 \end{algorithmic}
 \end{algorithm}
 
-Critically, it is known ahead of time which entries of $A$ are nonzero. Thus,
-the steps above can be reduced or eliminated for the entries that are known to
-be zero. Furthermore, for the transmutation problem, $A$ consists only of real
-entries, whereas for $A - \theta I$, $\theta$ is a nonreal complex number. So
-the diagonal entries are not zero. The roots of the denominators of the CRAM
+Note that many steps of the LU algorithm can be removed if an element of $LU$
+(i.e., $A$) is known to be 0. For example,
+$LU_{j, k} \leftarrow LU_{j, k} - LU_{j, i}\cdot LU_{i, k}$
+(line~\ref{alg:lu-pseudocode-example-line}) becomes
+$LU_{j, k} \leftarrow LU_{j, k}$, a no-op, if either $A_{j, i}$ or $A_{i, k}$
+are 0.
+
+Critically, for the transmutation matrix, it \textit{is} known ahead of time
+which entries of $A$ are nonzero. Thus, the steps above can be reduced or
+eliminated for the entries that are known to be zero. Furthermore, for the
+transmutation problem, $A$ consists only of real entries, whereas for
+$A - \theta I$, $\theta$ is a nonreal complex number. So the diagonal entries
+are not zero. Thus, the lines that divide by $LU_{i,i}$ are always dividing a
+nonzero number. \todo{This sentence needs verification. Also, is it
+  necessary?} Additionally, the roots of the denominators of the CRAM
 approximations do not correspond to the eigenvalues of the transmutation
-matrix, so the solve is never degenerate.
+matrix, so the solve of Equation~\ref{eq:basic-matrix-solve} is never
+degenerate.
 
 The command \texttt{python -m transmutagen.gensolve} takes a given sparsity
 pattern for $A$ and generates a C function that solves
@@ -62,7 +74,29 @@ $(A - \theta)x =\alpha b$ (a default sparsity pattern based on data from
 PyNE~\cite{ationneeded} is included with Transmutagen). Additional C functions
 are generated from the CRAM approximations of given orders (by default, 6, 8,
 10, 12, 14, 16, and 18, but any even order can be used), which compute
-$e^{-A}b$. To make the method more accessible to nuclear scientists, sparsity
-pattern is generalized as a list of nuclides and a list of transitions between
-nuclides (from--to pairs) that may be represented in the input matrix $A$. The
+$e^{-A}b$.
+
+The command generates a C source file and header from a
+Jinja~\cite{ationneeded} template based on the pseudocode in
+Algorithm~\ref{alg:lu-pseudocode}. The source uses C99 complex numbers for the
+arithemetic. Each line that is known to be a no-op from the provided sparsity
+pattern is automatically removed. The resulting C source file is 12 MB with
+the default orders \todo{Update this for latest sparsity pattern}. Compilation
+of this file requires disabling most optimizations, as otherwise the compiler
+either does not finish or runs out of memory. However, certain compilation
+flags were found to speed up the performance of the algorithm, particularly
+flags to speed up complex number operations. By default, complex numbers in C
+are slow due to NaN checks, but these can be disabled to make the code
+faster. \todo{Better justification on why these can be disabled.} Through
+experimentation, we found the GCC flags \texttt{-O0 -fcx-fortran-rules
+  -fcx-limited-range -ftree-sra -ftree-ter -fexpensive-optimizations} provided
+speedups without adversely slowing down compile times. For Clang, we found the
+flags \texttt{-O0 --ffast-math}. \todo{Should we discuss Clang here, such as
+  how it is slower and doesn't seem to optimize complex numbers?}
+\todo{Some performance information here (compile times; timing with/without
+  optimizations). See also Section~\ref{sec:origen-speed}.}
+
+To make the method more accessible to nuclear scientists, sparsity pattern is
+generalized as a list of nuclides and a list of transitions between nuclides
+(from--to pairs) that may be represented in the input matrix $A$. The
 performance of this method is outlined in section~\ref{sec:origen-speed}.
