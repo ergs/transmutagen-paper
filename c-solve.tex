@@ -71,7 +71,8 @@ degenerate.
 The command \texttt{python -m transmutagen.gensolve} takes a given sparsity
 pattern for $A$ and generates a C function that solves
 $(A - \theta)x =\alpha b$ (a default sparsity pattern based on data from
-PyNE~\cite{ationneeded} is included with Transmutagen). Additional C functions
+PyNE~\cite{ationneeded} is included with Transmutagen\todo{Discuss separate sparsity
+  pattern for ORIGEN nuclides}). Additional C functions
 are generated from the CRAM approximations of given orders (by default, 6, 8,
 10, 12, 14, 16, and 18, but any even order can be used), which compute
 $e^{-A}b$.
