@@ -13,6 +13,7 @@ pseudocode in Algorithm~\ref{alg:lu-pseudocode}.
 \begin{algorithm}
   \caption{LU solve of $Ax=b$ without pivoting.}\label{alg:lu-pseudocode}
   \begin{algorithmic}[1]
+  \REQUIRE $A_{n\times n}$, $b_{n\times 1}$
   \STATE \COMMENT{First, decompose $A$.}
   \STATE \COMMENT{The lower triangular part of $LU$ will be $L - I$ and the upper triangular part will be $U$.}
   \STATE
@@ -46,7 +47,7 @@ pseudocode in Algorithm~\ref{alg:lu-pseudocode}.
       \STATE $x_i \leftarrow x_i/LU_{i, i}$
   \ENDFOR
   \STATE
-  \RETURN $x$
+  \ENSURE $x_{n\times 1}$
 
 \end{algorithmic}
 \end{algorithm}

@@ -116,7 +116,7 @@ The Remez algorithm is outlined in Algorithm~\ref{alg:remez-pseudocode} as pseud
   \caption{Remez algorithm for CRAM approximation of $e^{-t}$ on $[0, \infty)$
   of degree $n$.}\label{alg:remez-pseudocode}
   \begin{algorithmic}[1]
-    \STATE $k$ is the order of the approximation
+    \REQUIRE  $k$, the order of the approximation
     \STATE \COMMENT{translate $[0, \infty)$ to $[-1, 1)$}
     \STATE $t, p_0, \ldots, p_k, q_1, \ldots, q_k, \epsilon$ are symbolic variables
     \STATE $r \leftarrow \frac{p_kt^k + \cdots + p_1t + p_0}{q_kt^k + \cdots +
@@ -138,6 +138,8 @@ The Remez algorithm is outlined in Algorithm~\ref{alg:remez-pseudocode} as pseud
       \STATE $N \leftarrow N + 1$
     \UNTIL {convergence condition: $\log_{10}(\varepsilon_N) \approx -d$ \AND
       $\varepsilon_N$ is log-convex}
-    \RETURN $r|_{t=\frac{t - c}{t + c}}$ \COMMENT{translate $[-1, 1)$ back to $[0, \infty)$ and normalize $q_0=1$}
+    \STATE $r_\mathrm{final}=r|_{t=\frac{t - c}{t + c}}$ \COMMENT{translate
+      $[-1, 1)$ back to $[0, \infty)$ and normalize $q_0=1$}
+    \ENSURE $r_\mathrm{final}$
   \end{algorithmic}
 \end{algorithm}
