@@ -39,6 +39,7 @@ def main():
     ax2.set_xlabel(r'$t$')
     ax2.set_ylabel(r'$\hat{r}_{14, 14}(t) - e^{-t}$')
 
+    plt.tight_layout()
     plt.savefig('cram-plot.pgf')
 
 if __name__ == '__main__':
