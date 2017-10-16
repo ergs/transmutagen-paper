@@ -106,13 +106,13 @@ $q^nf\left(p/q\right)$ without losing precision. The resulting
 rational function is normalized so that the constant term in the denominator
 is 1, which matches the form used in the literature.~\cite{ationneeded}
 
-The Remez algorithm is outlined in Figure~\ref{remez-pseudocode} as pseudocode.
+The Remez algorithm is outlined in Algorithm~\ref{remez-pseudocode} as pseudocode.
 
 % TODO: Figure out how to use \begin{algorithm} instead of \begin{figure}
-\begin{figure}
+\begin{algorithm}
   \caption{Remez algorithm for CRAM approximation of $e^{-t}$ on $[0, \infty)$
   of degree $n$.}\label{remez-pseudocode}
-  \begin{algorithmic}
+  \begin{algorithmic}[1]
     \STATE \todo{better comment style}
     \STATE $k$ is the order of the approximation
     \STATE \COMMENT{translate $[0, \infty)$ to $[-1, 1)$}
@@ -138,4 +138,4 @@ The Remez algorithm is outlined in Figure~\ref{remez-pseudocode} as pseudocode.
       $\varepsilon_N$ is log-convex}
     \STATE $r_\mathrm{final} = r|_{t=\frac{t - c}{t + c}}$ \COMMENT{translate $[-1, 1)$ back to $[0, \infty)$ and normalize $q_0=1$}
   \end{algorithmic}
-\end{figure}
+\end{algorithm}

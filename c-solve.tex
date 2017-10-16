@@ -8,10 +8,10 @@ pattern: every row/column in $A$ corresponds to a transmutation of one nuclide
 to another, and only certain transmutations are ever physically possible.
 
 The LU solve method for solving a $Ax=b$ without pivoting is shown in
-pseudocode in Figure~\ref{lu-pseudocode}.
-\begin{figure}[h]
+pseudocode in Algorithm~\ref{lu-pseudocode}.
+\begin{algorithm}
   \caption{LU solve of $Ax=b$ without pivoting.}\label{lu-pseudocode}
-  \begin{algorithmic}
+  \begin{algorithmic}[1]
   \STATE \COMMENT{First, decompose $A$.}
   \STATE \COMMENT{The lower triangular part of $LU$ will be $L - I$ and the upper triangular part will be $U$.}
   \STATE
@@ -46,7 +46,7 @@ pseudocode in Figure~\ref{lu-pseudocode}.
   \ENDFOR
 
 \end{algorithmic}
-\end{figure}
+\end{algorithm}
 
 Critically, it is known ahead of time which entries of $A$ are nonzero. Thus,
 the steps above can be reduced or eliminated for the entries that are known to
