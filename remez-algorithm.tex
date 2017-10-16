@@ -136,6 +136,6 @@ The Remez algorithm is outlined in Figure~\ref{remez-pseudocode} as pseudocode.
       \STATE $N \leftarrow N + 1$
     \UNTIL {convergence condition: $\log_{10}(\varepsilon_N) \approx -d$ \AND
       $\varepsilon_N$ is log-convex}
-    \STATE $r_{final} = r|_{t=\frac{t - c}{t + c}}$ \COMMENT{translate $[-1, 1)$ back to $[0, \infty)$ and normalize $q_0=1$}
+    \STATE $r_\mathrm{final} = r|_{t=\frac{t - c}{t + c}}$ \COMMENT{translate $[-1, 1)$ back to $[0, \infty)$ and normalize $q_0=1$}
   \end{algorithmic}
 \end{figure}
