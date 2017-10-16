@@ -68,7 +68,8 @@
 
 % Clever trick from
 % https://www.gijsk.com/blog/2008/06/absence-citation-needed/. Use
-% \cite{ationneeded} to produce red "[citation needed]".
+% \cite{ationneeded} to produce red "[citation needed]". You have to use
+% \oldcite in things like footnotes or it will give you an error.
 \usepackage{ifthen}
 \let\oldcite=\cite
 \renewcommand\cite[1]{\ifthenelse{\equal{#1}{ationneeded}}{{\color{red}[citation~needed]}}{\oldcite{#1}}}
