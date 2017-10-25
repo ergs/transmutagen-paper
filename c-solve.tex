@@ -20,13 +20,12 @@ pseudocode in Algorithm~\ref{alg:lu-pseudocode}.
   \STATE $LU \leftarrow \mathrm{copy}(A)$
   \STATE
   \FOR{$i=1$ \TO $N$}
-    \FOR{$j=i$ \TO $N$}
-        \STATE $LU_{j, i} \leftarrow LU_{j, i}/LU_{i, i}$
-    \ENDFOR
-  \ENDFOR
-  \STATE
-  \FOR{$k=i$ \TO $N$}
-    \STATE $LU_{j, k} \leftarrow LU_{j, k} - LU_{j, i}\cdot LU_{i, k}$\label{alg:lu-pseudocode-example-line}
+      \FOR{$j=i$ \TO $N$}
+          \STATE $LU_{j, i} \leftarrow LU_{j, i}/LU_{i, i}$
+          \FOR{$k=i$ \TO $N$}
+              \STATE $LU_{j, k} \leftarrow LU_{j, k} - LU_{j, i}\cdot LU_{i, k}$\label{alg:lu-pseudocode-example-line}
+          \ENDFOR
+      \ENDFOR
   \ENDFOR
   \STATE
   \STATE \COMMENT{Now perform the solve.}
