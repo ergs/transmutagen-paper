@@ -20,9 +20,9 @@ pseudocode in Algorithm~\ref{alg:lu-pseudocode}.
   \STATE $LU \leftarrow \mathrm{copy}(A)$
   \STATE
   \FOR{$i=1$ \TO $N$}
-      \FOR{$j=i$ \TO $N$}
+      \FOR{$j=i+1$ \TO $N$}
           \STATE $LU_{j, i} \leftarrow LU_{j, i}/LU_{i, i}$
-          \FOR{$k=i$ \TO $N$}
+          \FOR{$k=i+1$ \TO $N$}
               \STATE $LU_{j, k} \leftarrow LU_{j, k} - LU_{j, i}\cdot LU_{i, k}$\label{alg:lu-pseudocode-example-line}
           \ENDFOR
       \ENDFOR
@@ -40,7 +40,7 @@ pseudocode in Algorithm~\ref{alg:lu-pseudocode}.
   \STATE
   \STATE \COMMENT{Backward substitution}
   \FOR{$i=N$ \TO $1$}
-      \FOR{$j=i$ \TO $N$}
+      \FOR{$j=i+1$ \TO $N$}
           \STATE $x_i \leftarrow x_i -LU_{i, j}\cdot x_j$
       \ENDFOR
       \STATE $x_i \leftarrow x_i/LU_{i, i}$
