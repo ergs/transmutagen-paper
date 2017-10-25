@@ -8,16 +8,16 @@ transmutation problem the $A$ matrix is a sparse matrix with a fixed sparsity
 pattern: every row/column in $A$ corresponds to a transmutation of one nuclide
 to another, and only certain transmutations are ever physically possible.
 
-The LU solve method for solving a $Ax=b$ without pivoting is shown in
+The LU solve without pivoting algorithm for solving a $Mx=b$ is shown in
 pseudocode in Algorithm~\ref{alg:lu-pseudocode}.
 \begin{algorithm}
-  \caption{LU solve of $Ax=b$ without pivoting.}\label{alg:lu-pseudocode}
+  \caption{LU solve of $Mx=b$ without pivoting.}\label{alg:lu-pseudocode}
   \begin{algorithmic}[1]
-  \REQUIRE $A_{n\times n}$, $b_{n\times 1}$
-  \STATE \COMMENT{First, decompose $A$.}
+  \REQUIRE $M_{n\times n}$, $b_{n\times 1}$
+  \STATE \COMMENT{First, decompose $M=LU$.}
   \STATE \COMMENT{The lower triangular part of $LU$ will be $L - I$ and the upper triangular part will be $U$.}
   \STATE
-  \STATE $LU \leftarrow \mathrm{copy}(A)$
+  \STATE $LU \leftarrow \mathrm{copy}(M)$
   \STATE
   \FOR{$i=1$ \TO $N$}
       \FOR{$j=i+1$ \TO $N$}
@@ -51,8 +51,8 @@ pseudocode in Algorithm~\ref{alg:lu-pseudocode}.
 \end{algorithmic}
 \end{algorithm}
 
-Note that many steps of the LU algorithm can be removed if an element of $LU$
-(i.e., $A$) is known to be 0. For example,
+Note that many steps of the LU algorithm can be removed if an element of $M$
+(i.e., $A - \theta I$) is known to be 0. For example,
 $LU_{j, k} \leftarrow LU_{j, k} - LU_{j, i}\cdot LU_{i, k}$
 (line~\ref{alg:lu-pseudocode-example-line}) becomes
 $LU_{j, k} \leftarrow LU_{j, k}$, a no-op, if either $A_{j, i}$ or $A_{i, k}$
