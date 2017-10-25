@@ -21,7 +21,7 @@ pseudocode in Algorithm~\ref{alg:lu-pseudocode}.
   \STATE
   \FOR{$i=1$ \TO $N$}
       \FOR{$j=i+1$ \TO $N$}
-          \STATE $LU_{j, i} \leftarrow LU_{j, i}/LU_{i, i}$
+          \STATE $LU_{j, i} \leftarrow LU_{j, i}/LU_{i, i}$\label{alg:lu-pseudocode-decompose-division}
           \FOR{$k=i+1$ \TO $N$}
               \STATE $LU_{j, k} \leftarrow LU_{j, k} - LU_{j, i}\cdot LU_{i, k}$\label{alg:lu-pseudocode-example-line}
           \ENDFOR
@@ -43,7 +43,7 @@ pseudocode in Algorithm~\ref{alg:lu-pseudocode}.
       \FOR{$j=i+1$ \TO $N$}
           \STATE $x_i \leftarrow x_i -LU_{i, j}\cdot x_j$
       \ENDFOR
-      \STATE $x_i \leftarrow x_i/LU_{i, i}$
+      \STATE $x_i \leftarrow x_i/LU_{i, i}$\label{alg:lu-pseudocode-solve-division}
   \ENDFOR
   \STATE
   \ENSURE $x_{n\times 1}$
@@ -55,20 +55,26 @@ Note that many steps of the LU algorithm can be removed if an element of $M$
 (i.e., $A - \theta I$) is known to be 0. For example,
 $LU_{j, k} \leftarrow LU_{j, k} - LU_{j, i}\cdot LU_{i, k}$
 (line~\ref{alg:lu-pseudocode-example-line}) becomes
-$LU_{j, k} \leftarrow LU_{j, k}$, a no-op, if either $A_{j, i}$ or $A_{i, k}$
-are 0.
+$LU_{j, k} \leftarrow LU_{j, k}$, a no-op, if either $LU_{j, i}$ or $LU_{i, k}$
+are 0. If an element of $M$ off the diagonal, say $M_{a,b}$ is known to be
+0, then recursively, \todo{Finish argument. Add pseudocode for \texttt{make\_ijk()}.}
 
 Critically, for the transmutation matrix, it \textit{is} known ahead of time
 which entries of $A$ are nonzero. Thus, the steps above can be reduced or
 eliminated for the entries that are known to be zero. Furthermore, for the
 transmutation problem, $A$ consists only of real entries, whereas for
 $A - \theta I$, $\theta$ is a nonreal complex number. So the diagonal entries
-are not zero. Thus, the lines that divide by $LU_{i,i}$ are always dividing a
-nonzero number. \todo{This sentence needs verification. Also, is it
-  necessary?} Additionally, the roots of the denominators of the CRAM
-approximations do not correspond to the eigenvalues of the transmutation
-matrix, so the solve of Equation~\ref{eq:basic-matrix-solve} is never
-degenerate.
+are not zero. Thus, the division by $LU_{i,i}$ in
+line~\ref{alg:lu-pseudocode-decompose-division} is always by a nonzero number.
+In other words, pivoting is not necessary, which allows precomputing the exact
+decomposition ahead of time without knowledge of the values beyond which are
+nonzero.
+
+Additionally, the roots of the denominators of the CRAM approximations do not
+correspond to the eigenvalues of the transmutation matrix, so the solve of
+Equation~\ref{eq:basic-matrix-solve} is never degenerate, that is, the
+division by $LU_{i,i}$ in the solve stage
+(line~\ref{alg:lu-pseudocode-solve-division}) is never by zero.
 
 The command \texttt{python -m transmutagen.gensolve} takes a given sparsity
 pattern for $A$ and generates a C function that solves
