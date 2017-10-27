@@ -16,7 +16,7 @@ from transmutagen.origen_all import TIME_STEPS
 np.set_printoptions(precision=18)
 
 #TIMES = [0.0] + sorted(TIME_STEPS.keys())
-TIMES = [0.0] + np.logspace(1, 14, 27).tolist()
+TIMES = [0.0] + np.logspace(1, 20, 39).tolist()
 NTIMES = len(TIMES)
 DECAY_MATS = {t: (-cram.DECAY_MATRIX*t) for t in TIMES}
 
