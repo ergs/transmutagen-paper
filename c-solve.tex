@@ -23,7 +23,7 @@ pseudocode in Algorithm~\ref{alg:lu-pseudocode}.
       \FOR{$j=i+1$ \TO $N$}
           \STATE $LU_{j, i} \leftarrow LU_{j, i}/LU_{i, i}$\label{alg:lu-pseudocode-decompose-division}
           \FOR{$k=i+1$ \TO $N$}
-              \STATE $LU_{j, k} \leftarrow LU_{j, k} - LU_{j, i}\cdot LU_{i, k}$\label{alg:lu-pseudocode-example-line}
+              \STATE $LU_{j, k} \leftarrow LU_{j, k} - LU_{j, i}\cdot LU_{i, k}$\label{alg:lu-pseudocode-reduction-line}
           \ENDFOR
       \ENDFOR
   \ENDFOR
@@ -54,10 +54,40 @@ pseudocode in Algorithm~\ref{alg:lu-pseudocode}.
 Note that many steps of the LU algorithm can be removed if an element of $M$
 (i.e., $A - \theta I$) is known to be 0. For example,
 $LU_{j, k} \leftarrow LU_{j, k} - LU_{j, i}\cdot LU_{i, k}$
-(line~\ref{alg:lu-pseudocode-example-line}) becomes
-$LU_{j, k} \leftarrow LU_{j, k}$, a no-op, if either $LU_{j, i}$ or $LU_{i, k}$
-are 0. If an element of $M$ off the diagonal, say $M_{a,b}$ is known to be
-0, then recursively, \todo{Finish argument. Add pseudocode for \texttt{make\_ijk()}.}
+(line~\ref{alg:lu-pseudocode-reduction-line}) becomes
+$LU_{j, k} \leftarrow LU_{j, k}$, a no-op, if either $LU_{j, i}$ or
+$LU_{i, k}$ are 0. The elements of $LU$ start the same as the elements of $M$,
+but more elements may become nonzero through the application of
+line~\ref{alg:lu-pseudocode-reduction-line}. Starting with a set of nonzero
+indices of $M$, $IJ=\{(i, j) | M_{i, j} \neq 0\}$, one can recursively compute
+a set of nonzero indices for $LU$. The pseudocode for this algorithm is shown
+in Algorithm~\ref{alg:make-ijk}. The idea is to mirror the decomposition loop
+from Algorithm~\ref{alg:lu-pseudocode}, adding new index pairs to the set of
+nonzero indices $IJK$ whenever both $(j, i)$ and $(i, k)$ are also in the set.
+\todo{Show some figure(s) on what sorts of indices this adds.}
+
+\begin{algorithm}
+  \caption{Generate the set of nonzero entries of $LU$ given a set of nonzero
+    entries of $M$.}\label{alg:make-ijk}
+  \begin{algorithmic}[1]
+  \REQUIRE $IJ=\{(i, j) | M_{i, j} \neq 0\}$
+  \STATE $IJK \leftarrow \mathrm{copy}(IJ)$
+  \FOR{$i=1$ \TO $N$}
+      \FOR{$j=i+1$ \TO $N$}
+          \IF{$(j, i) \notin IJK$}
+              \CONTINUE
+          \ENDIF
+          \STATE
+          \FOR{$k=i+1$ \TO $N$}
+              \IF{$(i, k) \in IJK$ \AND $(j, k) \notin IJK$}
+                   \STATE Add (j, k) to $IJK$
+               \ENDIF
+          \ENDFOR
+      \ENDFOR
+  \ENDFOR
+  \ENSURE $IJK$
+\end{algorithmic}
+\end{algorithm}
 
 Critically, for the transmutation matrix, it \textit{is} known ahead of time
 which entries of $A$ are nonzero. Thus, the steps above can be reduced or
