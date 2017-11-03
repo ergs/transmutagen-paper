@@ -27,7 +27,8 @@ flags \texttt{-O0 --ffast-math}. \todo{Should we discuss Clang here, such as
 \todo{Some performance information here (compile times; timing with/without
   optimizations). See also Section~\ref{sec:origen-speed}.}
 
-To make the method more accessible to nuclear scientists, sparsity pattern is
-generalized as a list of nuclides and a list of transitions between nuclides
-(from--to pairs) that may be represented in the input matrix $A$. The
-performance of this method is outlined in section~\ref{sec:origen-speed}.
+To make the method more accessible to nuclear scientists, the sparsity pattern
+input file is formatted as a JSON file with a list of nuclides in the order
+they appear in the matrix, and a list of from--to pairs of transitions between
+nuclides that may be represented in the input matrix $A$. The performance of
+this method is outlined in Section~\ref{sec:origen-speed}.

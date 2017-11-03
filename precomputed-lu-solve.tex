@@ -15,8 +15,8 @@ is not necessary in the LU solve algorithm. This allows precomputing the exact
 LU decomposition ahead of time without knowledge of the values of $A$, beyond
 which are nonzero.
 
-Pseudocode for LU solve without pivoting for solving a $Mx=b$ is shown in
-Algorithm~\ref{alg:lu-pseudocode}.
+Pseudocode for the LU solve algorithm for solving $Mx=b$ without pivoting is
+shown in Algorithm~\ref{alg:lu-pseudocode}.
 \begin{algorithm}[h]
   \caption{LU solve of $Mx=b$ without pivoting.}\label{alg:lu-pseudocode}
   \begin{algorithmic}[1]
@@ -58,8 +58,8 @@ Algorithm~\ref{alg:lu-pseudocode}.
 \end{algorithmic}
 \end{algorithm}
 
-Note that many steps of the LU algorithm can be removed if an element of $M$
-(i.e., $A - \theta I$) is known to be 0. In particular,
+Note that many steps of Algorithm~\ref{alg:lu-pseudocode} can be removed if an
+element of $LU$ is known to be 0. In particular,
 $LU_{j, k} \leftarrow LU_{j, k} - LU_{j, i}\cdot LU_{i, k}$
 (line~\ref{alg:lu-pseudocode-reduction-line} of
 Algorithm~\ref{alg:lu-pseudocode}) becomes $LU_{j, k} \leftarrow LU_{j, k}$, a
@@ -79,8 +79,7 @@ decomposition loop from Algorithm~\ref{alg:lu-pseudocode}, adding new index
 pairs to the set of nonzero indices $IJK$ whenever both $(j, i)$ and $(i, k)$
 are also in the set. \todo{Show some figure(s) on what sorts of indices this
   adds.}
-
-\begin{algorithm}
+\begin{algorithm}[h]
   \caption{Generate the set of nonzero entries of $LU$ given a set of nonzero
     entries of $M$.}\label{alg:make-ijk}
   \begin{algorithmic}[1]
@@ -99,7 +98,7 @@ are also in the set. \todo{Show some figure(s) on what sorts of indices this
           \ENDFOR
       \ENDFOR
   \ENDFOR
-  \ENSURE $IJK$
+  \ENSURE $IJK=\{(i,j)|LU_{i,j}\mathrm{\ is\ potentially\ nonzero\ in\ Algorithm~\ref{alg:lu-pseudocode}}\}$
 \end{algorithmic}
 \end{algorithm}
 
@@ -108,11 +107,11 @@ which entries of $A$ are nonzero. Thus, the steps above can be reduced or
 eliminated for the entries that are known to be zero. As noted above, the
 diagonal entries for solves used for the real transmutations matrices are
 always nonzero. Thus, the divisions by $LU_{i,i}$ in
-lines~\ref{alg:lu-pseudocode-decompose-division} and
-~\ref{alg:lu-pseudocode-solve-division} are always by a nonzero number.
+line~\ref{alg:lu-pseudocode-decompose-division} are always by a nonzero
+number.
 
-Additionally, the roots of the denominators of the CRAM approximations do not
-correspond to the eigenvalues of the transmutation matrix, so the solve of
-Equation~\ref{eq:basic-matrix-solve} is never degenerate, that is, the
-division by $LU_{i,i}$ in the solve stage
+Additionally, the roots of the denominators of the CRAM approximations
+($\theta_i$) do not correspond to the eigenvalues of the transmutation matrix,
+so the solve of Equation~\ref{eq:basic-matrix-solve} is never degenerate, that
+is, the divisions by $LU_{i,i}$ in the solve stage
 (line~\ref{alg:lu-pseudocode-solve-division}) is never by zero.
