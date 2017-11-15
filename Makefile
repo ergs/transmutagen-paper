@@ -7,10 +7,10 @@ export PYTHONPATH := $(TRANSMUTAGEN):$(TRANSMUTAGEN)/py_solve
 
 all: paper.pdf
 
-paper.pdf: eigenvals_pwru50.pdf eigenvals_decay.pdf
+paper.pdf:
 
 %.pdf: %.tex
-	$(LATEXMK) -lualatex -halt-on-error -pdf -M -MP -MF $*.d $*
+	$(LATEXMK) -lualatex -interaction=nonstopmode -use-make $*
 
 origen-scopatz.pgf:
 	python -m transmutagen.analysis --origen --no-title --origen-results $(TRANSMUTAGEN_DATA)/scopatz_laptop_results_20170508.hdf5 --file origen-scopatz.pgf
@@ -42,4 +42,4 @@ clean:
 	-rm -rf *.ps *.log *.dvi *.aux *.*% *.lof *.lop *.lot *.toc *.idx *.ilg *.ind *.bbl *.blg *.cpt *-diff.tex *.out *.d
 	-rm -rf origen-*.pdf eigenvals_*.pdf convergence-14-1000.pgf pusa-differences.pgf origen-scopatz.pgf origen-aaron.pgf origen-meeseeks.pgf nofission*.pgf
 
--include *.d
+# -include *.d
