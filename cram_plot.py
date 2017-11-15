@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 from transmutagen import get_CRAM_from_cache, t, plot_in_terminal
+from transmutagen.analysis import setup_matplotlib_rc
 
 from sympy import Poly, fraction, exp
 import matplotlib.pyplot as plt
@@ -9,9 +10,7 @@ prec = 200
 points = 1000
 
 def main():
-    from matplotlib import rcParams
-    rcParams['pgf.texsystem'] = 'pdflatex'
-    rcParams["text.usetex"] = True
+    setup_matplotlib_rc()
 
     expr = get_CRAM_from_cache(degree, prec)
 

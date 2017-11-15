@@ -4,6 +4,7 @@ from sympy import Float, log
 import matplotlib.pyplot as plt
 from matplotlib.ticker import FuncFormatter, Locator
 
+from transmutagen.analysis import setup_matplotlib_rc
 
 # Extracted from the log of
 # python -m transmutagen.cram 14 1000
@@ -27,9 +28,7 @@ degree = 14
 prec = 1000
 
 def generate_plot():
-    from matplotlib import rcParams
-    rcParams['pgf.texsystem'] = 'pdflatex'
-    rcParams["text.usetex"] = True
+    setup_matplotlib_rc()
 
     iteration = len(maxmins)
 
