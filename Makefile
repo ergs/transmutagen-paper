@@ -11,7 +11,7 @@ all: paper.pdf
 paper.pdf:
 
 %.pdf: %.tex
-	$(LATEXMK) -lualatex -interaction=nonstopmode -use-make $*
+	$(LATEXMK) -lualatex -interaction=nonstopmode -use-make -f $*
 
 origen-scopatz.pgf:
 	python -m transmutagen.analysis --origen --no-title --origen-results $(TRANSMUTAGEN_DATA)/scopatz_laptop_results_20170508.hdf5 --file origen-scopatz.pgf
