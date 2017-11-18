@@ -11,6 +11,19 @@ transmutation of an isolated unit mass of each nuclide may not be physically
 feasible, this provides a mathematical sanity check for different methods of
 computing $e^{-At}$.
 
+Mathematically, $A$ is a matrix where each non-diagonal entry is nonnegative,
+and each diagonal entry is the negative of the sum of the non-diagonal entries
+in its column, so that the columns of $A$ each sum to $0$. Note that if $A$ is
+a matrix with the property that every column sums to $0$, i.e.,
+$[1 \cdots 1] A = [0 \cdots 0]$ \todo{is there a name for these matrices?},
+then so is $A^n$ for every $n\geq 1$. This is because
+$[1 \cdots 1] A = [0 \cdots 0]$, so
+$[1 \ldots 1] A^n = [0 \cdots 0] A^{n-1} = [0\cdots 0]$.
+
+Consequently, using equation~\ref{eq:matrix-exponential},
+$[1 \cdots 1]e^{-At} = [1 \cdots 1] (I + -At + \frac{(-At)^2}{2} + \cdots) = [1\ldots
+1] + [0 \ldots 0] + [0 \ldots 0] + \cdots = [1\ldots 1]$. That is,
+the column of $e^{-At}$ all sum to $1$.
 
 \begin{figure}[!ht]
 \centering
