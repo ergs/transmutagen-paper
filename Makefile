@@ -7,17 +7,16 @@ LATEXMK_FLAGS =
 
 export PYTHONPATH := $(TRANSMUTAGEN):$(TRANSMUTAGEN)/py_solve:$(PYNE)/build
 
+all: paper.pdf
 
 .PHONY: continuous
-continuous: LATEXMK_FLAGS += "-pvc -view=none"
+continuous: LATEXMK_FLAGS += -pvc -view=none
 continuous: paper.pdf
-
-all: paper.pdf
 
 paper.pdf: origen-scopatz.pgf origen-aaron.pgf eigenvals_pwru50.pdf eigenvals_decay.pdf pusa-table-14.tex pusa-table-16.tex pusa-differences.pgf convergence-14-1000.pgf cram-plot.pgf nofission-pwru50-1-day.pgf nofission-pwru50-1-year.pgf nofission-pwru50-1000-years.pgf nofission-pwru50-1-million-years.pgf *.tex
 
 %.pdf: %.tex
-	$(LATEXMK) -lualatex -interaction=nonstopmode -use-make -f -pvc -view=none $*
+	$(LATEXMK) -lualatex -interaction=nonstopmode -use-make -f $(LATEXMK_FLAGS) $*
 
 origen-scopatz.pgf:
 	python -m transmutagen.analysis --origen --no-title --origen-results $(TRANSMUTAGEN_DATA)/scopatz_laptop_results_20170508.hdf5 --file origen-scopatz.pgf
