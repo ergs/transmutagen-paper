@@ -1,20 +1,3 @@
-Consider the function $e^{-t}$ on the interval $[0,\infty)$. Let
-$\pi_{k,k}\subset \mathbb{R}(t)$ be the set of rational functions $r_{k,k}(t)
-= p_k(t)/q_k(t)$, where $p_k(t), q_k(t)\in \mathbb{R}[t]$ are polynomials of
-degree at most $k$.
-
-Chebyshev Rational Approximation Method (CRAM)~\cite{ationneeded} approximation of degree $k$
-for $e^{-t}$ is the unique rational function $\hat{r}_{k,k}(t)$ such that
-\begin{equation}
-  \sup_{t\in[0, \infty)}|\hat{r}_{k, k}(t) - e^{-t}|
-\end{equation}
-is minimized. That is,
-\begin{equation}
-  \epsilon_{k,k} = \sup_{t\in[0, \infty)}|\hat{r}_{k, k}(t) - e^{-t}| = \inf_{r_{k,k}\in\pi_{k,k}}\left\{\sup_{t\in[0, \infty)}|r_{k, k}(t) - e^{-t}|\right\}.
-\end{equation}
-$\epsilon_{k,k}$ is the absolute error of the approximation. It has been shown
-that $\epsilon_{k,k} = O(H^{-k})$, where $H=9.289\ldots$~\cite{ationneeded}.
-
 Transmutagen implements the Remez algorithm to compute the CRAM approximation.
 All computations are performed using SymPy~\cite{10.7717/peerj-cs.103}
 symbolic expressions with arbitrary precision floating point numbers, which
