@@ -18,11 +18,10 @@ a matrix with the property that every column sums to $0$, i.e.,
 $[1 \cdots 1] A = [0 \cdots 0]$ \todo{is there a name for these matrices?},
 then so is $A^n$ for every $n\geq 1$. This is because
 $[1 \cdots 1] A = [0 \cdots 0]$, so
-$[1 \ldots 1] A^n = [0 \cdots 0] A^{n-1} = [0\cdots 0]$.
-
-Consequently, using equation~\ref{eq:matrix-exponential},
-$[1 \cdots 1]e^{-At} = [1 \cdots 1] (I + -At + \frac{(-At)^2}{2} + \cdots) = [1\ldots
-1] + [0 \ldots 0] + [0 \ldots 0] + \cdots = [1\ldots 1]$. That is,
+$[1 \ldots 1] A^n = [0 \cdots 0] A^{n-1} = [0\cdots 0]$. Consequently, using
+Equation~\ref{eq:matrix-exponential},
+$[1 \cdots 1]e^{-At} = [1 \cdots 1] (I + -At + \frac{(-At)^2}{2} + \cdots) =
+[1\ldots 1] + [0 \ldots 0] + [0 \ldots 0] + \cdots = [1\ldots 1]$. That is,
 the columns of $e^{-At}$ each sum to $1$.
 
 Figures~\ref{fig:nofission-pwru50-1-day}, \ref{fig:nofission-pwru50-1-year},
