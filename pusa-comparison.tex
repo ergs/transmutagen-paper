@@ -4,7 +4,7 @@ discrepancies were found. These discrepancies are summarized in
 Tables~\ref{table:pusa-degree-14} and~\ref{table:pusa-degree-16}.
 
 Two values, $\mathrm{re}(\alpha_5)$ and $\mathrm{re}(\alpha_7)$ of degree 16,
-differed within \texttt{double} machine floating point precision (each within
+differ within \texttt{double} machine floating point precision (each within
 one-bit). The values cause the approximations to differ by as much as
 $6\times10^{-19}$ (see Figure~\ref{fig:pusa-differences}).
 
@@ -55,7 +55,7 @@ equioscillation theorem, the error of the approximation equioscillates $2k$
 times in $(0, \infty)$, and additionally takes on the same value at
 $\infty$.\footnote{Recall from Section~\ref{sec:remez-algorithm} that on the
   translated interval $[-1, 1)$, there are $2(k+1)$ critical points of $D$,
-  $z_i$, which represent the error of the approximation, including
+  $z_i$, which represent the minimax error of the approximation, including
   $z_0 = D|_{t=-1}$ and $z_{2(k+1)}=\lim_{t\to 1}{D}$. When the approximation
   is translated from $[-1, 1)$ to $[0, \infty)$, the point $z_{2(k + 1)}$
   represents the ``error at $\infty$''. c.f.\ Figure~\ref{fig:cram-plot}.}
