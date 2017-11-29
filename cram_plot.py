@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 
 degree = 14
 prec = 200
-points = 1000
+points = 10000
 
 def main():
     setup_matplotlib_rc()
