@@ -3,25 +3,28 @@ All computations are performed using SymPy~\cite{10.7717/peerj-cs.103}
 symbolic expressions with arbitrary precision floating point numbers, which
 are backed by the mpmath library~\cite{ationneeded}.
 
-The interval $[0, \infty)$ is first translated to $[-1, 1)$ via the
-transformation $t\mapsto c\frac{t+1}{t-1}$. \todo{cite Carpenter paper here.}
-\todo{discuss this {\it after} discussing finding the roots.} The constant $c$
-is chosen so that the minimax roots of the approximation are distributed
-sufficiently evenly across the interval $[-1, 1)$. We found that the value
-$c=0.6k$ works well. Figure~\ref{fig:cram-plot} shows the error in the
-approximation for degree 14 for the shifted approximation on $[-1, 1)$ and the
-final translated approximation on $[0, \infty)$.
+To compute the CRAM approximation, the interval $[0, \infty)$ is first
+translated to $[-1, 1)$ via the transformation $t\mapsto c\frac{t+1}{t-1}$.
+\todo{cite Carpenter paper here.} \todo{discuss this {\it after} discussing
+  finding the roots.} This is done so that the maxima of the error at each
+stage are all on a bounded interval (see below). The constant $c$ is chosen so
+that these are distributed sufficiently evenly across the interval $[-1, 1)$.
+If they are clustered too much, the numeric root finding algorithm can have a
+difficult time finding them all. We found that the value $c=0.6k$ works well.
+To help visualize this, Figure~\ref{fig:cram-plot} shows the error in the
+shifted approximation on $[-1, 1)$ and the final translated approximation on
+$[0, \infty)$, for degree 14.
 
 \begin{figure}[!ht]
 \centering
 \resizebox{\textwidth}{!}{\input{cram-plot.pgf}}
 \caption{Left: plot of $\hat{r}_{14, 14}\left(c\frac{t+1}{t-1}\right) -
   e^{-c\frac{t+1}{t-1}}$; right: plot of $\hat{r}_{14, 14}(t) -
-e^{-t}$ ($c=0.6\cdot14$).}
+e^{-t}$ ($c=0.6\cdot14=8.4$).}
 \label{fig:cram-plot}
 \end{figure}
 
-The expressions
+In transmutagen's implementation of the Remez algorithm, the expressions
 \begin{equation}
   r := \frac{p_kt^k + \cdots + p_1t + p_0}{q_kt^k + \cdots +
     q_1t + 1},
@@ -33,36 +36,37 @@ and
 \begin{equation}
   E := D + (-1)^i\epsilon
 \end{equation}
-are represented symbolically as SymPy expressions. This expression $E$ is then
+are represented symbolically as SymPy expressions. The expression $E$ is then
 evaluated in $t$ at $2(k + 1)$ points in the interval $(-1, 1)$ for
 $i=0\ldots 2k+1$. For the first iteration of the algorithm, any set of initial
-points can be used. We used the Chebyshev nodes~\cite{ationneeded}, that is,
-the roots of $T_{2(k +1)}(x)$, which always lie in the interval
-$(-1, 1)$.\footnote{$T_n(x)$ is the $n$th Chebyshev polynomial of the first
-  kind, defined as $T_n(\cos(x)) = \cos(nx)$, e.g., $T_2(x) = 2x^2 - 1$. The
-  roots of $T_n(x)$ are
-  $\cos{\left (\frac{2k - 1}{n}\frac{\pi}{2} \right )},\,k=1\ldots n$.} We
-found that convergence can take more than twice as many steps when random
-initial points are used instead of the Chebyshev nodes. \todo{verify this.}
-This results in a nonlinear system of $2(k+1)$ equations in $2(k+1)$ variables
+points in $(-1, 1)$ can be used. By default, transmutagen uses the Chebyshev
+nodes~\cite{ationneeded}, that is, the roots of $T_{2(k +1)}(x)$, which always
+lie in the interval $(-1, 1)$.\footnote{$T_n(x)$ is the $n$th Chebyshev
+  polynomial of the first kind, defined as $T_n(\cos(x)) = \cos(nx)$, e.g.,
+  $T_2(x) = 2x^2 - 1$. The roots of $T_n(x)$ are
+  $\cos{\left (\frac{2k - 1}{n}\frac{\pi}{2} \right )},\,k=1\ldots n$.} It can
+also optionally use a random set of points. We found that convergence can take
+more than twice as many steps when random initial points are used instead of
+the Chebyshev nodes. \todo{verify this.} This evaluation of $E$ results in a
+nonlinear system of $2(k+1)$ equations in $2(k+1)$ variables
 ($p_0,\ldots,p_k,q_1,\ldots,q_k,\epsilon$). These are solved using the
 \texttt{sympy.nsolve} function, which internally uses \texttt{mpmath.findroot}
 to apply Newton's method~\cite{ationneeded} with a symbolically computed
 Jacobian.
 
 \label{sec:nsolve-bisection}
-The solution to this system is then substituted into $D$. The critical points
-of this function on the interval $[-1, 1)$ are then found. This is done by
-taking the symbolic derivative of $D$, splitting the interval into
+The solution to this system is then substituted into $D$, and the critical
+points of this function on the interval $[-1, 1)$ are then found. This is done
+by taking the symbolic derivative of $D$, splitting the interval into
 subintervals, and finding the roots on each subinterval using the bisection
 algorithm, via \texttt{nsolve}. Let $\{z_i\}$ be the set of critical points on
 $[-1, 1)$, including the end-points $D|_{t=-1}$ and
-$\lim_{t\to 1} D=-r|_{t=1}$. There are $2(k+1)$ points $\{z_i\}$. The points
+$\lim_{t\to 1} D=-r|_{t=1}$. There are $2(k+1)$ points $\{z_i\}$. These points
 $\{z_i\}$ are used as the set of initial points for the next iteration, and
 the algorithm iterates as such until convergence is reached.
 
-By the theory~\cite{ationneeded}, the approximation $\hat{r}_{k, k}$ is known
-to be minimal for a given order $k$ when the critical points of
+By the equioscillation theorem~\cite{ationneeded}, the approximation
+$\hat{r}_{k, k}$ is minimal for a given order $k$ when the critical points of
 $\hat{r}_{k, k}(t) - e^{-t}$ oscillate in sign and have equal absolute value.
 For the iterates of the algorithm, the points $z_i$ are these critical points
 of the current approximation, so convergence is detected by looking at
@@ -84,39 +88,37 @@ convergence of $\varepsilon_N$ for degree 14, 1000 digits of precision.
 \end{figure}
 
 Once the algorithm converges, the rational function is translated back to the
-interval $[0, \infty)$ via the inverse transformation $t\mapsto \frac{t - c}{t
-  + c}$. This must be done with care to avoid losing precision. For a
-polynomial $f$ and rational function $p/q$, the SymPy
-method \texttt{Poly.transform} efficiently computes
-$q^nf\left(p/q\right)$ without losing precision. The resulting
-rational function is normalized so that the constant term in the denominator
-is 1, which matches the form used in the literature.~\cite{ationneeded}
+interval $[0, \infty)$ via the inverse transformation
+$t\mapsto \frac{t - c}{t + c}$. This must be done with care to avoid losing
+precision. For a polynomial $f$ and rational function $p/q$, the SymPy method
+\texttt{Poly(f).\allowbreak{}transform(p, q)} efficiently computes
+$q^nf\left(p/q\right)$ without losing precision. The resulting rational
+function is normalized so that the constant term in the denominator is 1,
+which matches the form used in the literature.~\cite{ationneeded}
 
 The Remez algorithm is outlined in Algorithm~\ref{alg:remez-pseudocode} as pseudocode.
-
-% TODO: Figure out how to use \begin{algorithm} instead of \begin{figure}
 \begin{algorithm}
-  \caption{Remez algorithm for CRAM approximation of $e^{-t}$ on $[0, \infty)$
-  of degree $n$.}\label{alg:remez-pseudocode}
+  \caption{The Remez algorithm for the CRAM approximation of $e^{-t}$ on
+    $[0, \infty)$ of degree $k,k$.}\label{alg:remez-pseudocode}
   \begin{algorithmic}[1]
     \REQUIRE  $k$, the order of the approximation
-    \STATE \COMMENT{translate $[0, \infty)$ to $[-1, 1)$}
     \STATE $t, p_0, \ldots, p_k, q_1, \ldots, q_k, \epsilon$ are symbolic variables
     \STATE $r \leftarrow \frac{p_kt^k + \cdots + p_1t + p_0}{q_kt^k + \cdots +
       q_1t + 1}$
     \STATE $c \leftarrow 0.6k$
     \STATE $D \leftarrow e^{c\frac{t+1}{t-1}} - r$
-    \STATE $E_i \leftarrow D + (-1)^i\epsilon$
 
     \STATE $\{z_i\} \leftarrow$ Chebyshev nodes of order $2(k+1)$
     \STATE $N \leftarrow 1$
     \REPEAT
-      \STATE $E_i \leftarrow E|_{z_i}$
+      \FOR {$i=1$ to $2(k+1)$}
+        \STATE $E_i \leftarrow D|_{t=z_i} + (-1)^i\epsilon$
+      \ENDFOR
       \STATE $sol \leftarrow$ Solve $\{E_i\}$ for $(p_0,\ldots,p_k,q_1,\ldots,q_k,\epsilon)$
-      \STATE $z_0 \leftarrow D|_{t=-1}$
+      \STATE $z_0 \leftarrow D|_{sol,t=-1}$
       \STATE $z_i \leftarrow$ $i^\mathrm{th}$ critical point of $D|_{sol}$ on
       $(-1, 1)$ \COMMENT{$i=1\ldots 2n$}
-      \STATE $z_{2(k + 1)} \leftarrow -r|_{t=1}$ \COMMENT{$\lim_{t\to 1} D$}
+      \STATE $z_{2(k + 1)} \leftarrow -r|_{sol,t=1}$ \COMMENT{$\lim_{t\to 1} D|_{sol}$}
       \STATE $\varepsilon_N \leftarrow \max{|z_i|} - \min{|z_i|}$
       \STATE $N \leftarrow N + 1$
     \UNTIL {convergence condition: $\log_{10}(\varepsilon_N) \approx -d$ \AND
