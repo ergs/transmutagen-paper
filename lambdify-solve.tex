@@ -1,9 +1,15 @@
-Once the CRAM approximation of degree $k$, $\hat{r}_{k, k}(t)$ has been
-computed, it can be used to compute the matrix exponential $e^{-A}b$ by
-substituting the matrix $A$ for $t$ in the expression. Transmutagen has a
-Python class, \texttt{MatrixNumPyPrinter}, which subclasses and extends the
-\texttt{sympy.printing.lambdarepr.NumPyPrinter} class. This is used by
-\texttt{sympy.lambdify} to convert a SymPy expression to a string representing
+Once the CRAM approximation of degree $k$, $\hat{r}_{k, k}(t)$, has been
+computed, it can be used to compute the matrix exponential $e^{-A}b$ via
+Equation~\ref{eq:part-frac-matrix-re}. The simplest method to do this is to
+use SymPy's \texttt{lambdify} function. \texttt{lambdify} takes a SymPy
+expression and converts it to an equivalent Python function that evaluates in a
+numeric library such as NumPy or SciPy.
+
+However, by default, \texttt{lambdify} works with scalar expressions. To
+extend \texttt{lambdify} to work with matrices, transmutagen has a Python class,
+\texttt{MatrixNumPyPrinter}, which subclasses and extends the
+\texttt{sympy.\allowbreak{}printing.\allowbreak{}lambdarepr.\allowbreak{}NumPyPrinter} class. This is used by
+\texttt{lambdify} to convert a SymPy expression to a string representing
 an equivalent NumPy/SciPy~\cite{ationneeded} expression. The
 \texttt{NumPyPrinter} class by default deals with scalar expressions
 vectorized over arrays, and the \texttt{MatrixNumPyPrinter} class extends it
@@ -16,7 +22,22 @@ ensures that
 \item addition of a variable and a constant, such as $t + 2$, is represented
   by the addition of an identity matrix, $A + 2I$. Since the shape of the
   matrix is not known ahead of time, Transmutagen uses a special
-  \texttt{autoeye} class which automatically evaluates as \texttt{scipy.sparse.linalg.eye} at runtime when the shape is known.
-\item Divisions are represented by matrix solves, e.g., $\frac{2}{t - 1}b$
-  would be represented by \texttt{solve(A - autoeye(1), 2b)}.
+  \texttt{autoeye} class which automatically evaluates as
+  \texttt{scipy.\allowbreak{}sparse.\allowbreak{}linalg.\allowbreak{}eye} at
+  runtime when the shape is known.
+\item Divisions are represented by matrix solves.
 \end{itemize}
+
+For example, on the expression $\frac{t \left(t - 3\right)}{2 t + 1}$,
+\texttt{MatrixNumPyPrinter} produces the following:
+\begin{verbatim}
+>>> MatrixNumPyPrinter().doprint(t*(t - 3)/(2*t + 1))
+'solve(2*t + autoeye(1), t@(t + autoeye(-3)))'
+\end{verbatim}
+
+\texttt{lambdify} takes the CRAM expression and this class as a keyword
+argument to generate a Python function.
+
+The advantage of using \texttt{lambdify} and a special printer is that it
+allows to easily experiment with different forms of the CRAM expression (see
+Section~\ref{sec:cram-matrices}), as well as different sparse matrix backends.
