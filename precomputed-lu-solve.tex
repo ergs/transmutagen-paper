@@ -61,10 +61,9 @@ shown in Algorithm~\ref{alg:lu-pseudocode}.~\cite{ationneeded}
 Note that many steps of Algorithm~\ref{alg:lu-pseudocode} can be removed if an
 element of $LU$ is known to be 0. In particular,
 $LU_{j, k} \leftarrow LU_{j, k} - LU_{j, i}\cdot LU_{i, k}$
-(line~\ref{alg:lu-pseudocode-reduction-line} of
-Algorithm~\ref{alg:lu-pseudocode}) becomes $LU_{j, k} \leftarrow LU_{j, k}$, a
-no-op, if either $LU_{j, i}$ or $LU_{i, k}$ are 0. Similarly,
-$x_i \leftarrow x_i -LU_{i, j}\cdot x_j$
+(line~\ref{alg:lu-pseudocode-reduction-line}) becomes
+$LU_{j, k} \leftarrow LU_{j, k}$, a no-op, if either $LU_{j, i}$ or
+$LU_{i, k}$ are 0. Similarly, $x_i \leftarrow x_i -LU_{i, j}\cdot x_j$
 (lines~\ref{alg:lu-pseudocode-forward-substitution-line}
 and~\ref{alg:lu-pseudocode-backward-substitution-line}) becomes
 $x_i \leftarrow x_i$ if $LU_{i,j}$ is 0.
@@ -81,19 +80,20 @@ are also in the set. \todo{Show some figure(s) on what sorts of indices this
   adds.}
 \begin{algorithm}[h]
   \caption{Generate the set of nonzero entries of $LU$ given a set of nonzero
-    entries of $M$.}\label{alg:make-ijk}
+    entries of $M_{n,n}$.}\label{alg:make-ijk}
   \begin{algorithmic}[1]
   \REQUIRE $IJ=\{(i, j) | M_{i, j} \neq 0\}$
   \STATE $IJK \leftarrow \mathrm{copy}(IJ)$
-  \FOR{$i=1$ \TO $N$}
-      \FOR{$j=i+1$ \TO $N$}
+  \STATE
+  \FOR{$i=1$ \TO $n$}
+      \FOR{$j=i+1$ \TO $n$}
           \IF{$(j, i) \notin IJK$}
               \CONTINUE
           \ENDIF
           \STATE
-          \FOR{$k=i+1$ \TO $N$}
+          \FOR{$k=i+1$ \TO $n$}
               \IF{$(i, k) \in IJK$ \AND $(j, k) \notin IJK$}
-                   \STATE Add (j, k) to $IJK$
+                   \STATE Add $(j, k)$ to $IJK$
                \ENDIF
           \ENDFOR
       \ENDFOR
