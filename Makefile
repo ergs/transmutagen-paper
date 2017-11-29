@@ -13,7 +13,7 @@ all: paper.pdf
 continuous: LATEXMK_FLAGS += -pvc -view=none
 continuous: paper.pdf
 
-paper.pdf: origen-scopatz.pgf origen-aaron.pgf eigenvals_pwru50.pdf eigenvals_decay.pdf pusa-table-14.tex pusa-table-16.tex pusa-differences.pgf convergence-14-1000.pgf cram-plot.pgf nofission-pwru50-1-day.pgf nofission-pwru50-1-year.pgf nofission-pwru50-1000-years.pgf nofission-pwru50-1-million-years.pgf *.tex
+paper.pdf: origen-scopatz.pgf origen-aaron.pgf eigenvals_pwru50.pdf eigenvals_decay.pdf pusa-table-14.tex pusa-table-16.tex pusa-differences.pgf pusa-differences-errors-14.pgf pusa-differences-errors-16.pgf convergence-14-1000.pgf cram-plot.pgf nofission-pwru50-1-day.pgf nofission-pwru50-1-year.pgf nofission-pwru50-1000-years.pgf nofission-pwru50-1-million-years.pgf *.tex
 
 %.pdf: %.tex
 	$(LATEXMK) -lualatex -interaction=nonstopmode -use-make -f $(LATEXMK_FLAGS) $*
@@ -30,7 +30,7 @@ origen-meeseeks.pgf:
 eigenvals_pwru50.pdf eigenvals_decay.pdf:
 	python -m transmutagen.analysis --eigenvals --no-title --file eigenvals.pdf --pwru50-data=$(TRANSMUTAGEN)/data/pwru50_400000000000000.0.npz
 
-pusa-table-14.tex pusa-table-16.tex pusa-differences.pgf:
+pusa-table-14.tex pusa-table-16.tex pusa-differences.pgf pusa-differences-errors-14.pgf pusa-differences-errors-16.pgf:
 	python -m transmutagen.analysis --pusa-coeffs --file pusa-differences.pgf --latex pusa-table.tex
 
 convergence-14-1000.pgf: generate_convergence_plot.py
