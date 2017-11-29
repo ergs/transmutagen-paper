@@ -49,8 +49,8 @@ Coefficient & Values from~\cite{pusa2012correction} & Values computed by Transmu
 \label{fig:pusa-differences}
 \end{figure}
 
-From Equation~\ref{eq:part-frac}, we can see that
-$\lim_{t\to\infty}{\left|\hat{r}_{k,k} - e^{-t}\right|} = \alpha_0$. By the
+Let $D(t) = e^{-t} - \hat{r}_{k,k}(t)$. From Equation~\ref{eq:part-frac}, we can see that
+$\lim_{t\to\infty}{\left|D(t) \right|} = \alpha_0$. By the
 equioscillation theorem, the error of the approximation equioscillates $2k$
 times in $(0, \infty)$, and additionally takes on the same value at
 $\infty$.\footnote{Recall from Section~\ref{sec:remez-algorithm} that on the
@@ -63,15 +63,14 @@ What this means is that the computed value for $\alpha_0$ should correspond to
 the maximum absolute error of the approximation.
 
 This provides us with a method to test the validity of partial fraction
-coefficients. If a value of the difference $D(t) = e^{-t} - \hat{r}_{k,k}(t)$
-exceeds $\alpha_0$ in absolute value, the coefficients are inconsistent.
-Conversely, if the critical points of $D$, which can be found numerically via
-gradient descent or by numerically solving the symbolic derivative, correspond
-to $\alpha_0$, we can have a degree of confidence that the coefficients are
-correct.
+coefficients. If a value of the difference $D(t)$ exceeds $\alpha_0$ in
+absolute value, the coefficients are inconsistent. Conversely, if the critical
+points of $D(t)$, which can be found numerically via gradient descent or by
+numerically solving the symbolic derivative, are near $\alpha_0$, we can have
+a degree of confidence that the coefficients are correct.
 
 Using the subinterval method outlined in Section~\ref{sec:nsolve-bisection}
-above, we computed 24 and 27 critical points of $D$ on $[0, 100]$ for degrees
+above, we computed 24 and 27 critical points of $D(t)$ on $[0, 100]$ for degrees
 14 and 16, respectively. These points were then used as the initial points for
 \texttt{nsolve}, which internally uses \texttt{mpmath.findroot}'s secant
 solver, to solve $\frac{dD}{dt}=0$. This was done for the partial fraction
@@ -86,8 +85,9 @@ of $10^{-k}$ when using coefficients with $k$ digits.
 The results of this analysis are shown in
 Figures~\ref{fig:pusa-differences-errors-14}
 and~\ref{fig:pusa-differences-errors-16}. For the critical points computed,
-the transmutagen partial fraction coefficients produce an error closer to the
-respective $\alpha_0$ in each case. Note that the computed $\alpha_0$'s are the
+the transmutagen partial fraction coefficients produce an error closer to
+$\alpha_0$ in each case. In each case, the respective $\alpha_0$ was used,
+although it should be noted that the computed $\alpha_0$'s are the
 same for degree 16, and differ by only 1 in the least significant figure for
 degree 14 (see Tables~\ref{table:pusa-degree-14} and~\ref{table:pusa-degree-16}).
 
