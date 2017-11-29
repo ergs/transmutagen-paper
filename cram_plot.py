@@ -28,7 +28,7 @@ def main():
     fig, (ax1, ax2) = plt.subplots(1, 2, sharey=False)
     fig.set_size_inches(1.5*6.4, 1.5/2*4.8)
 
-    plot_in_terminal(rat_func - exp(-inv), (-1, 1), prec=prec, points=points,
+    plot_in_terminal(rat_func - exp(-inv), (-1, 1.01), prec=prec, points=points,
         axes=ax1)
     ax1.set_xlabel(r'$t$')
     ax1.set_ylabel(r'$\hat{r}_{14, 14}\left (c\frac{t+1}{t-1}\right ) - e^{-c\frac{t+1}{t-1}}$')
