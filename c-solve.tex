@@ -1,31 +1,32 @@
 The command \texttt{python -m transmutagen.gensolve} takes a given sparsity
-pattern for $A$ and generates a C function that solves
-$(A - \theta)x =\alpha b$ (a default sparsity pattern based on data from
-PyNE~\cite{ationneeded} is included with Transmutagen\todo{Discuss separate sparsity
-  pattern for ORIGEN nuclides}). Additional C functions
-are generated from the CRAM approximations of given orders (by default, 6, 8,
-10, 12, 14, 16, and 18, but any even order can be used), which compute
-$e^{-A}b$.
+pattern for $A$ and generates a C function that solves $(A - \theta)x =\alpha
+b$. Default sparsity patterns based on data from PyNE~\cite{ationneeded} and
+ORIGEN~\cite{ationneeded} are included with Transmutagen. C functions are
+generated from the CRAM approximations of given orders (by default, 6, 8, 10,
+12, 14, 16, and 18, but any even order can be used), which compute $e^{-A}b$
+using the generated solver.
 
 The command generates a C source file and header from a
 Jinja~\cite{ationneeded} template based on the pseudocode in
 Algorithm~\ref{alg:lu-pseudocode}. The source uses C99 complex numbers for the
 arithemetic. Each line that is known to be a no-op from the provided sparsity
 pattern is automatically removed. The resulting C source file is 12 MB with
-the default orders \todo{Update this for latest sparsity pattern}. Compilation
-of this file requires disabling most optimizations, as otherwise the compiler
-either does not finish or runs out of memory. However, certain compilation
-flags were found to speed up the performance of the algorithm, particularly
-flags to speed up complex number operations. By default, complex numbers in C
-are slow due to NaN checks, but these can be disabled to make the code
-faster. \todo{Better justification on why these can be disabled.} Through
-experimentation, we found the GCC flags \texttt{-O0 -fcx-fortran-rules
-  -fcx-limited-range -ftree-sra -ftree-ter -fexpensive-optimizations} provided
-speedups without adversely slowing down compile times. For Clang, we found the
-flags \texttt{-O0 --ffast-math}. \todo{Should we discuss Clang here, such as
-  how it is slower and doesn't seem to optimize complex numbers?}
-\todo{Some performance information here (compile times; timing with/without
-  optimizations). See also Section~\ref{sec:origen-speed}.}
+the default orders using the ORIGEN data sparsity pattern and 16 MB for the
+PyNE data sparsity pattern. Compilation of this file requires disabling most
+optimizations, as otherwise the compiler either does not finish or runs out of
+memory. However, certain compilation flags were found to speed up the
+performance of the algorithm while still allowing the compiler to finish,
+particularly flags to speed up complex number operations. Without
+optimizations, complex numbers in C are slow due to NaN checks, but these can
+be disabled to make the code faster. \todo{Better justification on why these
+can be disabled.} Through experimentation, we found the GCC flags \texttt{-O0
+-fcx-fortran-rules -fcx-limited-range -ftree-sra -ftree-ter
+-fexpensive-optimizations} provided speedups without adversely slowing down
+compile times. For Clang, we found the flags \texttt{-O0 --ffast-math}.
+\todo{Should we discuss Clang here, such as how it is slower and doesn't seem
+to optimize complex numbers?} \todo{Some performance information here (compile
+times; timing with/without optimizations). See also
+Section~\ref{sec:origen-speed}.}
 
 To make the method more accessible to nuclear scientists, the sparsity pattern
 input file is formatted as a JSON file with a list of nuclides in the order
