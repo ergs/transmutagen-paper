@@ -13,7 +13,7 @@ all: paper.pdf
 continuous: LATEXMK_FLAGS += -pvc -view=none
 continuous: paper.pdf
 
-paper.pdf: origen-scopatz.pgf origen-aaron.pgf eigenvals_pwru50.pdf eigenvals_decay.pdf pusa-table-14.tex pusa-table-16.tex pusa-differences.pgf pusa-differences-errors-14.pgf pusa-differences-errors-16.pgf convergence-14-1000.pgf cram-plot.pgf nofission-pwru50-1-day.pgf nofission-pwru50-1-year.pgf nofission-pwru50-1000-years.pgf nofission-pwru50-1-million-years.pgf *.tex
+paper.pdf: origen-scopatz.pgf origen-aaron.pgf eigenvals_pwru50.pdf eigenvals_decay.pdf pusa-table-14.tex pusa-table-16.tex pusa-differences.pgf pusa-differences-errors-14.pgf pusa-differences-errors-16.pgf convergence-14-1000.pgf cram-plot.pgf nofission-pwru50-1-day.pgf nofission-pwru50-1-year.pgf nofission-pwru50-1000-years.pgf nofission-pwru50-1-million-years.pgf *.tex paper.bib
 
 %.pdf: %.tex
 	$(LATEXMK) -lualatex -interaction=nonstopmode -use-make -f $(LATEXMK_FLAGS) $*
