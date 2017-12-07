@@ -1,0 +1,54 @@
+\begin{itemize}
+\item \it{Mass fraction vs. atom fraction}
+\item {\it Same data}
+\item $\alpha$ as He4
+\item Fission yields for actinides
+\item Cf248 not produced in 1 Month brwus
+\item More differences for larger time steps than 100 years
+\item \todo{Anthony will need to write this. See ORIGEN run logs in Google Drive}
+\end{itemize}
+
+As a more rigorous sanity check, the ORIGEN 2.2~\cite{ationneeded} library was
+compared against, for several time steps and starting nuclides. ORIGEN 2.2 was
+run against 22 ORIGEN libraries \todo{list the libraries?}, 7 time steps
+($t= 1$ second, 1 day, 1 month, 1 year, 10 years, 1000 years, and 1 million
+years), and 7 starting nuclides (Th232, U233, U235, U238, Pu239, Pu241, Cm245,
+Cf249), and the results were compared against CRAM using
+\texttt{sympy.\allowbreak{}lambdify} using UMFPACK,
+\texttt{sympy.\allowbreak{}lambdify} using SuperLU, and a C solver generated
+by transmutagen against the ORIGEN libraries' sparsity pattern.
+
+
+\it{From transmutagen's \texttt{compute\_mismatch}:}
+The default atol is 1e-5 because ORIGEN stops the taylor expansion with
+the error term exp(ASUM)*ASUM**n/n! (using Sterling's approximation),
+where n = 3.5*ASUM + 6 and ASUM is the max of the column sums. The max of
+the column sums is ~2 because of fission, giving ~1e-5 (see ORIGEN lines
+5075-5100)
+
+\todo{Which of Figures~\ref{fig:origen-scopatz},~\ref{fig:origen-aaron},~\ref{fig:origen-meeseeks} should we show here?}
+
+\todo{Pull in exact max/min data}
+\begin{figure}[!ht]
+\centering
+\resizebox{0.9\textwidth}{!}{\input{origen-scopatz.pgf}}
+\caption{Runtimes for different solvers computing transmutation over several starting libraries, nuclides, and timesteps.
+(Scopatz machine)}
+\label{fig:origen-scopatz}
+\end{figure}
+
+\begin{figure}[!ht]
+\centering
+\resizebox{0.9\textwidth}{!}{\input{origen-aaron.pgf}}
+\caption{Runtimes for different solvers computing transmutation over several starting libraries, nuclides, and timesteps.
+ (Aaron machine)}
+\label{fig:origen-aaron}
+\end{figure}
+
+\begin{figure}[!ht]
+\centering
+\resizebox{0.9\textwidth}{!}{\input{origen-meeseeks.pgf}}
+\caption{Runtimes for different solvers computing transmutation over several starting libraries, nuclides, and timesteps.
+ (Meeseeks)}
+\label{fig:origen-meeseeks}
+\end{figure}
