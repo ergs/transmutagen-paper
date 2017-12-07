@@ -28,6 +28,9 @@ runtime that is independent of the timestep. UMFPACK runs from 130\;ms to
 280\;ms, and SuperLU runs from 80\;ms to 150\;ms. The generated C solver runs
 from 30\;ms to 50\;ms. \todo{Should we report means or anything like that?}
 
+In addition to performance comparison, the runs were also used to compare the
+output of the four solvers.
+
 \it{From transmutagen's \texttt{compute\_mismatch}:}
 The default atol is 1e-5 because ORIGEN stops the taylor expansion with
 the error term exp(ASUM)*ASUM**n/n! (using Sterling's approximation),
