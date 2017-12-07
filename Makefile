@@ -2,10 +2,9 @@ LATEXMK = latexmk
 GOOGLE_DRIVE ?= $(HOME)/Google\ Drive/
 TRANSMUTAGEN_DATA ?= $(GOOGLE_DRIVE)/ERGS\ Private/transmutagen\ data/
 TRANSMUTAGEN ?= $(HOME)/Documents/transmutagen
-PYNE ?= $(HOME)/Documents/pyne
 LATEXMK_FLAGS =
 
-export PYTHONPATH := $(TRANSMUTAGEN):$(TRANSMUTAGEN)/py_solve:$(PYNE)/build
+export PYTHONPATH := $(TRANSMUTAGEN):$(TRANSMUTAGEN)/py_solve
 
 all: paper.pdf
 
