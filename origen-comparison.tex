@@ -18,6 +18,15 @@ Cf249), and the results were compared against CRAM using
 \texttt{sympy.\allowbreak{}lambdify} using SuperLU, and a C solver generated
 by transmutagen against the ORIGEN libraries' sparsity pattern.
 
+\todo{This is just describing Meeseeks for now.} The speed of these analyses is summarized in
+figures~\ref{fig:origen-scopatz},~\ref{fig:origen-aaron},
+and~\ref{fig:origen-meeseeks}. The performance of ORIGEN is dependent on the
+time step being computed. For small time steps (1 second to 1 year) ORIGEN
+takes from 0.5\;s to 1\;s to run. At larger time steps, it takes increasingly
+long---as long as 1110\;s at 1 million years. CRAM on the other hand, has a
+runtime that is independent of the timestep. UMFPACK runs from 130\;ms to
+280\;ms, and SuperLU runs from 80\;ms to 150\;ms. The generated C solver runs
+from 30\;ms to 50\;ms. \todo{Should we report means or anything like that?}
 
 \it{From transmutagen's \texttt{compute\_mismatch}:}
 The default atol is 1e-5 because ORIGEN stops the taylor expansion with
