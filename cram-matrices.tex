@@ -80,8 +80,9 @@ and compute
 However, this was found to be numerically unstable, most likely because of the
 additional matrix power. % TODO: verify this
 
-In transmutagen roots $\theta_i$ are computed with \texttt{sympy.nsolve} using Newton's
-method.
-\todo{Some discussion on the number of digits needed for the roots here.} The
-residues $\alpha_i$ were computed from the standard formulas  $\alpha_i =
-\frac{p}{q/(t - \theta_i)}|_{t=\theta_i}$ and $\alpha_0=\frac{p_k}{q_k}$.
+In transmutagen roots $\theta_i$ are computed with
+\texttt{sympy.\allowbreak{}nsolve} using Newton's method. \todo{Some
+  discussion on the number of digits needed for the roots here.} The residues
+$\alpha_i$ were computed from the standard formulas
+$\alpha_i = \frac{p}{q/(t - \theta_i)}|_{t=\theta_i}$ and
+$\alpha_0=\frac{p_k}{q_k}$.
