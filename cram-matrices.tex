@@ -7,10 +7,15 @@ as~\cite{ationneeded}
 
 The CRAM approximation to $e^{-x}$ can be applied to approximate the matrix
 exponential when the matrix $A$ has eigenvalues on or near the negative real
-axis~\cite{pusa2010computing}. This applies to transmutation and, to a lesser
-extent, decay matrices (see Figures~\ref{fig:eigenvals-pwru50} and
-\ref{fig:eigenvals-decay}). \todo{Show plot of accuracy of CRAM in complex
-  plane. Figure~\ref{fig:error-plot}}
+axis~\cite{pusa2010computing}. This is because the exponential of a matrix is based on the exponentials of
+its eigenvalues. The error of the CRAM approximation for degree 14 in the
+complex plane is shown in Figure~\ref{fig:error-plot}.
+
+Comparing Figure~\ref{fig:error-plot} with Figures~\ref{fig:eigenvals-pwru50}
+and~\ref{fig:eigenvals-decay}, it can be seen that CRAM should provide an
+accurate approximation for transmutation matrices, but not for decay matrices.
+Since
+
 
 \begin{figure}[!ht]
 \centering
