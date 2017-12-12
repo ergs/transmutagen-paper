@@ -32,14 +32,29 @@ runtime that is independent of the timestep. UMFPACK runs from 130\;ms to
 from 30\;ms to 50\;ms. \todo{Should we report means or anything like that?}
 
 In addition to performance comparison, the runs were also used to compare the
-output of the four solvers.
+output of the four solvers. A large number of discrepancies were found for the
+larger timesteps. However, according to the ORIGEN manual, ORIGEN is only
+designed to give accurate values for time steps less than 100
+days~\cite{ationneeded}.
 
-\it{From transmutagen's \texttt{compute\_mismatch}:}
-The default atol is 1e-5 because ORIGEN stops the taylor expansion with
-the error term exp(ASUM)*ASUM**n/n! (using Sterling's approximation),
-where n = 3.5*ASUM + 6 and ASUM is the max of the column sums. The max of
-the column sums is ~2 because of fission, giving ~1e-5 (see ORIGEN lines
-5075-5100)
+All comparisons against the computed values were done with an absolute
+tolerance of $10^{-5}$ and a relative tolerance of $10^{-3}$.\footnote{Using
+  \texttt{numpy.\allowbreak{}allclose}, which compares $|actual -
+  desired|$ to $atol + rtol|desired|$,
+  where $actual$ is the value computed by CRAM and $desired$ is the
+  value computed by ORIGEN.} The relative tolerance was chosen because ORIGEN
+produces 4 digits of output. The absolute tolerance was chosen ORIGEN computes
+the matrix exponential $e^{-A}$ using a Taylor expansion method using the error term
+$\frac{e^{\mathrm{ASUM}}\mathrm{ASUM}^n}{n!}$,\footnote{ORIGEN computes this using
+    Sterling's approximation, i.e.,
+    $\frac{e^{\mathrm{ASUM}}(\frac{\mathrm{ASUM}e}{n})^n}{\sqrt{2\pi
+      n}}$. c.f. lines 5075-5100 of the ORIGEN 2.2 source code.} where
+$\mathrm{ASUM}$ is the maximum of the column sums of the matrix $A$ and $n =
+3.5\mathrm{ASUM} + 6$. Due to fission,\todo{Write more here} the maximum
+column sum is $\approx 2$, giving $\frac{e^{2}2^{13}}{13!}\approx 10^{-5}$.
+
+For the 1 second, 1 day, and 1 month time steps,
+
 
 \todo{Which of Figures~\ref{fig:origen-scopatz},~\ref{fig:origen-aaron},~\ref{fig:origen-meeseeks} should we show here?}
 
