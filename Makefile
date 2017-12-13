@@ -12,7 +12,7 @@ all: paper.pdf
 continuous: LATEXMK_FLAGS += -pvc -view=none
 continuous: paper.pdf
 
-paper.pdf: origen-scopatz.pgf origen-aaron.pgf eigenvals_pwru50.pdf eigenvals_decay.pdf pusa-table-14.tex pusa-table-16.tex pusa-differences.pgf pusa-differences-errors-14.pgf pusa-differences-errors-16.pgf convergence-14-1000.pgf cram-plot.pdf error-plot.pgf nofission-pwru50-1-day.pgf nofission-pwru50-1-year.pgf nofission-pwru50-1000-years.pgf nofission-pwru50-1-million-years.pgf *.tex paper.bib
+paper.pdf: origen-scopatz.pgf origen-aaron.pgf eigenvals_pwru50.pdf eigenvals_decay.pdf pusa-table-14.tex pusa-table-16.tex pusa-differences.pgf pusa-differences-errors-14.pgf pusa-differences-errors-16.pgf convergence-14-1000.pgf cram-plot.pgf error-plot.pdf nofission-pwru50-1-day.pgf nofission-pwru50-1-year.pgf nofission-pwru50-1000-years.pgf nofission-pwru50-1-million-years.pgf *.tex paper.bib
 
 %.pdf: %.tex
 	$(LATEXMK) -lualatex -interaction=nonstopmode -use-make -f $(LATEXMK_FLAGS) $*
@@ -35,10 +35,10 @@ pusa-table-14.tex pusa-table-16.tex pusa-differences.pgf pusa-differences-errors
 convergence-14-1000.pgf: generate_convergence_plot.py
 	python generate_convergence_plot.py
 
-cram-plot.pdf: cram_plot.py
+cram-plot.pgf: cram_plot.py
 	python cram_plot.py
 
-error-plot.pgf: error_plot.py
+error-plot.pdf: error_plot.py
 	python error_plot.py
 
 nofission-pwru50-1-day.pgf nofission-pwru50-1-year.pgf nofission-pwru50-1000-years.pgf nofission-pwru50-1-million-years.pgf:
@@ -48,4 +48,4 @@ nofission-pwru50-1-day.pgf nofission-pwru50-1-year.pgf nofission-pwru50-1000-yea
 clean:
 	$(LATEXMK) -C
 	-rm -rf *.ps *.log *.dvi *.aux *.*% *.lof *.lop *.lot *.toc *.idx *.ilg *.ind *.bbl *.blg *.cpt *-diff.tex *.out *.d
-	-rm -rf origen-*.pdf eigenvals_*.pdf convergence-14-1000.pgf pusa-differences.pgf origen-scopatz.pgf origen-aaron.pgf origen-meeseeks.pgf nofission*.pgf
+	-rm -rf origen-*.pdf eigenvals_*.pdf convergence-14-1000.pgf pusa-differences.pgf origen-scopatz.pgf origen-aaron.pgf origen-meeseeks.pgf nofission*.pgf cram-plot.pgf error-plot.pdf
