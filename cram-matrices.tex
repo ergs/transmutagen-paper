@@ -11,6 +11,12 @@ axis~\cite{pusa2010computing}. This is because the exponential of a matrix is ba
 its eigenvalues. The error of the CRAM approximation for degree 14 in the
 complex plane is shown in Figure~\ref{fig:error-plot}.
 
+In our tests, when using CRAM to compute transmutation with machine double
+floating point arithmetic, the absolute error was bounded at around
+$10^{-14}$ even for degrees higher than 14. For this reason, we have used
+degree 14 for all the computations. \todo{Can/should we show something
+  more here to demonstrate this?}
+
 Comparing Figure~\ref{fig:error-plot} with Figures~\ref{fig:eigenvals-pwru50}
 and~\ref{fig:eigenvals-decay}, it can be seen that CRAM should provide an
 accurate approximation for transmutation matrices, but not for decay matrices.
