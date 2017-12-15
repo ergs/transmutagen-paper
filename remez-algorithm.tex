@@ -11,6 +11,10 @@ stage are all on a bounded interval (see below). The constant $c$ is chosen so
 that these are distributed sufficiently evenly across the interval $[-1, 1)$.
 If they are clustered too much, the numeric root finding algorithm can have a
 difficult time finding them all. We found that the value $c=0.6k$ works well.
+% TODO: Should c be
+% tn = cos(2*(n - 1)/n*pi/2)
+% c = nsolve((1 + tn)/(1 - tn)*((1 + tn)/(1 - tn)).subs(n, n - 1) - 1, 0.6)
+% See Page 393 of Carpenter, Ruttan, and Varga paper
 To help visualize this, Figure~\ref{fig:cram-plot} shows the error in the
 shifted approximation on $[-1, 1)$ and the final translated approximation on
 $[0, \infty)$, for degree 14.
