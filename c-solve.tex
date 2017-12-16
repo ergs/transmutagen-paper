@@ -8,7 +8,7 @@ using the generated solver.
 
 The command generates a C source file and header from a
 Jinja~\cite{ationneeded} template based on the pseudocode in
-Algorithm~\ref{alg:lu-pseudocode}. The source uses C99 complex numbers for the
+Algorithm~\ref{alg:lu-pseudocode}. The code uses C99 complex numbers for the
 arithemetic. Each line that is known to be a no-op from the provided sparsity
 pattern is automatically removed. The resulting C source file is 12 MB with
 the default orders using the ORIGEN data sparsity pattern and 16 MB for the
@@ -22,14 +22,13 @@ be disabled to make the code faster. \todo{Better justification on why these
 can be disabled.} Through experimentation, we found the GCC flags \texttt{-O0
 -fcx-fortran-rules -fcx-limited-range -ftree-sra -ftree-ter
 -fexpensive-optimizations} provided speedups without adversely slowing down
-compile times. For Clang, we found the flags \texttt{-O0 --ffast-math}.
-\todo{Should we discuss Clang here, such as how it is slower and doesn't seem
-to optimize complex numbers?} \todo{Some performance information here (compile
-times; timing with/without optimizations). See also
-Section~\ref{sec:origen-speed}.}
+compile times. In fact, with these flags, the compilation times are around
+$6\times$ faster than \texttt{-O0} alone, and the resulting code runs
+$2\times$ faster. The performance of this method compared to
+\texttt{scipy.\allowbreak{}sparse} solvers is outlined in
+Section~\ref{sec:origen-comparison}.
 
 To make the method more accessible to nuclear scientists, the sparsity pattern
 input file is formatted as a JSON file with a list of nuclides in the order
 they appear in the matrix, and a list of from--to pairs of transitions between
-nuclides that may be represented in the input matrix $A$. The performance of
-this method is outlined in Section~\ref{sec:origen-speed}.
+nuclides that may be represented in the input matrix $A$.
