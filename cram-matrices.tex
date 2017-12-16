@@ -16,12 +16,6 @@ even for degrees higher than 14. Figure~\ref{fig:degrees} shows how the error
 levels off at around degree 16 for a transmutation computation against varying
 timesteps. The error in general is higher for higher time steps. This is
 because multiplying a matrix $A$ by $t$ scales the spectrum of $A$ by $t$.
-This is particularly and issue for eigenvalues with nonnegative real parts,
-which, when small, result in small error but when large can produce enormous
-error. See Figure~\ref{fig:error-plot}. It can also be an issue for imaginary
-eigenvalues. In short, the CRAM approximation by construction only has minimal
-error on the negative real axis. The error stays small near the negative real
-axis but increases away from it.
 
 \begin{figure}[!ht]
 \centering
