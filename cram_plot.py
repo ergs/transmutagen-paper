@@ -5,7 +5,7 @@ from transmutagen.analysis import setup_matplotlib_rc
 from sympy import Poly, fraction, exp
 import matplotlib.pyplot as plt
 
-degree = 14
+degree = 16
 prec = 200
 points = 10000
 
