@@ -6,20 +6,20 @@ from sympy import exp, lambdify
 from transmutagen import get_CRAM_from_cache, t
 from transmutagen.analysis import setup_matplotlib_rc
 
-degree = 16
+degree = 14
 
 xlims = [-20, 6]
-ylims = [-3, 3]
+ylims = [-5, 5]
 
-levels = np.arange(-18, 7, 2)
+levels = np.arange(-16, 7, 2)
 
 def main():
     setup_matplotlib_rc()
 
     expr = get_CRAM_from_cache(degree, 200)
     f = lambdify(t, abs(expr - exp(-t)), 'numpy')
-    x = np.linspace(*xlims, 2000)
-    y = np.linspace(*ylims, 2000)
+    x = np.linspace(*xlims, 1000)
+    y = np.linspace(*ylims, 1000)
     xx, yy = np.meshgrid(x, y)
     z = f(-(xx + yy*1j))
     plt.clf()
