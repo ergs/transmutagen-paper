@@ -76,8 +76,8 @@ recursively compute a set of nonzero indices for $LU$. The pseudocode for this
 algorithm is shown in Algorithm~\ref{alg:make-ijk}. The idea is to mirror the
 decomposition loop from Algorithm~\ref{alg:lu-pseudocode}, adding new index
 pairs to the set of nonzero indices $IJK$ whenever both $(j, i)$ and $(i, k)$
-are also in the set. \todo{Show some figure(s) on what sorts of indices this
-  adds.}
+are also in the set.
+
 \begin{algorithm}[h]
   \caption{Generate the set of nonzero entries of $LU$ given a set of nonzero
     entries of $M_{n,n}$.}\label{alg:make-ijk}
@@ -115,3 +115,23 @@ Additionally, the roots of the denominators of the CRAM approximations
 so the solve of Equation~\ref{eq:basic-matrix-solve} is never degenerate, that
 is, the divisions by $LU_{i,i}$ in the solve stage
 (line~\ref{alg:lu-pseudocode-solve-division}) is never by zero.
+
+Because no pivoting is done in the precomputed LU solve, the order of the
+entries in the matrix is important for efficiency. The most obvious way to
+order matrix entries is to order the nuclides by the charge of the nucleus
+(atomic number) followed by atomic mass number and state number
+(ZAS)~\cite{ationneeded}. However, a much more efficient order is to order by
+atomic mass number followed by the charge of the nucleus and state number
+(CINDER). The sparsity pattern generated from the PyNE data has 35256
+nonzero entries, including the diagonals. Using the ZAS ordering, an
+additional 20194 zero entries must be considered for the LU solve, whereas for
+the CINDER ordering, only 14082 additional entries must be considered, a
+reduction of 17.3\%. See figure~\ref{fig:lu-solve-ordering}.
+
+\begin{figure}[!ht]
+\centering
+\resizebox{0.9\textwidth}{!}{\input{lu-solve-ordering.pgf}}
+\caption{A subset of the transmutation matrix sparsity pattern from PyNE data
+  with ZAS ordering (left) and Cinder ordering (Right).}
+\label{fig:lu-solve-ordering}
+\end{figure}
