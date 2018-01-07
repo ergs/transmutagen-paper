@@ -126,7 +126,8 @@ atomic mass number followed by the charge of the nucleus and state number
 nonzero entries, including the diagonals. Using the ZAS ordering, an
 additional 20194 zero entries must be considered for the LU solve, whereas for
 the CINDER ordering, only 14082 additional entries must be considered, a
-reduction of 17.3\%. See figure~\ref{fig:lu-solve-ordering}.
+reduction of 17.3\%. This is primarily because the CINDER ordering results in
+entries that are closer to the diagonal. See figure~\ref{fig:lu-solve-ordering}.
 
 \begin{figure}[!ht]
 \centering
