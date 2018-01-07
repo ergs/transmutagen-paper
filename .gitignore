@@ -14,7 +14,7 @@ pusa-table-16.tex
 cram-plot.pgf
 error-plot.pdf
 degrees.pgf
-lu-solve-ordering.pgf
+lu-solve-ordering.pdf
 
 .ipynb_checkpoints/
 __pycache__/
