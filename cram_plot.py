@@ -2,7 +2,7 @@
 from transmutagen import get_CRAM_from_cache, t, plot_in_terminal
 from transmutagen.analysis import setup_matplotlib_rc
 
-from sympy import Poly, fraction, exp
+from sympy import Poly, fraction, exp, GoldenRatio
 import matplotlib.pyplot as plt
 
 degree = 14
@@ -14,7 +14,7 @@ def main():
 
     expr = get_CRAM_from_cache(degree, prec)
 
-    c = 0.6*degree
+    c = 1/GoldenRatio.evalf()*degree
 
     # Get the translated approximation on [-1, 1]. This is similar logic from CRAM_exp().
     n, d = map(Poly, fraction(expr))

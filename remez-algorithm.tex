@@ -9,12 +9,12 @@ translated to $[-1, 1)$ via the transformation $t\mapsto c\frac{t+1}{t-1}$.
   finding the roots.} This is done so that the maxima of the error at each
 stage are all on a bounded interval (see below). The constant $c$ is chosen so
 that these are distributed sufficiently evenly across the interval $[-1, 1)$.
-If they are clustered too much, the numeric root finding algorithm can have a
-difficult time finding them all. We found that the value $c=0.6k$ works well.
-% TODO: Should c be
-% tn = cos(2*(n - 1)/n*pi/2)
-% c = nsolve((1 + tn)/(1 - tn)*((1 + tn)/(1 - tn)).subs(n, n - 1) - 1, 0.6)
-% See Page 393 of Carpenter, Ruttan, and Varga paper
+If they are clustered too much, the numeric root finding algorithm may fail to
+find them all. We found that the value $c=k/\phi$, where $\phi=1.618\ldots$ is
+the golden ratio, works well. The exact value of $c$ does not affect the final
+result on $[0, \infty)$, but deviations from this heuristic resulted in issues
+in the root finding stage for large degrees.
+
 To help visualize this, Figure~\ref{fig:cram-plot} shows the error in the
 shifted approximation on $[-1, 1)$ and the final translated approximation on
 $[0, \infty)$, for degree 14.
@@ -24,7 +24,7 @@ $[0, \infty)$, for degree 14.
 \resizebox{\textwidth}{!}{\input{cram-plot.pgf}}
 \caption{Left: plot of $\hat{r}_{14, 14}\left(c\frac{t+1}{t-1}\right) -
   e^{-c\frac{t+1}{t-1}}$; right: plot of $\hat{r}_{14, 14}(t) -
-e^{-t}$ ($c=0.6\cdot14=8.4$).}
+e^{-t}$ ($c=\frac{14}{\phi}\approx 8.652$).}
 \label{fig:cram-plot}
 \end{figure}
 
@@ -109,7 +109,7 @@ The Remez algorithm is outlined in Algorithm~\ref{alg:remez-pseudocode} as pseud
     \STATE $t, p_0, \ldots, p_k, q_1, \ldots, q_k, \epsilon$ are symbolic variables
     \STATE $r \leftarrow \frac{p_kt^k + \cdots + p_1t + p_0}{q_kt^k + \cdots +
       q_1t + 1}$
-    \STATE $c \leftarrow 0.6k$
+    \STATE $c \leftarrow \frac{k}{\phi}$
     \STATE $D \leftarrow e^{c\frac{t+1}{t-1}} - r$
 
     \STATE $\{z_i\} \leftarrow$ Chebyshev nodes of order $2(k+1)$
