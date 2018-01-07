@@ -50,8 +50,8 @@ lie in the interval $(-1, 1)$.\footnote{$T_n(x)$ is the $n$th Chebyshev
   $T_2(x) = 2x^2 - 1$. The roots of $T_n(x)$ are
   $\cos{\left (\frac{2k - 1}{n}\frac{\pi}{2} \right )},\,k=1\ldots n$.} It can
 also optionally use a random set of points. We found that convergence can take
-more than twice as many steps when random initial points are used instead of
-the Chebyshev nodes. \todo{verify this.} This evaluation of $E$ results in a
+as much as 50\% more steps when random initial points are used instead of the
+Chebyshev nodes. This evaluation of $E$ results in a
 nonlinear system of $2(k+1)$ equations in $2(k+1)$ variables
 ($p_0,\ldots,p_k,q_1,\ldots,q_k,\epsilon$). These are solved using the
 \texttt{sympy.nsolve} function, which internally uses \texttt{mpmath.findroot}
