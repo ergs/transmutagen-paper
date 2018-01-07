@@ -122,12 +122,13 @@ order matrix entries is to order the nuclides by the charge of the nucleus
 (atomic number) followed by atomic mass number and state number
 (ZAS)~\cite{ationneeded}. However, a much more efficient order is to order by
 atomic mass number followed by the charge of the nucleus and state number
-(CINDER). The sparsity pattern generated from the PyNE data has 35256
-nonzero entries, including the diagonals. Using the ZAS ordering, an
-additional 20194 zero entries must be considered for the LU solve, whereas for
-the CINDER ordering, only 14082 additional entries must be considered, a
-reduction of 17.3\%. This is primarily because the CINDER ordering results in
-entries that are closer to the diagonal. See figure~\ref{fig:lu-solve-ordering}.
+(CINDER). The sparsity pattern generated from the PyNE data has 35256 nonzero
+entries, including the diagonals. Using the ZAS ordering, an additional 20194
+zero entries must be considered for the LU solve, whereas for the CINDER
+ordering, only 14082 additional entries must be considered. This is primarily
+because the CINDER ordering results in entries that are closer to the
+diagonal. The CINDER ordering directly correlates to a $1.2\times$ speedup
+over ZAS in the precomputed LU solve. See Figure~\ref{fig:lu-solve-ordering}.
 
 \begin{figure}[!ht]
 \centering
