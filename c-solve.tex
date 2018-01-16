@@ -18,8 +18,7 @@ memory. However, certain compilation flags were found to speed up the
 performance of the algorithm while still allowing the compiler to finish,
 particularly flags to speed up complex number operations. Without
 optimizations, complex numbers in C are slow due to NaN checks, but these can
-be disabled to make the code faster. \todo{Better justification on why these
-can be disabled.} Through experimentation, we found the GCC flags \texttt{-O0
+be disabled to make the code faster. Through experimentation, we found the GCC flags \texttt{-O0
 -fcx-fortran-rules -fcx-limited-range -ftree-sra -ftree-ter
 -fexpensive-optimizations} provided speedups without adversely slowing down
 compile times. In fact, with these flags, the compilation times are around
