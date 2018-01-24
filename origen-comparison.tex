@@ -1,16 +1,3 @@
-\begin{itemize}
-\item \it{Mass fraction vs. atom fraction}
-\item {\it Same data}
-\item $\alpha$ as He4
-\item Fission yields for actinides
-\item Cf248 not produced in 1 Month brwu, brwus, pwrdu3th, pwrputh, pwru,
-  pwru50, pwrue, pwrus
-\item More differences for larger time steps than 100 days
-\item The C solver and SuperLU agree to within 1e-12
-\item UMFPACK agrees to within 1e-8
-\item \todo{Anthony will need to write this. See ORIGEN run logs in Google Drive}
-\end{itemize}
-
 As a more rigorous sanity check, the ORIGEN 2.2~\cite{ationneeded} library was
 compared against for several time steps and starting nuclides. ORIGEN 2.2 was
 run against 22 ORIGEN libraries (\texttt{amo0tttr.\allowbreak{}lib},
@@ -40,17 +27,50 @@ were added to the matrix to represent $\alpha$ as a He4 production. This
 resulted in 236 additional nonzero matrix entries, for a total of 12381, which
 translated to an additional 226 nonzero entries that needed to be considered
 for the generated C solver, for a total of 16256 (see
-Section~\ref{sec:precomputed-lu-solve}).
+Section~\ref{sec:precomputed-lu-solve}). \todo{Discuss mass fraction vs. atom
+  fraction.}
 
-\todo{This is just describing Meeseeks for now.} The speed of these analyses is summarized in
-Figures~\ref{fig:origen-scopatz},~\ref{fig:origen-aaron},
-and~\ref{fig:origen-meeseeks}. The performance of ORIGEN is dependent on the
-time step being computed. For small time steps (1 second to 1 year) ORIGEN
-takes from 0.5\;s to 1\;s to run. At larger time steps, it takes increasingly
-long---as long as 1110\;s at 1 million years. CRAM on the other hand, has a
-runtime that is independent of the timestep. UMFPACK runs from 130\;ms to
-280\;ms, and SuperLU runs from 80\;ms to 150\;ms. The generated C solver runs
-from 30\;ms to 50\;ms. \todo{Should we report means or anything like that?}
+The computations were run on a 2.2 GHz Dual Core AMD Opteron Processor 275
+with 4 GB of RAM running in a Docker container with Debian 8, % meeseeks01
+and a Mid 2012 MacbookPro with a 2.3 GHz Intel Core i7 and 8 GB 1600 MHz DDR3
+RAM running macOS 10.11. % Aaron laptop
+The speed of these analyses is summarized in Figures~\ref{fig:origen-meeseeks}
+and~\ref{fig:origen-aaron}. The performance of ORIGEN is dependent on the time
+step being computed. In the AMD Opteron runs, for small time steps (1 second
+to 1 year) ORIGEN takes from 0.5\;s to 1\;s to run. At larger time steps, it
+takes increasingly long---as long as 1110\;s at 1 million years. CRAM on the
+other hand, has a runtime that is independent of the timestep. UMFPACK runs
+from 130\;ms to 280\;ms, and SuperLU runs from 80\;ms to 150\;ms. The
+generated C solver runs from 30\;ms to 50\;ms. On the MacBook Pro runs, the
+results are similar, with absolute times being lower due to it being a faster
+machine. The most notable difference is that on Linux, SuperLU is
+significantly slower than UMFPACK (by about $1.5\times$), whereas on macOS
+they are roughly the same, with UMFPACK perhaps being slightly faster.
+
+% \begin{figure}[!ht]
+% \centering
+% \resizebox{0.9\textwidth}{!}{\input{origen-scopatz.pgf}}
+% \caption{Runtimes for different solvers computing transmutation over several starting libraries, nuclides, and timesteps.
+% (Scopatz machine)}
+% \label{fig:origen-scopatz}
+% \end{figure}
+
+% Aaron's Mac: Mid 2012 MacbookPro, 2.3 GHz Intel Core i7, 8 GB 1600 MHz DDR3
+\begin{figure}[!ht]
+\centering
+\resizebox{0.9\textwidth}{!}{\input{origen-aaron.pgf}}
+\caption{Runtimes for different solvers computing transmutation over several starting libraries, nuclides, and timesteps.
+ (MacBook Pro)}
+\label{fig:origen-aaron}
+\end{figure}
+
+\begin{figure}[!ht]
+\centering
+\resizebox{0.9\textwidth}{!}{\input{origen-meeseeks.pgf}}
+\caption{Runtimes for different solvers computing transmutation over several starting libraries, nuclides, and timesteps.
+ (AMD Opteron)}
+\label{fig:origen-meeseeks}
+\end{figure}
 
 In addition to performance comparison, the runs were also used to compare the
 output of the four solvers. A large number of discrepancies were found for the
@@ -93,32 +113,3 @@ value and ORIGEN did not. Furthermore, for these time steps, there were no
 instances here the He4 values were not within the specified tolerances for the
 ORIGEN atom fraction output, suggesting that the $\alpha$ as He4 production
 accurately simulates ORIGEN's behavior.
-
-
-\todo{Which of Figures~\ref{fig:origen-scopatz},~\ref{fig:origen-aaron},~\ref{fig:origen-meeseeks} should we show here?}
-
-\todo{Pull in exact max/min data}
-\begin{figure}[!ht]
-\centering
-\resizebox{0.9\textwidth}{!}{\input{origen-scopatz.pgf}}
-\caption{Runtimes for different solvers computing transmutation over several starting libraries, nuclides, and timesteps.
-(Scopatz machine)}
-\label{fig:origen-scopatz}
-\end{figure}
-
-% Aaron's Mac: Mid 2012 MacbookPro, 2.3 GHz Intel Core i7, 8 GB 1600 MHz DDR3
-\begin{figure}[!ht]
-\centering
-\resizebox{0.9\textwidth}{!}{\input{origen-aaron.pgf}}
-\caption{Runtimes for different solvers computing transmutation over several starting libraries, nuclides, and timesteps.
- (Aaron machine)}
-\label{fig:origen-aaron}
-\end{figure}
-
-\begin{figure}[!ht]
-\centering
-\resizebox{0.9\textwidth}{!}{\input{origen-meeseeks.pgf}}
-\caption{Runtimes for different solvers computing transmutation over several starting libraries, nuclides, and timesteps.
- (Meeseeks)}
-\label{fig:origen-meeseeks}
-\end{figure}
