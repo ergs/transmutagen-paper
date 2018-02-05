@@ -38,8 +38,9 @@ def main():
     plt.xlabel('real axis')
     plt.ylabel('imaginary axis')
 
+    plt.tight_layout()
     # TODO: Why won't pgf work?
-    plt.savefig('error-plot.pdf')
+    plt.savefig('error-plot.pdf', bbox_inches='tight')
 
 if __name__ == '__main__':
     main()
