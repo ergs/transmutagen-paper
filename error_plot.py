@@ -35,8 +35,8 @@ def main():
         format=r'$10^{%d}$',
         # ticks=levels,
         )
-    plt.ylabel('real axis')
-    plt.xlabel('imaginary axis')
+    plt.xlabel('real axis')
+    plt.ylabel('imaginary axis')
 
     # TODO: Why won't pgf work?
     plt.savefig('error-plot.pdf')
