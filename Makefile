@@ -27,7 +27,7 @@ origen-meeseeks.pgf:
 	python -m transmutagen.analysis --origen --no-title --origen-results $(TRANSMUTAGEN_DATA)/meeseeks01_results_20171211.hdf5 --file origen-meeseeks.pgf
 
 eigenvals_pwru50.pdf eigenvals_decay.pdf:
-	python -m transmutagen.analysis --eigenvals --no-title --file eigenvals.pdf --pwru50-data=$(TRANSMUTAGEN)/data/pwru50_400000000000000.0.npz
+	python -m transmutagen.analysis --eigenvals --no-title --file eigenvals.pdf
 
 pusa-table-14.tex pusa-table-16.tex pusa-differences.pgf pusa-differences-errors-14.pgf pusa-differences-errors-16.pgf:
 	python -m transmutagen.analysis --pusa-coeffs --file pusa-differences.pgf --latex pusa-table.tex
