@@ -45,6 +45,9 @@ degrees.pgf:
 	python -m transmutagen.analysis --degrees --file degrees.pgf
 
 nofission-pwru50-1-day.pgf nofission-pwru50-1-year.pgf nofission-pwru50-1000-years.pgf nofission-pwru50-1-million-years.pgf:
+	if [ ! -d "$(TRANSMUTAGEN)/py_solve" ]; then echo "py_solve not found. If the following errors, set the TRANSMUTAGEN environment variable to the root transmutagen git repo."; fi
+	python -m transmutagen.gensolve --py-solve -o $(TRANSMUTAGEN)/py_solve/py_solve/solve.c
+	python $(TRANSMUTAGEN)/py_solve/setup.py build_ext --inplace
 	python -m transmutagen.analysis --nofission  --file nofission.pgf
 
 lu-solve-ordering.pdf:
