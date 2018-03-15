@@ -19,6 +19,8 @@ lu-solve-ordering.pdf
 .ipynb_checkpoints/
 __pycache__/
 
+.DS_Store
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
