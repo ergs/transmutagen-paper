@@ -4,7 +4,7 @@ TRANSMUTAGEN_DATA ?= $(GOOGLE_DRIVE)/ERGS\ Private/transmutagen\ data/
 TRANSMUTAGEN ?= $(HOME)/Documents/transmutagen
 LATEXMK_FLAGS =
 
-export PYTHONPATH := $(TRANSMUTAGEN):$(TRANSMUTAGEN)/py_solve
+export PYTHONPATH := $(PYTHONPATH):$(TRANSMUTAGEN):$(TRANSMUTAGEN)/py_solve
 
 all: paper.pdf
 
